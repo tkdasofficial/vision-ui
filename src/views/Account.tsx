@@ -2,7 +2,7 @@ import { useNavigate } from "@/lib/router-compat";
 import { ArrowLeft, User, Mail, KeyRound, ShieldCheck, Smartphone, Copy, Check } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/backend/client";
 import { useToast } from "@/hooks/use-toast";
 import ProfileMenu from "@/components/ProfileMenu";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";

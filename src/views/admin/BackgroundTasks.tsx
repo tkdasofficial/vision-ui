@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/backend/client";
 import { Zap, RefreshCw, Search, XCircle, CheckCircle2, Clock, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 

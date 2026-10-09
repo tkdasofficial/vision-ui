@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "@/lib/router-compat";
-import { supabase } from "@/integrations/supabase/client";
+import { useNavigate, useLocation } from "@/lib/router-compat";
+import { supabase } from "@/backend/client";
 import { Mail, Lock, User, Eye, EyeOff, ArrowLeft, ShieldCheck, Smartphone } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import logo from "@/assets/logo.svg";
@@ -11,7 +11,8 @@ type Mode = "login" | "signup" | "forgot" | "otp-email" | "otp-totp";
 const Auth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [mode, setMode] = useState<Mode>("login");
+  const { pathname } = useLocation();
+  const [mode, setMode] = useState<Mode>(pathname === "/signup" ? "signup" : pathname === "/forgot-password" ? "forgot" : "login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
@@ -41,7 +42,8 @@ const Auth = () => {
           },
         });
         if (error) throw error;
-        toast({ title: "Account created", description: "Check your email to confirm your account." });
+        toast({ title: "Account created", description: "Welcome to Super Copilot!" });
+        navigate("/app/new");
       } else {
         // Login flow
         const { data: signInData, error } = await supabase.auth.signInWithPassword({ email, password });

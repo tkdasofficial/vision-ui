@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/backend/client";
 import { ToggleLeft, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { logAdminAction } from "@/lib/admin-audit";

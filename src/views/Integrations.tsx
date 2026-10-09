@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "@/lib/router-compat";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/backend/client";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 import { ArrowLeft, Mail, Youtube, Cloud, Calendar, Plug, Loader2, Check } from "lucide-react";

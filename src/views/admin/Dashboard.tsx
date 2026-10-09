@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/backend/client";
 import {
   Users, CreditCard, MessageSquare, TrendingUp, Activity, Zap,
   ArrowUpRight, ArrowDownRight, Clock, Server,
@@ -58,7 +58,7 @@ const AdminDashboard = () => {
       setRecentSessions(sessions.slice(0, 5));
 
       const now = new Date();
-      const growth = [];
+      const growth: { day: string; users: number }[] = [];
       for (let i = 6; i >= 0; i--) {
         const date = new Date(now); date.setDate(date.getDate() - i);
         const count = profiles.filter((p: any) => new Date(p.created_at).toDateString() === date.toDateString()).length;

@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import type { User, Session } from "@supabase/supabase-js";
+import { supabase } from "@/backend/client";
+import type { LocalUser as User, LocalSession as Session } from "@/backend/auth";
 
 type Profile = {
   id: string;

@@ -3,7 +3,7 @@ import { ArrowLeft, MessageSquare, Mail, HelpCircle, ExternalLink, Loader2 } fro
 import { useState } from "react";
 import ProfileMenu from "@/components/ProfileMenu";
 import { toast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/backend/client";
 import { useAuth } from "@/context/AuthContext";
 
 const Support = () => {

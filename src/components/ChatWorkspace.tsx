@@ -14,7 +14,7 @@ import { getCategory } from "@/lib/file-converter";
 import { analyzeZip } from "@/lib/zip-analyzer";
 import type { TaskMode } from "./TaskModeSelector";
 import { useBackgroundTasks, type BackgroundTask } from "@/hooks/useBackgroundTasks";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/backend/client";
 import { useAuth } from "@/context/AuthContext";
 
 type Props = {
