@@ -15,4 +15,5 @@
 - The chat composer uses AI Elements PromptInput primitives; its existing file-routing callbacks remain separate from the primitive's attachment collection. Why: preserves ZIP/conversion behavior while sharing accessible input and submission controls.
 - Speech text is joined through the browser-safe appendTranscript helper, with regression tests alongside existing tests. Why: preserves typed text and whitespace across recognition updates without coupling transcription to a service.
 - Chat navigation uses a single controlled AppDrawer on all screen sizes. Why: keeps search, history and chat actions consistent with accessible dismissible navigation.
+- Drawer overlays support a scoped overlayClassName and retain a visible strip of the chat page. Why: screenshot-matched navigation must not change overlays used by other screens.
 - Conversation layout and message markdown use AI Elements primitives, with existing domain result cards retained. Why: shares accessible transcript, scrolling and message controls without changing offline tool behavior.

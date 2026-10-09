@@ -10,7 +10,7 @@ import {
   VolumeX,
   ThumbsUp,
   ThumbsDown,
-  Flag,
+  MoreVertical,
   FileCode,
   Share2,
 } from "lucide-react";
@@ -22,6 +22,8 @@ import {
   MessageResponse,
   MessageAction,
 } from "@/components/ai-elements/message";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 import type { Components } from "react-markdown";
 import { useToast } from "@/hooks/use-toast";
 import VideoGenerationCard from "./VideoGenerationCard";
@@ -489,14 +491,12 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
                 >
                   <Share2 />
                 </ActionButton>
-                <ActionButton
-                  onClick={handleReport}
-                  active={reported}
-                  disabled={reported}
-                  title="Report"
-                >
-                  <Flag className="w-3.5 h-3.5" />
-                </ActionButton>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon-sm" aria-label="More response actions" title="More response actions" className="size-9 rounded-full text-muted-foreground [&_svg]:size-[18px]"><MoreVertical /></Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start"><DropdownMenuItem disabled={reported} onClick={handleReport}>Report response</DropdownMenuItem></DropdownMenuContent>
+                </DropdownMenu>
               </div>
             )}
           </div>
