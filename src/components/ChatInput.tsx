@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect, useCallback, type KeyboardEvent } from "react";
 import { ArrowUp, Paperclip, Mic, MicOff, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { PromptInput, PromptInputTextarea, PromptInputFooter, PromptInputSubmit } from "@/components/ai-elements/prompt-input";
 import TaskModeSelector, { type TaskMode } from "./TaskModeSelector";
 
 type Props = {
@@ -106,12 +108,22 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
   const handleKeyDown = (e: KeyboardEvent) => {
     // On touch devices (mobile), Enter should insert a newline (default behavior).
     // Only submit on Enter when on a device with a real keyboard (fine pointer / hover).
-    if (e.key !== "Enter" || e.shiftKey) return;
+    if (e.key !== "Enter" || e.shiftKey || e.nativeEvent.isComposing) return;
     const isTouchDevice =
       typeof window !== "undefined" &&
       (window.matchMedia?.("(pointer: coarse)").matches ||
         window.matchMedia?.("(hover: none)").matches);
-    if (isTouchDevice) return; // let newline through
+    if (isTouchDevice) {
+      // Prevent the shared prompt control's desktop submission on touch devices.
+      e.preventDefault();
+      const el = textareaRef.current;
+      if (!el) return;
+      const start = el.selectionStart;
+      const end = el.selectionEnd;
+      setValue(value.slice(0, start) + "\n" + value.slice(end));
+      requestAnimationFrame(() => { el.setSelectionRange(start + 1, start + 1); autoResize(); });
+      return;
+    }
     e.preventDefault();
     handleSend();
   };
@@ -159,7 +171,7 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
   return (
     <div className="w-full px-3 pb-3 pt-2 sm:px-4 sm:pb-4">
       <div className="max-w-2xl mx-auto">
-        <div className="border border-border bg-card rounded-[24px] transition-colors duration-200 focus-within:border-foreground/20 overflow-hidden">
+        <PromptInput onSubmit={() => handleSend()} className="[&_[data-slot=input-group]]:rounded-[24px] [&_[data-slot=input-group]]:bg-card [&_[data-slot=input-group]]:shadow-none [&_[data-slot=input-group]]:focus-within:border-foreground/20">
           {/* Attached image preview */}
           {attachedImage && (
             <div className="px-3 pt-3">
@@ -169,37 +181,35 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
                   alt="Attached"
                   className="w-20 h-20 rounded-lg object-cover border border-border"
                 />
-                <button
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  aria-label="Remove attached image"
                   onClick={() => setAttachedImage(null)}
                   className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-foreground text-background flex items-center justify-center hover:opacity-80 transition-opacity"
                 >
                   <X className="w-3 h-3" />
-                </button>
+                </Button>
               </div>
             </div>
           )}
 
           {/* Textarea — grows vertically, shape stays the same */}
-          <div className="relative">
-            {!value && (
-              <span className="pointer-events-none absolute left-4 top-3 text-[15px] text-muted-foreground select-none">
-                Ask Copilot{animatedDots}
-              </span>
-            )}
-            <textarea
+            <PromptInputTextarea
               ref={textareaRef}
               value={value}
               onChange={(e) => { setValue(e.target.value); autoResize(); }}
               onKeyDown={handleKeyDown}
-              placeholder=""
+              placeholder={`Ask Copilot${animatedDots}`}
+              aria-label="Message Copilot"
               rows={1}
               className="w-full bg-transparent text-foreground text-[15px] placeholder:text-muted-foreground resize-none outline-none min-h-[44px] max-h-[200px] py-3 px-4"
             />
-          </div>
 
           {/* Action row */}
-          <div className="flex items-center justify-between px-2 pb-2">
-            <div className="flex items-center gap-1">
+          <PromptInputFooter className="flex items-center justify-between gap-2 px-2 pb-2 pt-0">
+            <div className="flex items-center gap-2">
               <input
                 ref={fileInputRef}
                 type="file"
@@ -207,44 +217,51 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
                 onChange={handleFileSelect}
                 className="hidden"
               />
-              <button
+               <Button
+                 variant="ghost"
+                 size="icon"
+                 aria-label="Attach file"
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="w-8 h-8 rounded-full flex items-center justify-center border border-border text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+                 className="size-8 shrink-0 rounded-full p-0 text-muted-foreground hover:text-foreground hover:bg-accent [&_svg]:size-5"
                 title="Attach image"
               >
                 <Paperclip className="w-[18px] h-[18px]" />
-              </button>
+               </Button>
               <TaskModeSelector selectedMode={taskMode} onModeChange={setTaskMode} />
             </div>
 
             {!hasContent && (
-              <button
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label={isListening ? "Stop listening" : "Voice input"}
                 type="button"
                 onClick={toggleListening}
                 className={cn(
-                  "w-8 h-8 rounded-full flex items-center justify-center border transition-all",
+                  "size-8 shrink-0 rounded-full p-0 transition-all [&_svg]:size-5",
                   isListening
                     ? "bg-destructive text-destructive-foreground border-destructive animate-pulse"
-                    : "border-border text-muted-foreground hover:text-foreground hover:bg-accent"
+                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
                 )}
                 title={isListening ? "Stop listening" : "Voice input"}
               >
                 {isListening ? <MicOff className="w-[18px] h-[18px]" /> : <Mic className="w-[18px] h-[18px]" />}
-              </button>
+              </Button>
             )}
             {hasContent && (
-              <button
-                type="button"
-                onClick={handleSend}
+              <PromptInputSubmit
+                aria-label="Send message"
+                title="Send message"
+                status={disabled ? "submitted" : "ready"}
                 disabled={disabled}
-                className="w-8 h-8 rounded-full flex items-center justify-center border bg-foreground text-background border-foreground hover:opacity-80 disabled:opacity-50 transition-all"
+                className="size-8 shrink-0 rounded-full p-0 bg-foreground text-background hover:opacity-80 disabled:opacity-50 transition-all [&_svg]:size-5"
               >
                 <ArrowUp className="w-[18px] h-[18px]" />
-              </button>
+              </PromptInputSubmit>
             )}
-          </div>
-        </div>
+          </PromptInputFooter>
+        </PromptInput>
 
         <p className="text-[11px] text-muted-foreground text-center mt-2 hidden sm:block">
           Super Copilot may produce inaccurate results. Verify important information.

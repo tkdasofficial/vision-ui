@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Plus, MessageSquare, Brain, Code, Paintbrush, Clapperboard, Bot } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 export type TaskMode = "general" | "reasoning" | "developer" | "designer" | "video" | "agent";
 
@@ -61,28 +62,29 @@ const TaskModeSelector = ({ selectedMode, onModeChange }: Props) => {
 
   return (
     <>
-      <button
+      <Button
+        variant="ghost"
+        size="icon"
         ref={buttonRef}
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "h-8 rounded-full flex items-center justify-center border transition-colors gap-1.5",
-          selectedMode === "general" ? "w-8" : "px-2.5",
+          "size-8 shrink-0 rounded-full p-0 transition-colors [&_svg]:size-5",
           isOpen
             ? "bg-foreground text-background border-foreground"
-            : "border-border text-muted-foreground hover:text-foreground hover:bg-accent"
+            : "text-muted-foreground hover:text-foreground hover:bg-accent"
         )}
         title={`Mode: ${currentMode.label}`}
+        aria-label={`Mode: ${currentMode.label}`}
+        aria-expanded={isOpen}
+        aria-haspopup="menu"
       >
         {selectedMode === "general" ? (
           <Plus className={cn("w-[18px] h-[18px] transition-transform", isOpen && "rotate-45")} />
         ) : (
-          <>
-            <currentMode.icon className="w-3.5 h-3.5 shrink-0" />
-            <span className="text-xs font-medium leading-none">{currentMode.label}</span>
-          </>
+          <currentMode.icon className="size-5 shrink-0" />
         )}
-      </button>
+      </Button>
 
       {isOpen &&
         createPortal(
@@ -96,14 +98,16 @@ const TaskModeSelector = ({ selectedMode, onModeChange }: Props) => {
                 const Icon = mode.icon;
                 const isSelected = mode.id === selectedMode;
                 return (
-                  <button
+                  <Button
+                    type="button"
+                    variant="ghost"
                     key={mode.id}
                     onClick={() => {
                       onModeChange(mode.id);
                       setIsOpen(false);
                     }}
                     className={cn(
-                      "w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-left transition-colors",
+                      "w-full h-auto justify-start flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-left transition-colors whitespace-normal",
                       isSelected
                         ? "bg-accent text-foreground"
                         : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
@@ -114,7 +118,7 @@ const TaskModeSelector = ({ selectedMode, onModeChange }: Props) => {
                       <p className="text-sm font-medium leading-tight">{mode.label}</p>
                       <p className="text-[11px] text-muted-foreground leading-tight">{mode.description}</p>
                     </div>
-                  </button>
+                  </Button>
                 );
               })}
             </div>
