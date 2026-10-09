@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "@/lib/router-compat";
+import { useNavigate, useLocation } from "@/lib/router-compat";
 import { supabase } from "@/backend/client";
 import { Mail, Lock, User, Eye, EyeOff, ArrowLeft, ShieldCheck, Smartphone } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -11,7 +11,8 @@ type Mode = "login" | "signup" | "forgot" | "otp-email" | "otp-totp";
 const Auth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [mode, setMode] = useState<Mode>("login");
+  const { pathname } = useLocation();
+  const [mode, setMode] = useState<Mode>(pathname === "/signup" ? "signup" : pathname === "/forgot-password" ? "forgot" : "login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
