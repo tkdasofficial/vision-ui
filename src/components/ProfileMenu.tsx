@@ -1,5 +1,5 @@
 import { User, Settings, FileText, Shield, HelpCircle, LogOut, Clock, Crown, LayoutDashboard, Inbox } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@/lib/router-compat";
 import { useAuth } from "@/context/AuthContext";
 import {
   DropdownMenu,

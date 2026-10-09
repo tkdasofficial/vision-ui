@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@/lib/router-compat";
 import { ArrowLeft } from "lucide-react";
 import ProfileMenu from "@/components/ProfileMenu";
 

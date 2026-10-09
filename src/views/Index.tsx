@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "@/lib/router-compat";
 import { type AITool } from "@/lib/types";
 import { useChatHistory } from "@/context/ChatHistoryContext";
 import DesktopSidebar from "@/components/DesktopSidebar";

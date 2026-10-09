@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation, Outlet } from "react-router-dom";
+import { useNavigate, useLocation, Outlet } from "@/lib/router-compat";
 import { useAuth } from "@/context/AuthContext";
 import {
   LayoutDashboard, Users, CreditCard, BarChart3, Bell, ArrowLeft, Menu, X,

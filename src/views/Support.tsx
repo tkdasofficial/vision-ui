@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@/lib/router-compat";
 import { ArrowLeft, MessageSquare, Mail, HelpCircle, ExternalLink, Loader2 } from "lucide-react";
 import { useState } from "react";
 import ProfileMenu from "@/components/ProfileMenu";
