@@ -126,8 +126,9 @@ const ChatWorkspace = ({ tool, onMenuClick, onNewChat, initialMessages, chatId: 
   useEffect(() => {
     if (chatId && messages.length > 0) {
       updateChatMessages(chatId, messages);
+      if (!externalChatId && !isTyping) onChatCreated?.(chatId);
     }
-  }, [messages, chatId, updateChatMessages]);
+  }, [messages, chatId, updateChatMessages, externalChatId, isTyping, onChatCreated]);
 
   // Subscribe to new messages from Supabase Realtime
   useEffect(() => {
@@ -195,7 +196,6 @@ const ChatWorkspace = ({ tool, onMenuClick, onNewChat, initialMessages, chatId: 
       const newId = addChat(title, content, tool?.id);
       setChatId(newId);
       setChatTitle(title);
-      onChatCreated?.(newId);
     }
 
     // Transition from "thinking" to the detected work phase after a delay
@@ -708,7 +708,6 @@ const ChatWorkspace = ({ tool, onMenuClick, onNewChat, initialMessages, chatId: 
       const newId = addChat(title, `Uploaded ${file.name}`, tool?.id);
       setChatId(newId);
       setChatTitle(title);
-      onChatCreated?.(newId);
     }
 
     try {
@@ -748,7 +747,6 @@ const ChatWorkspace = ({ tool, onMenuClick, onNewChat, initialMessages, chatId: 
       const newId = addChat(title, `Convert ${file.name}`, tool?.id);
       setChatId(newId);
       setChatTitle(title);
-      onChatCreated?.(newId);
     }
 
     setMessages((prev) => [...prev, {
