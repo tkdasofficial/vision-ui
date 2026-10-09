@@ -199,7 +199,7 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
 
           {/* Action row */}
           <div className="flex items-center justify-between px-2 pb-2">
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-2">
               <input
                 ref={fileInputRef}
                 type="file"
@@ -210,7 +210,7 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="w-8 h-8 rounded-full flex items-center justify-center border border-border text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+                className="w-10 h-10 rounded-full flex items-center justify-center border border-border text-muted-foreground hover:text-foreground hover:bg-accent active:bg-accent transition-colors"
                 title="Attach image"
               >
                 <Paperclip className="w-[18px] h-[18px]" />
@@ -223,10 +223,10 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
                 type="button"
                 onClick={toggleListening}
                 className={cn(
-                  "w-8 h-8 rounded-full flex items-center justify-center border transition-all",
+                  "w-10 h-10 rounded-full flex items-center justify-center border transition-all",
                   isListening
                     ? "bg-destructive text-destructive-foreground border-destructive animate-pulse"
-                    : "border-border text-muted-foreground hover:text-foreground hover:bg-accent"
+                    : "border-border text-muted-foreground hover:text-foreground hover:bg-accent active:bg-accent"
                 )}
                 title={isListening ? "Stop listening" : "Voice input"}
               >
@@ -238,7 +238,7 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
                 type="button"
                 onClick={handleSend}
                 disabled={disabled}
-                className="w-8 h-8 rounded-full flex items-center justify-center border bg-foreground text-background border-foreground hover:opacity-80 disabled:opacity-50 transition-all"
+                className="w-10 h-10 rounded-full flex items-center justify-center border bg-foreground text-background border-foreground hover:opacity-80 active:opacity-80 disabled:opacity-50 transition-all"
               >
                 <ArrowUp className="w-[18px] h-[18px]" />
               </button>
