@@ -335,8 +335,21 @@ export const ChatHistoryProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
+const FALLBACK_HISTORY: ChatHistoryContextType = {
+  history: [],
+  loading: true,
+  addChat: () => crypto.randomUUID(),
+  renameChat: () => {},
+  deleteChat: () => {},
+  searchHistory: () => [],
+  updateChatMessages: () => {},
+  getChatById: () => undefined,
+  loadChatMessages: async () => [],
+};
+
 export const useChatHistory = () => {
   const ctx = useContext(ChatHistoryContext);
-  if (!ctx) throw new Error("useChatHistory must be used within ChatHistoryProvider");
-  return ctx;
+  // Fall back to an empty, no-op history instead of blanking the screen
+  // (e.g. during a hot reload before the provider re-mounts).
+  return ctx ?? FALLBACK_HISTORY;
 };
