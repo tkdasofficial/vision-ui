@@ -28,7 +28,7 @@ export function useLocation() {
 }
 
 export function useParams<T extends Record<string, string>>(): Partial<T> {
-  return useTsParams({ strict: false }) as Partial<T>;
+  return useTsParams({ strict: false } as never) as Partial<T>;
 }
 
 export function Navigate({ to, replace }: { to: string; replace?: boolean }) {
