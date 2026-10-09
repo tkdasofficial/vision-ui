@@ -193,7 +193,7 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
   return (
     <div className="w-full px-3 pb-3 pt-2 sm:px-4 sm:pb-4">
       <div className="max-w-2xl mx-auto">
-        <PromptInput onSubmit={() => handleSend()} className="[&_[data-slot=input-group]]:rounded-[24px] [&_[data-slot=input-group]]:bg-card [&_[data-slot=input-group]]:shadow-none [&_[data-slot=input-group]]:ring-0! [&_[data-slot=input-group]]:focus-within:border-foreground/20">
+        <PromptInput onSubmit={() => handleSend()} className="[&_[data-slot=input-group]]:glass-panel [&_[data-slot=input-group]]:rounded-[24px] [&_[data-slot=input-group]]:ring-0! [&_[data-slot=input-group]]:focus-within:border-primary/50">
           {/* Attached image preview */}
           {attachedImage && (
             <div className="px-3 pt-3">
@@ -281,7 +281,7 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
                 aria-hidden={!hasContent}
                 tabIndex={hasContent ? 0 : -1}
                 className={cn(
-                  "absolute right-0 top-0 size-8 shrink-0 rounded-full p-0 border border-foreground bg-foreground text-background hover:opacity-80 transition-[opacity,transform] duration-200 ease-out motion-reduce:transition-none [&_svg]:size-[18px]",
+                  "absolute right-0 top-0 size-8 shrink-0 rounded-full p-0 border border-primary bg-primary text-primary-foreground hover:opacity-80 transition-[opacity,transform] duration-200 ease-out motion-reduce:transition-none [&_svg]:size-[18px]",
                   hasContent ? "opacity-100 scale-100" : "pointer-events-none opacity-0 scale-75 disabled:opacity-0"
                 )}
               >

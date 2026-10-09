@@ -207,7 +207,10 @@ const Auth = () => {
     <div className="min-h-[100dvh] bg-background flex items-center justify-center px-4">
       <div className="w-full max-w-sm space-y-6">
         <div className="flex flex-col items-center gap-3">
-          <img src={logo} alt="Vision" className="size-10 rounded-full" />
+          <div className="flex items-center gap-2.5">
+            <img src={logo} alt="" width={40} height={40} className="vision-brand-mark size-10" />
+            <span className="font-display text-xl font-semibold">Vision</span>
+          </div>
           <h1 className="font-display text-xl font-semibold text-foreground">
             {mode === "login" ? "Welcome back" : mode === "signup" ? "Create account" : "Reset password"}
           </h1>
