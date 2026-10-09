@@ -4,6 +4,8 @@ import Page from "@/views/Auth";
 export const Route = createFileRoute("/signup")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Sign up — Super Copilot" },
       { name: "description", content: "Sign up in Super Copilot, your all-in-one AI workspace." },
       { property: "og:title", content: "Sign up — Super Copilot" },

@@ -4,6 +4,8 @@ import Page from "@/views/admin/ChatSessions";
 export const Route = createFileRoute("/admin/chat-sessions")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Admin · Chat sessions — Super Copilot" },
       { name: "description", content: "Admin · Chat sessions in Super Copilot, your all-in-one AI workspace." },
       { property: "og:title", content: "Admin · Chat sessions — Super Copilot" },

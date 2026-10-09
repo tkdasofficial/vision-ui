@@ -5,6 +5,8 @@ import { Protected } from "@/components/Protected";
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Admin — Super Copilot" },
       { name: "description", content: "Admin in Super Copilot, your all-in-one AI workspace." },
       { property: "og:title", content: "Admin — Super Copilot" },
