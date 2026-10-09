@@ -157,7 +157,6 @@
       --success-foreground: 0 0% 7%;
     }
   }
-}
 
 @layer base {
   * { @apply border-border; }
