@@ -25,7 +25,10 @@ type ChatHistoryContextType = {
   loadChatMessages: (id: string) => Promise<ChatMessage[]>;
 };
 
-const ChatHistoryContext = createContext<ChatHistoryContextType | null>(null);
+// Keep one context instance across hot reloads so the provider and consumers always match.
+const CTX_KEY = "__sc_chat_history_ctx__";
+const ChatHistoryContext: React.Context<ChatHistoryContextType | null> =
+  ((globalThis as any)[CTX_KEY] ??= createContext<ChatHistoryContextType | null>(null));
 
 /* ── localStorage cache helpers ── */
 const LS_SESSIONS_KEY = "sc_chat_sessions";
