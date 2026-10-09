@@ -1,184 +1,71 @@
-import { cn } from "@/lib/utils";
-import { PenSquare, Search, MessageSquare, Pencil, Trash2, Check, X, Image, Video, FileText, Music, Sparkles, Plug, Radar } from "lucide-react";
-import { useNavigate } from "@/lib/router-compat";
 import { useState } from "react";
+import { Search, Image, Library, Folder, Plug, Radar, MessageSquare, Pencil, Trash2, Check, X, AudioLines } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { useChatHistory } from "@/context/ChatHistoryContext";
-import logo from "@/assets/logo.svg";
+import { useNavigate } from "@/lib/router-compat";
+import ProfileMenu from "./ProfileMenu";
+import { cn } from "@/lib/utils";
 
 type Props = {
-  onNewChat: () => void;
-  onSelectChat: (id: string) => void;
-  isMainChat: boolean;
-  activeChatId?: string;
+  open: boolean; onClose: () => void; onNewChat: () => void; onSelectChat: (id: string) => void;
+  isMainChat: boolean; activeChatId?: string;
   chatHistory: { id: string; title: string; toolId?: string; preview: string; date: string; createdAt: number }[];
 };
 
-const DesktopSidebar = ({ onNewChat, onSelectChat, isMainChat, activeChatId, chatHistory }: Props) => {
+export default function AppDrawer({ open, onClose, onNewChat, onSelectChat, activeChatId, chatHistory }: Props) {
   const navigate = useNavigate();
   const { renameChat, deleteChat, searchHistory } = useChatHistory();
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [query, setQuery] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [editValue, setEditValue] = useState("");
-  
-
-  const displayHistory = searchQuery ? searchHistory(searchQuery) : chatHistory;
-
-  const startRename = (chat: { id: string; title: string }) => {
-    setEditingId(chat.id);
-    setEditValue(chat.title);
+  const [title, setTitle] = useState("");
+  const history = query ? searchHistory(query) : chatHistory;
+  const startChat = (prompt?: string) => {
+    if (prompt) sessionStorage.setItem("prefill_prompt", prompt);
+    onNewChat(); onClose();
+    if (prompt === "voice") { sessionStorage.removeItem("prefill_prompt"); setTimeout(() => document.querySelector<HTMLButtonElement>('button[title="Voice input"]')?.click(), 200); }
   };
-
-  const confirmRename = () => {
-    if (editingId && editValue.trim()) {
-      renameChat(editingId, editValue.trim());
-    }
-    setEditingId(null);
-  };
-
+  const saveTitle = () => { if (editingId && title.trim()) renameChat(editingId, title.trim()); setEditingId(null); };
   return (
-    <aside className="hidden lg:flex flex-col w-[260px] bg-sidebar border-r border-sidebar-border h-full shrink-0">
-      <div className="flex items-center gap-2.5 px-4 py-4">
-        <img src={logo} alt="Super Copilot" className="w-8 h-8 rounded-full object-cover" />
-        <span className="font-display font-semibold text-foreground text-sm">Super Copilot</span>
-      </div>
-
-      <div className="px-3 pb-2 space-y-0.5">
-        <button
-          onClick={onNewChat}
-          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-sidebar-foreground hover:bg-sidebar-accent transition-colors"
-        >
-          <PenSquare className="w-4 h-4" />
-          <span>New chat</span>
-        </button>
-        <button
-          onClick={() => { setSearchOpen(!searchOpen); setSearchQuery(""); }}
-          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-sidebar-foreground hover:bg-sidebar-accent transition-colors"
-        >
-          <Search className="w-4 h-4" />
-          <span>Search</span>
-        </button>
-        {searchOpen && (
-          <div className="px-1 pb-1">
-            <input
-              autoFocus
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search chats..."
-              className="w-full px-3 py-2 rounded-lg text-sm bg-sidebar-accent text-sidebar-foreground placeholder:text-muted-foreground outline-none border border-sidebar-border focus:border-primary/40 transition-colors"
-            />
-          </div>
-        )}
-      </div>
-
-      {/* Media quick-launch */}
-      <div className="px-3 pt-3">
-        <p className="px-3 pb-1.5 text-[10px] text-muted-foreground uppercase tracking-widest font-medium">Media</p>
-        <div className="flex items-center gap-1.5 px-1">
-          {[
-            { icon: Image, label: "Image", prompt: "Generate an image of " },
-            { icon: Video, label: "Video", prompt: "Create a video about " },
-            { icon: FileText, label: "File", prompt: "Create a file: " },
-            { icon: Music, label: "Audio", prompt: "Generate audio for " },
-            { icon: Sparkles, label: "Other", prompt: "" },
-          ].map(({ icon: Icon, label, prompt }) => (
-            <button
-              key={label}
-              onClick={() => { onNewChat(); if (prompt) sessionStorage.setItem("prefill_prompt", prompt); }}
-              title={label}
-              className="group flex-1 aspect-square flex flex-col items-center justify-center gap-0.5 rounded-lg border border-sidebar-border bg-sidebar-accent/30 hover:bg-sidebar-accent hover:border-primary/40 transition-colors"
-            >
-              <Icon className="w-3.5 h-3.5 text-sidebar-foreground group-hover:text-primary" />
-              <span className="text-[9px] text-muted-foreground group-hover:text-foreground">{label}</span>
-            </button>
-          ))}
+    <Sheet open={open} onOpenChange={(value) => { if (!value) onClose(); }}>
+      <SheetContent side="left" className="flex h-[100dvh] w-full max-w-[380px] flex-col gap-0 border-border bg-background p-0 sm:max-w-[380px] [&>button]:right-5 [&>button]:top-5">
+        <SheetTitle className="px-6 pt-5 text-base font-sans font-semibold">Super Copilot</SheetTitle>
+        <SheetDescription className="sr-only">Chat navigation and saved conversations</SheetDescription>
+        <div className="mx-5 mt-6 flex h-11 items-center gap-3 rounded-full bg-muted px-4">
+          <Search className="size-4 shrink-0 text-muted-foreground" />
+          <input aria-label="Search chats" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search" className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
         </div>
-      </div>
-
-      {/* Integrations */}
-      <div className="px-3 pt-3">
-        <button
-          onClick={() => navigate("/app/integrations")}
-          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-sidebar-foreground hover:bg-sidebar-accent transition-colors border border-transparent hover:border-primary/30 group"
-        >
-          <div className="w-6 h-6 rounded-md bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-            <Plug className="w-3.5 h-3.5 text-primary" />
-          </div>
-          <span className="flex-1 text-left font-medium">Integrations</span>
-          <span className="text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-primary/15 text-primary font-semibold">New</span>
-        </button>
-        <button
-          onClick={() => navigate("/app/prospecting")}
-          className="mt-1 w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-sidebar-foreground hover:bg-sidebar-accent transition-colors border border-transparent hover:border-primary/30 group"
-        >
-          <div className="w-6 h-6 rounded-md bg-foreground/10 flex items-center justify-center group-hover:bg-foreground/20 transition-colors">
-            <Radar className="w-3.5 h-3.5 text-foreground" />
-          </div>
-          <span className="flex-1 text-left font-medium">Prospecting</span>
-          <span className="text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-foreground text-background font-semibold">Agent</span>
-        </button>
-      </div>
-
-      {displayHistory.length > 0 && (
-        <div className="px-3 pt-4 flex-1 overflow-y-auto">
-          <p className="px-3 pb-1.5 text-[10px] text-muted-foreground uppercase tracking-widest font-medium">
-            {searchQuery ? "Results" : "Recent"}
-          </p>
-          <nav className="space-y-0.5">
-            {displayHistory.map((chat) => (
-              <div key={chat.id} className="group relative">
-                {editingId === chat.id ? (
-                  <div className="flex items-center gap-1 px-2 py-1.5">
-                    <input
-                      autoFocus
-                      value={editValue}
-                      onChange={(e) => setEditValue(e.target.value)}
-                      onKeyDown={(e) => { if (e.key === "Enter") confirmRename(); if (e.key === "Escape") setEditingId(null); }}
-                      className="flex-1 px-2 py-1 rounded text-sm bg-sidebar-accent text-sidebar-foreground outline-none border border-primary/40"
-                    />
-                    <button onClick={confirmRename} className="p-1 rounded text-primary hover:bg-sidebar-accent">
-                      <Check className="w-3.5 h-3.5" />
-                    </button>
-                    <button onClick={() => setEditingId(null)} className="p-1 rounded text-muted-foreground hover:bg-sidebar-accent">
-                      <X className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                ) : (
-                  <div className="flex items-center">
-                    <button
-                      onClick={() => onSelectChat(chat.id)}
-                      className={cn(
-                        "flex-1 text-left px-3 py-2 rounded-lg text-sm transition-colors truncate flex items-center gap-2",
-                        activeChatId === chat.id
-                          ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
-                          : "text-sidebar-foreground hover:bg-sidebar-accent"
-                      )}
-                    >
-                      {activeChatId === chat.id && (
-                        <span className="relative flex h-2 w-2 shrink-0">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
-                          <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
-                        </span>
-                      )}
-                      <span className="truncate">{chat.title}</span>
-                    </button>
-                    <div className="hidden group-hover:flex items-center gap-0.5 pr-1">
-                      <button onClick={() => startRename(chat)} className="p-1 rounded text-muted-foreground hover:text-foreground hover:bg-sidebar-accent">
-                        <Pencil className="w-3 h-3" />
-                      </button>
-                      <button onClick={() => deleteChat(chat.id)} className="p-1 rounded text-muted-foreground hover:text-destructive hover:bg-destructive/10">
-                        <Trash2 className="w-3 h-3" />
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
+        <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-6 pt-5">
+          <nav aria-label="Workspace" className="space-y-1">
+            {[
+              { icon: Image, label: "Images", action: () => startChat("Generate an image of ") },
+              { icon: Library, label: "Library", action: () => document.getElementById("drawer-recents")?.scrollIntoView({ behavior: "smooth" }) },
+              { icon: Folder, label: "Projects", action: () => startChat("Build a web application: ") },
+              { icon: Plug, label: "Integrations", action: () => { navigate("/app/integrations"); onClose(); } },
+              { icon: Radar, label: "Prospecting", action: () => { navigate("/app/prospecting"); onClose(); } },
+            ].map(({ icon: Icon, label, action }) => <Button key={label} variant="ghost" onClick={action} className="h-12 w-full justify-start gap-4 rounded-lg px-3 text-base font-normal"><Icon className="size-5" />{label}</Button>)}
           </nav>
+          <section id="drawer-recents" className="mt-7">
+            <h3 className="mb-3 px-3 font-sans text-xs font-medium text-muted-foreground">{query ? "Results" : "Recents"}</h3>
+            {history.length === 0 && <p className="px-3 text-sm text-muted-foreground">{query ? "No matching chats" : "No conversations yet"}</p>}
+            {history.map((chat) => <div key={chat.id} className="group flex min-w-0 items-center rounded-lg">
+              {editingId === chat.id ? <div className="flex w-full items-center gap-1 px-3 py-2">
+                <input aria-label="Chat title" autoFocus value={title} onChange={(e) => setTitle(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") saveTitle(); if (e.key === "Escape") setEditingId(null); }} className="min-w-0 flex-1 rounded border border-input bg-muted px-2 py-1 text-sm" />
+                <Button variant="ghost" size="icon-sm" aria-label="Save chat title" onClick={saveTitle}><Check className="size-4" /></Button>
+                <Button variant="ghost" size="icon-sm" aria-label="Cancel rename" onClick={() => setEditingId(null)}><X className="size-4" /></Button>
+              </div> : <>
+                <Button variant="ghost" onClick={() => { onSelectChat(chat.id); onClose(); }} className={cn("h-12 min-w-0 flex-1 justify-start px-3 text-sm font-normal", activeChatId === chat.id && "bg-accent")}><span className="truncate">{chat.title}</span></Button>
+                <Button variant="ghost" size="icon-sm" aria-label={`Rename ${chat.title}`} onClick={() => { setEditingId(chat.id); setTitle(chat.title); }} className="text-muted-foreground"><Pencil className="size-3.5" /></Button>
+                <Button variant="ghost" size="icon-sm" aria-label={`Delete ${chat.title}`} onClick={() => deleteChat(chat.id)} className="text-muted-foreground hover:text-destructive"><Trash2 className="size-3.5" /></Button>
+              </>}
+            </div>)}
+          </section>
         </div>
-      )}
-    </aside>
+        <div className="flex shrink-0 items-center justify-between gap-3 bg-background px-5 pb-6 pt-3">
+          <Button onClick={() => startChat()} className="h-12 gap-3 rounded-full bg-navigation px-6 text-navigation-foreground hover:bg-navigation/90"><MessageSquare className="size-5" />Chat</Button>
+          <div className="flex items-center gap-3"><ProfileMenu /><Button variant="secondary" size="icon" aria-label="Start voice typing" onClick={() => startChat("voice")} className="size-11 rounded-full bg-floating"><AudioLines className="size-5" /></Button></div>
+        </div>
+      </SheetContent>
+    </Sheet>
   );
-};
-
-export default DesktopSidebar;
+}
