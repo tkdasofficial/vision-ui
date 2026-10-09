@@ -40,6 +40,11 @@
   --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
   --color-sidebar-border: hsl(var(--sidebar-border));
   --color-sidebar-ring: hsl(var(--sidebar-ring));
+  --color-navigation: var(--navigation);
+  --color-navigation-foreground: var(--navigation-foreground);
+  --color-floating: var(--floating);
+  --color-chat-user: var(--chat-user);
+  --color-chat-user-foreground: var(--chat-user-foreground);
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
   --animate-fade-up: fade-up 0.5s ease-out;
@@ -70,7 +75,12 @@
 
 :root {
     --background: 0 0% 100%;
-    --foreground: 0 0% 5%;
+    --foreground: 0 0% 0%;
+    --navigation: oklch(0.62 0.19 259);
+    --navigation-foreground: oklch(1 0 0);
+    --floating: oklch(0.95 0 0);
+    --chat-user: oklch(0.94 0 0);
+    --chat-user-foreground: oklch(0 0 0);
 
     --card: 0 0% 98%;
     --card-foreground: 0 0% 5%;
@@ -99,8 +109,8 @@
 
     --radius: 1rem;
 
-    --sidebar-background: 0 0% 97%;
-    --sidebar-foreground: 0 0% 35%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 0%;
     --sidebar-primary: 0 0% 8%;
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 0 0% 93%;
@@ -115,8 +125,11 @@
 
   @media (prefers-color-scheme: dark) {
     :root {
-      --background: 0 0% 7%;
-      --foreground: 0 0% 93%;
+      --background: 0 0% 0%;
+      --foreground: 0 0% 100%;
+      --floating: oklch(0.27 0 0);
+      --chat-user: oklch(0.29 0.07 258);
+      --chat-user-foreground: oklch(1 0 0);
 
       --card: 0 0% 10%;
       --card-foreground: 0 0% 93%;
@@ -143,8 +156,8 @@
       --input: 0 0% 18%;
       --ring: 0 0% 80%;
 
-      --sidebar-background: 0 0% 9%;
-      --sidebar-foreground: 0 0% 60%;
+      --sidebar-background: 0 0% 0%;
+      --sidebar-foreground: 0 0% 100%;
       --sidebar-primary: 0 0% 93%;
       --sidebar-primary-foreground: 0 0% 7%;
       --sidebar-accent: 0 0% 14%;
@@ -162,6 +175,10 @@
   * { @apply border-border; }
   body { @apply bg-background text-foreground antialiased; font-family: 'Inter', system-ui, sans-serif; }
   h1, h2, h3, h4, h5, h6 { font-family: 'Space Grotesk', sans-serif; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
 }
 
 /* Smooth scrollbar */

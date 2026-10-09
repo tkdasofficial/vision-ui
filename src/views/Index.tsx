@@ -2,8 +2,7 @@ import { useState, useCallback, useEffect } from "react";
 import { useParams, useNavigate } from "@/lib/router-compat";
 import { type AITool } from "@/lib/types";
 import { useChatHistory } from "@/context/ChatHistoryContext";
-import DesktopSidebar from "@/components/DesktopSidebar";
-import MobileSidebar from "@/components/MobileSidebar";
+import AppDrawer from "@/components/AppDrawer";
 import ChatWorkspace from "@/components/ChatWorkspace";
 
 const Index = () => {
@@ -58,14 +57,7 @@ const Index = () => {
 
   return (
     <div className="flex h-[100dvh] bg-background overflow-hidden">
-      <DesktopSidebar
-        onNewChat={handleNewChat}
-        onSelectChat={handleSelectChat}
-        isMainChat={!selectedTool && !activeChatId}
-        activeChatId={activeChatId}
-        chatHistory={history}
-      />
-      <MobileSidebar
+      <AppDrawer
         open={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
         onNewChat={handleNewChat}
@@ -79,6 +71,7 @@ const Index = () => {
           key={chatKey}
           tool={selectedTool}
           onMenuClick={() => setSidebarOpen(true)}
+          onNewChat={handleNewChat}
           initialMessages={initialMessages && initialMessages.length > 0 ? initialMessages : undefined}
           chatId={activeChatId}
           onChatCreated={handleChatCreated}
