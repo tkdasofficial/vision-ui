@@ -194,7 +194,14 @@ const ChatWorkspace = ({
             };
             setMessages((prev) => {
               // Avoid duplicates
-              if (prev.some((m) => m.id === chatMsg.id || (m.role === chatMsg.role && m.content === chatMsg.content))) return prev;
+              if (
+                prev.some(
+                  (m) =>
+                    m.id === chatMsg.id ||
+                    (m.role === chatMsg.role && m.content === chatMsg.content),
+                )
+              )
+                return prev;
               return [...prev, chatMsg];
             });
             setNewMessageIds((prev) => new Set(prev).add(newMsg.id));
@@ -973,7 +980,10 @@ const ChatWorkspace = ({
 
   return (
     <div className="flex flex-col h-full flex-1 min-w-0">
-      <header aria-label={chatTitle || defaultTitle} className="relative flex h-[49px] shrink-0 items-center gap-2 px-3 sm:px-6 bg-background">
+      <header
+        aria-label={chatTitle || defaultTitle}
+        className="relative flex h-[49px] shrink-0 items-center gap-2 px-3 sm:px-6 bg-background"
+      >
         <Button
           variant="ghost"
           size="icon-sm"
@@ -993,17 +1003,27 @@ const ChatWorkspace = ({
             Get Plus
           </Button>
         )}
-        <div className={hasMessages ? "ml-auto flex h-11 items-center rounded-full border border-border bg-floating" : "ml-auto"}>
-        <Button
-          variant="ghost"
-          size="icon-sm"
-          aria-label="New chat"
-          onClick={onNewChat}
-          className={hasMessages ? "size-11 rounded-full [&_svg]:size-6" : "size-11 rounded-full border border-border bg-floating [&_svg]:size-6"}
+        <div
+          className={
+            hasMessages
+              ? "ml-auto flex h-11 items-center rounded-full border border-border bg-floating"
+              : "ml-auto"
+          }
         >
-          {hasMessages ? <SquarePen /> : <MessageCircleDashed />}
-        </Button>
-        {hasMessages && <ProfileMenu conversation />}
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            aria-label="New chat"
+            onClick={onNewChat}
+            className={
+              hasMessages
+                ? "size-11 rounded-full [&_svg]:size-6"
+                : "size-11 rounded-full border border-border bg-floating [&_svg]:size-6"
+            }
+          >
+            {hasMessages ? <SquarePen /> : <MessageCircleDashed />}
+          </Button>
+          {hasMessages && <ProfileMenu conversation />}
         </div>
       </header>
       <AnnouncementBanner />

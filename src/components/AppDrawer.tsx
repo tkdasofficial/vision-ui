@@ -21,7 +21,12 @@ import { useChatHistory } from "@/context/ChatHistoryContext";
 import { useNavigate } from "@/lib/router-compat";
 import ProfileMenu from "./ProfileMenu";
 import { cn } from "@/lib/utils";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 type Props = {
   open: boolean;
@@ -84,25 +89,33 @@ export default function AppDrawer({
         className="flex h-[100dvh] w-[80vw] max-w-[380px] flex-col gap-0 border-border bg-background p-0 shadow-none sm:max-w-[380px] [&>button]:-right-[58px] [&>button]:top-1 [&>button]:flex [&>button]:size-11 [&>button]:items-center [&>button]:justify-center [&>button]:rounded-full [&>button]:border [&>button]:border-border [&>button]:bg-floating [&>button]:opacity-100 [&>button_svg]:size-5"
       >
         <div className="flex h-[57px] shrink-0 items-center justify-between gap-2 pl-8 pr-6">
-        <SheetTitle className="font-sans text-[23px] font-semibold">
-          Super Copilot
-        </SheetTitle>
-        <Button variant="secondary" size="icon" aria-label="Search conversations" onClick={() => setSearchOpen((value) => !value)} className="size-11 shrink-0 rounded-full border border-border bg-floating [&_svg]:size-6"><Search /></Button>
+          <SheetTitle className="font-sans text-[23px] font-semibold">Super Copilot</SheetTitle>
+          <Button
+            variant="secondary"
+            size="icon"
+            aria-label="Search conversations"
+            onClick={() => setSearchOpen((value) => !value)}
+            className="size-11 shrink-0 rounded-full border border-border bg-floating [&_svg]:size-6"
+          >
+            <Search />
+          </Button>
         </div>
         <SheetDescription className="sr-only">
           Chat navigation and saved conversations
         </SheetDescription>
-        {searchOpen && <div className="mx-6 mt-2 flex h-11 shrink-0 items-center gap-3 rounded-full bg-muted px-4">
-          <Search className="size-4 shrink-0 text-muted-foreground" />
-          <input
-            aria-label="Search chats"
-            autoFocus
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search"
-            className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
-          />
-        </div>}
+        {searchOpen && (
+          <div className="mx-6 mt-2 flex h-11 shrink-0 items-center gap-3 rounded-full bg-muted px-4">
+            <Search className="size-4 shrink-0 text-muted-foreground" />
+            <input
+              aria-label="Search chats"
+              autoFocus
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search"
+              className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+            />
+          </div>
+        )}
         <div className="min-h-0 flex-1 overflow-y-auto px-6 pb-28 pt-6">
           <nav aria-label="Workspace" className="space-y-0">
             {[
@@ -206,10 +219,33 @@ export default function AppDrawer({
                       <span className="truncate">{chat.title}</span>
                     </Button>
                     <DropdownMenu>
-                      <DropdownMenuTrigger asChild><Button variant="ghost" size="icon-sm" aria-label={`Actions for ${chat.title}`} className="text-muted-foreground opacity-50 transition-opacity hover:opacity-100 group-focus-within:opacity-100"><MoreHorizontal /></Button></DropdownMenuTrigger>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="icon-sm"
+                          aria-label={`Actions for ${chat.title}`}
+                          className="text-muted-foreground opacity-50 transition-opacity hover:opacity-100 group-focus-within:opacity-100"
+                        >
+                          <MoreHorizontal />
+                        </Button>
+                      </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={() => { setEditingId(chat.id); setTitle(chat.title); }}><Pencil />Rename</DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => deleteChat(chat.id)} className="text-destructive"><Trash2 />Delete</DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => {
+                            setEditingId(chat.id);
+                            setTitle(chat.title);
+                          }}
+                        >
+                          <Pencil />
+                          Rename
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => deleteChat(chat.id)}
+                          className="text-destructive"
+                        >
+                          <Trash2 />
+                          Delete
+                        </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </>

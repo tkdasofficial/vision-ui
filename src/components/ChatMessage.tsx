@@ -16,7 +16,12 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
-import { Message, MessageContent, MessageResponse, MessageAction } from "@/components/ai-elements/message";
+import {
+  Message,
+  MessageContent,
+  MessageResponse,
+  MessageAction,
+} from "@/components/ai-elements/message";
 import type { Components } from "react-markdown";
 import { useToast } from "@/hooks/use-toast";
 import VideoGenerationCard from "./VideoGenerationCard";
@@ -375,8 +380,10 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
           <MessageContent
             className={cn(
               "relative group-[.is-user]:rounded-[24px] group-[.is-user]:bg-chat-user group-[.is-user]:text-chat-user-foreground transition-all duration-200",
-              size === "short" && "group-[.is-user]:px-4 group-[.is-user]:py-3 text-[17px] max-w-[80%] sm:max-w-[75%]",
-              size === "medium" && "group-[.is-user]:px-4 group-[.is-user]:py-3 text-[17px] max-w-[85%] sm:max-w-[82%]",
+              size === "short" &&
+                "group-[.is-user]:px-4 group-[.is-user]:py-3 text-[17px] max-w-[80%] sm:max-w-[75%]",
+              size === "medium" &&
+                "group-[.is-user]:px-4 group-[.is-user]:py-3 text-[17px] max-w-[85%] sm:max-w-[82%]",
               size === "long" &&
                 "group-[.is-user]:px-4 group-[.is-user]:py-3 text-base max-w-[92%] sm:max-w-[88%] leading-relaxed",
             )}
@@ -466,11 +473,22 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
                 >
                   {speaking ? <VolumeX /> : <Volume2 />}
                 </ActionButton>
-                <ActionButton onClick={async () => {
-                  if (navigator.share) {
-                    try { await navigator.share({ text: message.content }); } catch { /* Dismissing sharing needs no error. */ }
-                  } else { handleCopy(); }
-                }} title="Share"><Share2 /></ActionButton>
+                <ActionButton
+                  onClick={async () => {
+                    if (navigator.share) {
+                      try {
+                        await navigator.share({ text: message.content });
+                      } catch {
+                        /* Dismissing sharing needs no error. */
+                      }
+                    } else {
+                      handleCopy();
+                    }
+                  }}
+                  title="Share"
+                >
+                  <Share2 />
+                </ActionButton>
                 <ActionButton
                   onClick={handleReport}
                   active={reported}

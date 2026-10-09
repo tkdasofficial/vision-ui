@@ -38,9 +38,15 @@ const ProfileMenu = ({ conversation = false }: { conversation?: boolean }) => {
           variant="ghost"
           size="icon"
           aria-label="Open profile menu"
-          className={conversation ? "size-11 rounded-full bg-transparent [&_svg]:size-6" : "size-12 rounded-full bg-floating border border-border flex items-center justify-center hover:bg-accent transition-colors"}
+          className={
+            conversation
+              ? "size-11 rounded-full bg-transparent [&_svg]:size-6"
+              : "size-12 rounded-full bg-floating border border-border flex items-center justify-center hover:bg-accent transition-colors"
+          }
         >
-          {conversation ? <MoreVertical /> : profile?.avatar_url ? (
+          {conversation ? (
+            <MoreVertical />
+          ) : profile?.avatar_url ? (
             <img
               src={profile.avatar_url}
               alt=""
@@ -48,7 +54,12 @@ const ProfileMenu = ({ conversation = false }: { conversation?: boolean }) => {
             />
           ) : (
             <span className="flex size-8 items-center justify-center rounded-full bg-avatar text-sm font-normal text-avatar-foreground">
-              {(profile?.full_name || "User").split(/\s+/).slice(0, 2).map((part) => part[0]).join("").toUpperCase()}
+              {(profile?.full_name || "User")
+                .split(/\s+/)
+                .slice(0, 2)
+                .map((part) => part[0])
+                .join("")
+                .toUpperCase()}
             </span>
           )}
         </Button>
