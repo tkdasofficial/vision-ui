@@ -85,10 +85,10 @@ export default function AppDrawer({
       <SheetContent
         side="left"
         overlayClassName="bg-drawer-scrim"
-        className="flex h-[100dvh] w-[80vw] max-w-[380px] flex-col gap-0 border-border bg-background p-0 shadow-none sm:max-w-[380px] [&>button]:-right-[58px] [&>button]:top-1 [&>button]:flex [&>button]:size-11 [&>button]:items-center [&>button]:justify-center [&>button]:rounded-full [&>button]:border [&>button]:border-border [&>button]:bg-floating [&>button]:opacity-100 [&>button_svg]:size-5"
+        className="flex h-[100dvh] w-[80vw] max-w-[320px] flex-col gap-0 border-border bg-background p-0 shadow-none sm:max-w-[320px] [&>button]:-right-[48px] [&>button]:top-1.5 [&>button]:flex [&>button]:size-ui-control [&>button]:items-center [&>button]:justify-center [&>button]:rounded-full [&>button]:border [&>button]:border-border [&>button]:bg-floating [&>button]:opacity-100 [&>button_svg]:size-ui-icon"
       >
-        <div className="flex h-[57px] shrink-0 items-center justify-between gap-2 pl-8 pr-6">
-          <SheetTitle className="font-sans text-[23px] font-semibold max-[350px]:text-xl">
+        <div className="grid h-[49px] shrink-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-2 px-5">
+          <SheetTitle className="min-w-0 truncate font-sans text-ui-title font-semibold">
             Super Copilot
           </SheetTitle>
           <Button
@@ -96,7 +96,7 @@ export default function AppDrawer({
             size="icon"
             aria-label="Search conversations"
             onClick={() => setSearchOpen((value) => !value)}
-            className="size-11 shrink-0 rounded-full border border-border bg-floating [&_svg]:size-6"
+            className="size-ui-control shrink-0 rounded-full border border-border bg-floating [&_svg]:size-ui-icon"
           >
             <Search />
           </Button>
@@ -105,7 +105,7 @@ export default function AppDrawer({
           Chat navigation and saved conversations
         </SheetDescription>
         {searchOpen && (
-          <div className="mx-6 mt-2 flex h-11 shrink-0 items-center gap-3 rounded-full bg-muted px-4">
+          <div className="mx-5 mt-2 flex h-ui-control shrink-0 items-center gap-2 rounded-full bg-muted px-3">
             <Search className="size-4 shrink-0 text-muted-foreground" />
             <input
               aria-label="Search chats"
@@ -117,7 +117,7 @@ export default function AppDrawer({
             />
           </div>
         )}
-        <div className="min-h-0 flex-1 overflow-y-auto px-6 pb-28 pt-6">
+        <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-20 pt-4">
           <nav aria-label="Workspace" className="space-y-0">
             {[
               { icon: Image, label: "Images", action: () => startChat("Generate an image of ") },
@@ -156,15 +156,15 @@ export default function AppDrawer({
                 key={label}
                 variant="ghost"
                 onClick={action}
-                className="h-12 w-full justify-start gap-3 rounded-lg px-2 text-[18px] font-semibold [&_svg]:size-[22px] [&_svg]:stroke-[2]"
+                className="h-ui-row w-full justify-start gap-3 rounded-lg px-2 text-ui-label font-medium [&_svg]:size-ui-icon [&_svg]:stroke-[2]"
               >
                 <Icon className="size-5" />
                 {label}
               </Button>
             ))}
           </nav>
-          <section id="drawer-recents" className="mt-9">
-            <h3 className="mb-3 px-2 font-sans text-[17px] font-semibold text-foreground">
+          <section id="drawer-recents" className="mt-6">
+            <h3 className="mb-2 px-2 font-sans text-sm font-semibold text-foreground">
               {query ? "Results" : "Recents"}
             </h3>
             {history.length === 0 && (
@@ -213,7 +213,7 @@ export default function AppDrawer({
                         onClose();
                       }}
                       className={cn(
-                        "h-12 min-w-0 flex-1 justify-start px-2 text-[17px] font-normal",
+                        "h-ui-row min-w-0 flex-1 justify-start px-2 text-ui-label font-normal",
                         activeChatId === chat.id && "bg-accent",
                       )}
                     >
@@ -255,10 +255,10 @@ export default function AppDrawer({
             ))}
           </section>
         </div>
-        <div className="absolute inset-x-0 bottom-0 flex h-[88px] items-center justify-between gap-3 bg-background/95 pl-8 pr-6 pb-3">
+        <div className="absolute inset-x-0 bottom-0 grid h-[72px] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 bg-background/95 px-5 pb-2">
           <Button
             onClick={() => startChat()}
-            className="h-12 gap-3 rounded-full bg-navigation px-6 text-[18px] font-medium text-navigation-foreground hover:bg-navigation/90 [&_svg]:size-[22px]"
+            className="h-ui-row w-fit gap-2 rounded-full bg-navigation px-4 text-ui-label font-medium text-navigation-foreground hover:bg-navigation/90 [&_svg]:size-ui-icon"
           >
             <SquarePen />
             Chat
@@ -270,7 +270,7 @@ export default function AppDrawer({
               size="icon"
               aria-label="Start voice typing"
               onClick={() => startChat("voice")}
-              className="absolute -right-[52px] bottom-[26px] size-8 rounded-full bg-navigation text-navigation-foreground hover:bg-navigation/90 [&_svg]:size-[18px]"
+              className="absolute -right-[46px] bottom-[22px] size-8 rounded-full bg-navigation text-navigation-foreground hover:bg-navigation/90 [&_svg]:size-ui-icon"
             >
               <AudioLines className="size-5" />
             </Button>

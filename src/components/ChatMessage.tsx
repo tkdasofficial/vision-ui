@@ -378,7 +378,7 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
       ref={ref}
       className={cn(
         "px-4 sm:px-6 w-full max-w-3xl mx-auto transition-all duration-300",
-        isUser ? "py-2" : "pt-4 pb-5",
+        isUser ? "py-2" : "pt-3 pb-4",
         isNew && "animate-fade-in",
       )}
     >
@@ -386,13 +386,13 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
         <Message from="user" className="max-w-full">
           <MessageContent
             className={cn(
-              "relative group-[.is-user]:rounded-[24px] group-[.is-user]:bg-chat-user group-[.is-user]:text-chat-user-foreground transition-all duration-200",
+              "relative group-[.is-user]:rounded-[20px] group-[.is-user]:bg-chat-user group-[.is-user]:text-chat-user-foreground transition-all duration-200",
               size === "short" &&
-                "group-[.is-user]:px-4 group-[.is-user]:py-3 text-[17px] max-w-[80%] sm:max-w-[75%]",
+                "group-[.is-user]:px-3.5 group-[.is-user]:py-2.5 text-ui-label max-w-[80%] sm:max-w-[75%]",
               size === "medium" &&
-                "group-[.is-user]:px-4 group-[.is-user]:py-3 text-[17px] max-w-[85%] sm:max-w-[82%]",
+                "group-[.is-user]:px-3.5 group-[.is-user]:py-2.5 text-ui-label max-w-[85%] sm:max-w-[82%]",
               size === "long" &&
-                "group-[.is-user]:px-4 group-[.is-user]:py-3 text-base max-w-[92%] sm:max-w-[88%] leading-relaxed",
+                "group-[.is-user]:px-3.5 group-[.is-user]:py-2.5 text-ui-label max-w-[92%] sm:max-w-[88%] leading-relaxed",
             )}
           >
             {message.imageUrl && (
@@ -419,7 +419,7 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
             {message.content && (
               <Message from="assistant" className="max-w-full">
                 <MessageResponse
-                  className={cn("text-[17px] leading-7 break-words", proseClasses)}
+                  className={cn("text-ui-label leading-6 break-words", proseClasses)}
                   isAnimating={shouldAnimate && !typingDone}
                 >
                   {segments
@@ -503,7 +503,7 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
                       size="icon-sm"
                       aria-label="More response actions"
                       title="More response actions"
-                      className="size-9 rounded-full text-muted-foreground [&_svg]:size-[18px]"
+                      className="size-8 rounded-full text-muted-foreground [&_svg]:size-4"
                     >
                       <MoreVertical />
                     </Button>
@@ -543,7 +543,7 @@ const ActionButton = ({
     tooltip={title}
     label={title}
     className={cn(
-      "size-9 rounded-full transition-colors [&_svg]:size-[18px] [&_svg]:stroke-[1.8]",
+      "size-8 rounded-full transition-colors [&_svg]:size-4 [&_svg]:stroke-[1.8]",
       active
         ? "text-foreground bg-accent"
         : "text-muted-foreground hover:text-foreground hover:bg-accent",

@@ -989,7 +989,7 @@ const ChatWorkspace = ({
           size="icon-sm"
           aria-label="Open navigation"
           onClick={onMenuClick}
-          className="size-11 rounded-full border border-border bg-floating [&_svg]:size-6"
+          className="size-ui-control shrink-0 rounded-full border border-border bg-floating [&_svg]:size-ui-icon"
         >
           <AlignLeft />
         </Button>
@@ -997,7 +997,7 @@ const ChatWorkspace = ({
           <Button
             variant="secondary"
             onClick={() => navigate("/app/upgrade")}
-            className="h-11 gap-2 rounded-full border border-border bg-upgrade px-3 text-[17px] font-semibold text-upgrade-foreground hover:bg-upgrade/90 [&_svg]:size-[18px]"
+            className="h-ui-control shrink-0 gap-1.5 rounded-full border border-border bg-upgrade px-3 text-sm font-semibold text-upgrade-foreground hover:bg-upgrade/90 [&_svg]:size-4"
           >
             <Sparkle />
             Get Plus
@@ -1006,7 +1006,7 @@ const ChatWorkspace = ({
         <div
           className={
             hasMessages
-              ? "ml-auto flex h-11 items-center rounded-full border border-border bg-floating"
+              ? "ml-auto flex h-ui-control shrink-0 items-center rounded-full border border-border bg-floating"
               : "ml-auto"
           }
         >
@@ -1017,8 +1017,8 @@ const ChatWorkspace = ({
             onClick={onNewChat}
             className={
               hasMessages
-                ? "size-11 rounded-full [&_svg]:size-6"
-                : "size-11 rounded-full border border-border bg-floating [&_svg]:size-6"
+                ? "size-ui-control shrink-0 rounded-full [&_svg]:size-ui-icon"
+                : "size-ui-control shrink-0 rounded-full border border-border bg-floating [&_svg]:size-ui-icon"
             }
           >
             {hasMessages ? <SquarePen /> : <MessageCircleDashed />}
@@ -1029,7 +1029,7 @@ const ChatWorkspace = ({
       <AnnouncementBanner />
       <Conversation className="min-h-0">
         <ConversationContent
-          className={hasMessages ? "gap-0 px-0 pt-4 pb-8" : "h-full min-h-full p-0"}
+          className={hasMessages ? "gap-0 px-0 pt-3 pb-6" : "h-full min-h-full p-0"}
         >
           {hasMessages ? (
             <>
@@ -1050,7 +1050,7 @@ const ChatWorkspace = ({
         </ConversationContent>
         <ConversationScrollButton
           aria-label="Scroll to latest message"
-          className="bottom-5 size-10"
+          className="bottom-4 size-ui-control"
         />
       </Conversation>
 

@@ -17,8 +17,8 @@ export default function EmptyState({ tool, onPromptClick }: Props) {
   if (tool)
     return (
       <ConversationEmptyState className="px-6">
-        <h1 className="font-sans text-2xl font-semibold">{tool.emptyStateTitle}</h1>
-        <div className="mt-5 flex w-full max-w-md flex-col gap-2">
+        <h1 className="font-sans text-ui-title font-semibold">{tool.emptyStateTitle}</h1>
+        <div className="mt-4 flex w-full max-w-md flex-col gap-1">
           {tool.samplePrompts.map((prompt) => (
             <Button
               key={prompt.label}
@@ -35,7 +35,7 @@ export default function EmptyState({ tool, onPromptClick }: Props) {
     );
   if (studio || showStudios)
     return (
-      <div className="mx-auto w-full max-w-2xl px-6 py-8">
+      <div className="mx-auto w-full max-w-2xl px-4 py-5">
         <Button
           variant="ghost"
           size="icon"
@@ -47,7 +47,7 @@ export default function EmptyState({ tool, onPromptClick }: Props) {
         >
           <ArrowLeft className="size-5" />
         </Button>
-        <h1 className="my-5 font-sans text-2xl font-semibold">{studio?.name || "Projects"}</h1>
+        <h1 className="my-4 font-sans text-ui-title font-semibold">{studio?.name || "Projects"}</h1>
         <div className="flex flex-col gap-1">
           {studio
             ? studio.workflows.map((workflow) => (
@@ -55,7 +55,7 @@ export default function EmptyState({ tool, onPromptClick }: Props) {
                   key={workflow.id}
                   variant="ghost"
                   onClick={() => onPromptClick(workflow.prompt)}
-                  className="h-auto justify-start gap-3 whitespace-normal py-4 text-left"
+                  className="h-auto min-h-ui-row justify-start gap-3 whitespace-normal py-2.5 text-left"
                 >
                   <workflow.icon className="size-5 shrink-0" />
                   <span className="flex-1">{workflow.name}</span>
@@ -67,7 +67,7 @@ export default function EmptyState({ tool, onPromptClick }: Props) {
                   key={category.id}
                   variant="ghost"
                   onClick={() => setStudio(category)}
-                  className="h-14 justify-start gap-3"
+                  className="h-ui-row justify-start gap-3"
                 >
                   <category.icon className="size-5" />
                   <span className="flex-1 text-left">{category.name}</span>
@@ -86,7 +86,7 @@ export default function EmptyState({ tool, onPromptClick }: Props) {
             onClick={() =>
               document.querySelector<HTMLButtonElement>('button[title="Voice input"]')?.click()
             }
-            className="h-[50px] w-full justify-start gap-3 rounded-lg px-2 text-[18px] font-normal text-secondary-foreground [&_svg]:size-[22px]"
+            className="h-ui-row w-full justify-start gap-3 rounded-lg px-2 text-ui-label font-normal text-secondary-foreground [&_svg]:size-ui-icon"
           >
             <Headphones />
             Voice typing
@@ -94,7 +94,7 @@ export default function EmptyState({ tool, onPromptClick }: Props) {
           <Button
             variant="ghost"
             onClick={() => onPromptClick("Create an image of ")}
-            className="h-[50px] w-full justify-start gap-3 rounded-lg px-2 text-[18px] font-normal text-secondary-foreground [&_svg]:size-[22px]"
+            className="h-ui-row w-full justify-start gap-3 rounded-lg px-2 text-ui-label font-normal text-secondary-foreground [&_svg]:size-ui-icon"
           >
             <Image />
             Create an image or sticker
@@ -102,7 +102,7 @@ export default function EmptyState({ tool, onPromptClick }: Props) {
           <Button
             variant="ghost"
             onClick={() => onPromptClick("Help me write or edit ")}
-            className="h-[50px] w-full justify-start gap-3 rounded-lg px-2 text-[18px] font-normal text-secondary-foreground [&_svg]:size-[22px]"
+            className="h-ui-row w-full justify-start gap-3 rounded-lg px-2 text-ui-label font-normal text-secondary-foreground [&_svg]:size-ui-icon"
           >
             <PenLine />
             Write or edit
