@@ -18,3 +18,4 @@
 - Drawer overlays support a scoped overlayClassName and retain a visible strip of the chat page. Why: screenshot-matched navigation must not change overlays used by other screens.
 - Conversation layout and message markdown use AI Elements primitives, with existing domain result cards retained. Why: shares accessible transcript, scrolling and message controls without changing offline tool behavior.
 - Shared compact sizing roles are defined as Tailwind theme tokens and used by chat navigation, drawer, profile and conversation controls; the composer retains its independent sizing. Why: keeps density consistent without changing the protected input appearance.
+- The premium glass surface system is centralized in global semantic tokens and role utilities, with a body theme covering ported views and portals; native ported buttons use Button's layout-preserving legacy variant. Why: upgrades every screen consistently while preserving handlers and custom tool geometry.
