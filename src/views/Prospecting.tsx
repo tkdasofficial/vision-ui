@@ -181,11 +181,11 @@ export default function Prospecting() {
           {tab === "youtube" ? (
             <div className="p-5 grid grid-cols-1 md:grid-cols-6 gap-3">
               <Field className="md:col-span-2" label="Niche / keyword" value={niche} onChange={setNiche} placeholder="e.g. cooking, ai tools, minimalism" />
-              <Field label="Min subs" type="number" value={minSubs} onChange={(v) => setMinSubs(Number(v))} />
-              <Field label="Max subs" type="number" value={maxSubs} onChange={(v) => setMaxSubs(Number(v))} />
-              <Field label="Min avg views" type="number" value={minViews} onChange={(v) => setMinViews(Number(v))} />
-              <Field label="Max avg views" type="number" value={maxViews} onChange={(v) => setMaxViews(Number(v))} />
-              <Field label="Target count" type="number" value={target} onChange={(v) => setTarget(Number(v))} />
+              <Field label="Min subs" type="number" value={minSubs} onChange={(v: any) => setMinSubs(Number(v))} />
+              <Field label="Max subs" type="number" value={maxSubs} onChange={(v: any) => setMaxSubs(Number(v))} />
+              <Field label="Min avg views" type="number" value={minViews} onChange={(v: any) => setMinViews(Number(v))} />
+              <Field label="Max avg views" type="number" value={maxViews} onChange={(v: any) => setMaxViews(Number(v))} />
+              <Field label="Target count" type="number" value={target} onChange={(v: any) => setTarget(Number(v))} />
               <div className="md:col-span-6 flex items-center justify-between pt-1">
                 <p className="text-xs text-muted-foreground flex items-center gap-1.5"><Filter className="w-3.5 h-3.5" />Needs your YouTube API key — add it under Integrations → API Keys (provider: youtube).</p>
                 <button onClick={startYouTube} disabled={running} className="px-4 py-2 rounded-lg bg-foreground text-background text-sm font-medium flex items-center gap-2 disabled:opacity-50">
@@ -196,7 +196,7 @@ export default function Prospecting() {
           ) : (
             <div className="p-5 grid grid-cols-1 md:grid-cols-4 gap-3">
               <Field className="md:col-span-2" label="Industry / niche" value={webNiche} onChange={setWebNiche} placeholder="e.g. food companies in Mumbai" />
-              <Field label="Target count" type="number" value={webTarget} onChange={(v) => setWebTarget(Number(v))} />
+              <Field label="Target count" type="number" value={webTarget} onChange={(v: any) => setWebTarget(Number(v))} />
               <div className="flex items-end">
                 <button onClick={startWeb} disabled={running} className="w-full px-4 py-2 rounded-lg bg-foreground text-background text-sm font-medium flex items-center justify-center gap-2 disabled:opacity-50">
                   <Play className="w-4 h-4" />Discover companies
