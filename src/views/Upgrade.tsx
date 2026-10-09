@@ -77,13 +77,13 @@ const Upgrade = () => {
         </div>
       </div>
 
-      <div className="px-4 py-10 max-w-7xl mx-auto">
-        <div className="text-center mb-8">
+      <div className="px-4 py-6 max-w-7xl mx-auto">
+        <div className="text-center mb-6">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full mb-4">
             <Sparkles className="w-3.5 h-3.5" />
             5 tiers · BYOK on every paid plan
           </div>
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground tracking-tight">Pick the plan that scales with you</h2>
+          <h2 className="text-xl md:text-2xl font-display font-bold text-foreground">Pick the plan that scales with you</h2>
           <p className="text-sm md:text-base text-muted-foreground mt-3 max-w-xl mx-auto">
             Chat, images, video, TTS — all from one workspace. Bring your own API keys on any paid plan to remove every limit.
           </p>
@@ -105,7 +105,7 @@ const Upgrade = () => {
               const monthly = billing === "monthly" ? p.price_monthly : (p.price_yearly / 12);
               const yearly = p.price_yearly;
               return (
-                <div key={p.plan} className={`relative rounded-2xl p-5 border ${p.popular ? "border-primary bg-primary/[0.03] shadow-lg" : "border-border bg-card"}`}>
+                <div key={p.plan} className={`relative rounded-lg p-4 border ${p.popular ? "border-primary bg-primary/[0.03] shadow-lg" : "border-border bg-card"}`}>
                   {p.popular && (
                     <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 bg-primary text-primary-foreground text-[10px] font-semibold uppercase tracking-wider rounded-full">
                       Most popular
@@ -115,7 +115,7 @@ const Upgrade = () => {
                   <p className="text-xs text-muted-foreground mt-0.5 min-h-[2.4em]">{p.tagline}</p>
 
                   <div className="mt-4 flex items-baseline gap-1">
-                    <span className="text-3xl font-bold text-foreground">${Number(monthly).toFixed(0)}</span>
+                    <span className="text-2xl font-bold text-foreground">${Number(monthly).toFixed(0)}</span>
                     <span className="text-xs text-muted-foreground">/mo</span>
                   </div>
                   <p className="text-[11px] text-muted-foreground mt-0.5 min-h-[1.2em]">

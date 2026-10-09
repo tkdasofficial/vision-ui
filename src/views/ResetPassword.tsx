@@ -48,7 +48,7 @@ const ResetPassword = () => {
     <div className="min-h-[100dvh] bg-background flex items-center justify-center px-4">
       <div className="w-full max-w-sm space-y-6">
         <div className="flex flex-col items-center gap-3">
-          <img src={logo} alt="Super Copilot" className="w-14 h-14 rounded-full" />
+          <img src={logo} alt="Super Copilot" className="size-10 rounded-full" />
           <h1 className="font-display text-xl font-semibold text-foreground">Set new password</h1>
           <p className="text-sm text-muted-foreground text-center">
             Enter your new password below
