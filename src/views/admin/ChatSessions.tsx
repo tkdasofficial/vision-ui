@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { supabase } from "@/backend/client";
 import { MessageSquare, Trash2, Search, Eye, ChevronDown, ChevronUp } from "lucide-react";
@@ -110,12 +111,12 @@ const AdminChatSessions = () => {
                   {session.tool_id && (
                     <span className="px-2 py-0.5 rounded-full bg-accent text-muted-foreground text-xs">{session.tool_id}</span>
                   )}
-                  <button onClick={() => viewMessages(session.id)} className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors" title="View messages">
+                  <Button variant="legacy" size="custom" onClick={() => viewMessages(session.id)} className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors" title="View messages">
                     {isExpanded ? <ChevronUp className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  </button>
-                  <button onClick={() => deleteSession(session.id)} className="p-1.5 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors" title="Delete">
+                  </Button>
+                  <Button variant="legacy" size="custom" onClick={() => deleteSession(session.id)} className="p-1.5 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors" title="Delete">
                     <Trash2 className="w-4 h-4" />
-                  </button>
+                  </Button>
                 </div>
               </div>
 

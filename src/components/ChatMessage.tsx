@@ -93,13 +93,13 @@ const CodeBlock = ({ children, className }: { children: React.ReactNode; classNa
             {lang || "code"}
           </span>
         </div>
-        <button
+        <Button variant="legacy" size="custom"
           onClick={handleCopy}
           className="flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
         >
           {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
           {copied ? "Copied" : "Copy"}
-        </button>
+        </Button>
       </div>
       <pre className="p-4 overflow-x-auto">
         <code className="text-[13px] font-mono bg-transparent p-0">{code}</code>
@@ -131,13 +131,13 @@ const CardCopyButton = ({ content }: { content: string }) => {
     setTimeout(() => setCopied(false), 2000);
   };
   return (
-    <button
+    <Button variant="legacy" size="custom"
       onClick={handleCopy}
       className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium text-muted-foreground hover:text-foreground hover:bg-accent/80 bg-accent border border-border transition-colors"
     >
       {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
       {copied ? "Copied" : "Copy"}
-    </button>
+    </Button>
   );
 };
 

@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import {
   Code,
@@ -342,21 +343,21 @@ const WebAppPreviewCard = ({ project }: Props) => {
           </div>
           <div className="flex items-center gap-1">
             {phase === "ready" && hasEdits && (
-              <button
+              <Button variant="legacy" size="custom"
                 onClick={handleRecompile}
                 className="text-[10px] px-2 py-1 rounded-md bg-primary/10 text-primary hover:bg-primary/20 transition-colors font-medium"
               >
                 Recompile
-              </button>
+              </Button>
             )}
             {phase === "ready" && (
-              <button
+              <Button variant="legacy" size="custom"
                 onClick={handleDownload}
                 className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
                 title="Download ZIP"
               >
                 <Download className="w-3.5 h-3.5" />
-              </button>
+              </Button>
             )}
           </div>
         </div>
@@ -405,7 +406,7 @@ const WebAppPreviewCard = ({ project }: Props) => {
         {/* Action bar — shown when ready */}
         {allStepsDone && phase === "ready" && (
           <div className="px-3 sm:px-4 pb-2 pt-1 flex flex-wrap gap-2">
-            <button
+            <Button variant="legacy" size="custom"
               onClick={() => setShowFullPreview(true)}
               className={cn(
                 "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors border",
@@ -414,8 +415,8 @@ const WebAppPreviewCard = ({ project }: Props) => {
             >
               <Eye className="w-3.5 h-3.5" />
               Preview
-            </button>
-            <button
+            </Button>
+            <Button variant="legacy" size="custom"
               onClick={() => setExpandedView(expandedView === "code" ? null : "code")}
               className={cn(
                 "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors border",
@@ -427,8 +428,8 @@ const WebAppPreviewCard = ({ project }: Props) => {
               <Code className="w-3.5 h-3.5" />
               Code
               <span className="text-[10px] text-muted-foreground">{currentFiles.length}</span>
-            </button>
-            <button
+            </Button>
+            <Button variant="legacy" size="custom"
               onClick={() => setExpandedView(expandedView === "console" ? null : "console")}
               className={cn(
                 "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors border",
@@ -444,7 +445,7 @@ const WebAppPreviewCard = ({ project }: Props) => {
                   {errorCount}
                 </span>
               )}
-            </button>
+            </Button>
           </div>
         )}
 
@@ -478,16 +479,16 @@ const WebAppPreviewCard = ({ project }: Props) => {
                       </span>
                       <div className="flex items-center gap-0.5">
                         {editedFiles[currentFile.path] !== undefined && (
-                          <button onClick={() => handleResetFile(currentFile.path)} className="p-1 rounded text-muted-foreground hover:text-foreground transition-colors" title="Reset">
+                          <Button variant="legacy" size="custom" onClick={() => handleResetFile(currentFile.path)} className="p-1 rounded text-muted-foreground hover:text-foreground transition-colors" title="Reset">
                             <RotateCcw className="w-3 h-3" />
-                          </button>
+                          </Button>
                         )}
-                        <button onClick={() => setIsEditing(!isEditing)} className={cn("p-1 rounded transition-colors", isEditing ? "text-foreground bg-accent" : "text-muted-foreground hover:text-foreground")} title={isEditing ? "View" : "Edit"}>
+                        <Button variant="legacy" size="custom" onClick={() => setIsEditing(!isEditing)} className={cn("p-1 rounded transition-colors", isEditing ? "text-foreground bg-accent" : "text-muted-foreground hover:text-foreground")} title={isEditing ? "View" : "Edit"}>
                           <Pencil className="w-3 h-3" />
-                        </button>
-                        <button onClick={() => handleCopyFile(currentFile.path)} className="p-1 rounded text-muted-foreground hover:text-foreground transition-colors">
+                        </Button>
+                        <Button variant="legacy" size="custom" onClick={() => handleCopyFile(currentFile.path)} className="p-1 rounded text-muted-foreground hover:text-foreground transition-colors">
                           {copiedFile === currentFile.path ? <Check className="w-3 h-3 text-primary" /> : <Copy className="w-3 h-3" />}
-                        </button>
+                        </Button>
                       </div>
                     </div>
                     {isEditing ? (
@@ -544,9 +545,9 @@ const WebAppPreviewCard = ({ project }: Props) => {
             {hasEdits && " · edited"}
           </p>
           {hasEdits && (
-            <button onClick={() => setEditedFiles({})} className="text-[10px] text-muted-foreground hover:text-foreground transition-colors">
+            <Button variant="legacy" size="custom" onClick={() => setEditedFiles({})} className="text-[10px] text-muted-foreground hover:text-foreground transition-colors">
               Reset all
-            </button>
+            </Button>
           )}
         </div>
       </div>
@@ -568,7 +569,7 @@ const WebAppPreviewCard = ({ project }: Props) => {
                 { id: "tablet" as Viewport, icon: Tablet },
                 { id: "mobile" as Viewport, icon: Smartphone },
               ] as const).map(({ id, icon: Icon }) => (
-                <button
+                <Button variant="legacy" size="custom"
                   key={id}
                   onClick={() => setViewport(id)}
                   className={cn(
@@ -578,12 +579,12 @@ const WebAppPreviewCard = ({ project }: Props) => {
                   title={id}
                 >
                   <Icon className="w-3.5 h-3.5" />
-                </button>
+                </Button>
               ))}
               <div className="w-px h-4 bg-border mx-1" />
-              <button onClick={() => setShowFullPreview(false)} className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors" title="Close">
+              <Button variant="legacy" size="custom" onClick={() => setShowFullPreview(false)} className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors" title="Close">
                 <X className="w-4 h-4" />
-              </button>
+              </Button>
             </div>
           </div>
           <div className="flex-1 flex justify-center bg-accent/20 overflow-hidden">
@@ -636,10 +637,10 @@ function FileTreeNode({ node, selectedFile, onSelect, depth, editedPaths }: {
   if (node.isDir) {
     return (
       <div>
-        <button onClick={() => setExpanded(!expanded)} className="w-full flex items-center gap-1 px-2 py-0.5 text-[11px] text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors" style={{ paddingLeft: `${depth * 12 + 8}px` }}>
+        <Button variant="legacy" size="custom" onClick={() => setExpanded(!expanded)} className="w-full flex items-center gap-1 px-2 py-0.5 text-[11px] text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors" style={{ paddingLeft: `${depth * 12 + 8}px` }}>
           <ChevronRight className={cn("w-3 h-3 shrink-0 transition-transform", expanded && "rotate-90")} />
           <span className="truncate">{node.name}</span>
-        </button>
+        </Button>
         {expanded && node.children.map((child) => (
           <FileTreeNode key={child.path} node={child} selectedFile={selectedFile} onSelect={onSelect} depth={depth + 1} editedPaths={editedPaths} />
         ))}
@@ -647,11 +648,11 @@ function FileTreeNode({ node, selectedFile, onSelect, depth, editedPaths }: {
     );
   }
   return (
-    <button onClick={() => onSelect(node.path)} className={cn("w-full flex items-center gap-1 px-2 py-0.5 text-[11px] transition-colors", node.path === selectedFile ? "bg-accent text-foreground" : "text-muted-foreground hover:text-foreground hover:bg-accent/50")} style={{ paddingLeft: `${depth * 12 + 8}px` }}>
+    <Button variant="legacy" size="custom" onClick={() => onSelect(node.path)} className={cn("w-full flex items-center gap-1 px-2 py-0.5 text-[11px] transition-colors", node.path === selectedFile ? "bg-accent text-foreground" : "text-muted-foreground hover:text-foreground hover:bg-accent/50")} style={{ paddingLeft: `${depth * 12 + 8}px` }}>
       <FileCode className="w-3 h-3 shrink-0" />
       <span className="truncate">{node.name}</span>
       {editedPaths[node.path] !== undefined && <span className="ml-auto text-primary text-[9px]">●</span>}
-    </button>
+    </Button>
   );
 }
 

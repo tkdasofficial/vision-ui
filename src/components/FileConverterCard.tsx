@@ -100,7 +100,7 @@ const FileConverterCard = ({ file }: Props) => {
             <p className="text-xs text-muted-foreground font-medium">Convert to:</p>
             <div className="flex flex-wrap gap-1.5">
               {targets.map((fmt) => (
-                <button
+                <Button variant="legacy" size="custom"
                   key={fmt.ext}
                   onClick={() => !converting && setSelectedTarget(fmt.ext)}
                   className={`px-2.5 py-1 rounded-md text-xs font-mono font-medium transition-all border ${
@@ -111,7 +111,7 @@ const FileConverterCard = ({ file }: Props) => {
                   disabled={converting}
                 >
                   .{fmt.ext.toUpperCase()}
-                </button>
+                </Button>
               ))}
             </div>
           </div>

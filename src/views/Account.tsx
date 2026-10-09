@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useNavigate } from "@/lib/router-compat";
 import { ArrowLeft, User, Mail, KeyRound, ShieldCheck, Smartphone, Copy, Check } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -143,9 +144,9 @@ const Account = () => {
   return (
     <div className="min-h-[100dvh] bg-background flex flex-col">
       <header className="flex items-center justify-between px-4 py-3 border-b border-border bg-background/80 backdrop-blur-sm">
-        <button onClick={() => navigate(-1)} className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors">
+        <Button variant="legacy" size="custom" onClick={() => navigate(-1)} className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors">
           <ArrowLeft className="w-5 h-5" />
-        </button>
+        </Button>
         <h1 className="text-sm font-display font-semibold text-foreground">Account</h1>
         <ProfileMenu />
       </header>
@@ -187,9 +188,9 @@ const Account = () => {
                 </div>
               </div>
 
-              <button onClick={saveName} className="w-full py-2.5 rounded-xl bg-foreground text-background text-sm font-medium hover:opacity-90 transition-opacity">
+              <Button variant="legacy" size="custom" onClick={saveName} className="w-full py-2.5 rounded-xl bg-foreground text-background text-sm font-medium hover:opacity-90 transition-opacity">
                 Save changes
-              </button>
+              </Button>
             </div>
           </section>
 
@@ -198,7 +199,7 @@ const Account = () => {
             <h2 className="font-display text-lg font-semibold text-foreground mb-4">Security</h2>
             <div className="space-y-4">
               {/* Reset password */}
-              <button
+              <Button variant="legacy" size="custom"
                 onClick={async () => {
                   const email = profile?.email || user?.email;
                   if (!email) return;
@@ -222,7 +223,7 @@ const Account = () => {
                   <p className="text-xs text-muted-foreground">Send a password reset link to your email</p>
                 </div>
                 {resetLoading && <div className="w-4 h-4 border-2 border-foreground/20 border-t-foreground rounded-full animate-spin" />}
-              </button>
+              </Button>
 
               {/* 2FA Section */}
               <div className="rounded-xl border border-border bg-card overflow-hidden">
@@ -256,21 +257,21 @@ const Account = () => {
                       </div>
                     </div>
                     {twoFAMethod === "totp" ? (
-                      <button
+                      <Button variant="legacy" size="custom"
                         onClick={handleDisable2FA}
                         disabled={twoFALoading}
                         className="text-xs font-medium text-destructive hover:underline"
                       >
                         Disable
-                      </button>
+                      </Button>
                     ) : (
-                      <button
+                      <Button variant="legacy" size="custom"
                         onClick={handleStartTOTP}
                         disabled={twoFALoading || twoFAMethod === "email"}
                         className="text-xs font-medium text-primary hover:underline disabled:opacity-50"
                       >
                         {twoFALoading ? "..." : "Enable"}
-                      </button>
+                      </Button>
                     )}
                   </div>
 
@@ -287,9 +288,9 @@ const Account = () => {
                         <code className="flex-1 text-[11px] bg-muted px-3 py-2 rounded-lg text-foreground break-all select-all">
                           {totpSetup.secret}
                         </code>
-                        <button onClick={copySecret} className="p-2 rounded-lg hover:bg-accent transition-colors shrink-0">
+                        <Button variant="legacy" size="custom" onClick={copySecret} className="p-2 rounded-lg hover:bg-accent transition-colors shrink-0">
                           {secretCopied ? <Check className="w-4 h-4 text-primary" /> : <Copy className="w-4 h-4 text-muted-foreground" />}
-                        </button>
+                        </Button>
                       </div>
                       <p className="text-xs text-muted-foreground text-center">Enter the 6-digit code from the app</p>
                       <div className="flex justify-center">
@@ -305,19 +306,19 @@ const Account = () => {
                         </InputOTP>
                       </div>
                       <div className="flex gap-2">
-                        <button
+                        <Button variant="legacy" size="custom"
                           onClick={() => { setTotpSetup(null); setTotpCode(""); }}
                           className="flex-1 py-2 rounded-xl border border-border text-sm text-foreground hover:bg-accent transition-colors"
                         >
                           Cancel
-                        </button>
-                        <button
+                        </Button>
+                        <Button variant="legacy" size="custom"
                           onClick={handleVerifyTOTP}
                           disabled={totpVerifying || totpCode.length < 6}
                           className="flex-1 py-2 rounded-xl bg-foreground text-background text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
                         >
                           {totpVerifying ? "Verifying..." : "Verify & Enable"}
-                        </button>
+                        </Button>
                       </div>
                     </div>
                   )}
@@ -332,21 +333,21 @@ const Account = () => {
                       </div>
                     </div>
                     {twoFAMethod === "email" ? (
-                      <button
+                      <Button variant="legacy" size="custom"
                         onClick={handleDisable2FA}
                         disabled={twoFALoading}
                         className="text-xs font-medium text-destructive hover:underline"
                       >
                         Disable
-                      </button>
+                      </Button>
                     ) : (
-                      <button
+                      <Button variant="legacy" size="custom"
                         onClick={handleEnableEmail}
                         disabled={twoFALoading || twoFAMethod === "totp"}
                         className="text-xs font-medium text-primary hover:underline disabled:opacity-50"
                       >
                         {twoFALoading ? "..." : "Enable"}
-                      </button>
+                      </Button>
                     )}
                   </div>
                 </div>

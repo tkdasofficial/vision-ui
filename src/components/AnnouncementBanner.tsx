@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { supabase } from "@/backend/client";
 import { X, Info, AlertTriangle, AlertOctagon, CheckCircle2 } from "lucide-react";
@@ -43,7 +44,7 @@ const AnnouncementBanner = () => {
               <p className="font-semibold">{a.title}</p>
               <p className="opacity-90">{a.body}</p>
             </div>
-            <button onClick={() => dismiss(a.id)} className="p-1 rounded hover:bg-background/30 shrink-0"><X className="w-3 h-3" /></button>
+            <Button variant="legacy" size="custom" onClick={() => dismiss(a.id)} className="p-1 rounded hover:bg-background/30 shrink-0"><X className="w-3 h-3" /></Button>
           </div>
         );
       })}

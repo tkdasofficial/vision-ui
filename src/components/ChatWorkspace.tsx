@@ -8,6 +8,7 @@ import {
 } from "@/components/ai-elements/conversation";
 import { useNavigate } from "@/lib/router-compat";
 import AnnouncementBanner from "./AnnouncementBanner";
+import visionMark from "@/assets/vision-mark.png";
 
 import type { AITool, ChatMessage as ChatMessageType } from "@/lib/types";
 import ProfileMenu from "./ProfileMenu";
@@ -976,7 +977,7 @@ const ChatWorkspace = ({
   }
 
   const hasMessages = messages.length > 0;
-  const defaultTitle = tool ? tool.shortName : "Super Copilot";
+  const defaultTitle = tool ? tool.shortName : "Vision";
 
   return (
     <div className="flex flex-col h-full flex-1 min-w-0">
@@ -993,11 +994,15 @@ const ChatWorkspace = ({
         >
           <AlignLeft />
         </Button>
+        <div className="flex min-w-0 items-center gap-2">
+          <img src={visionMark} alt="" width={28} height={28} className="vision-brand-mark size-7 shrink-0" />
+          <span className="truncate font-display text-sm font-semibold">Vision</span>
+        </div>
         {!hasMessages && (
           <Button
             variant="secondary"
             onClick={() => navigate("/app/upgrade")}
-            className="h-ui-control shrink-0 gap-1.5 rounded-full border border-border bg-upgrade px-3 text-sm font-semibold text-upgrade-foreground hover:bg-upgrade/90 [&_svg]:size-4"
+            className="ml-auto h-8 shrink-0 gap-1.5 rounded-full border border-border bg-upgrade px-2.5 text-xs font-semibold text-upgrade-foreground hover:bg-upgrade/90 [&_svg]:size-3.5"
           >
             <Sparkle />
             Get Plus
@@ -1007,7 +1012,7 @@ const ChatWorkspace = ({
           className={
             hasMessages
               ? "ml-auto flex h-ui-control shrink-0 items-center rounded-full border border-border bg-floating"
-              : "ml-auto"
+              : "shrink-0"
           }
         >
           <Button

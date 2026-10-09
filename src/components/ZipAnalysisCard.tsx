@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useState, useMemo } from "react";
 import {
   FolderOpen, File, FileCode, FileText, FileImage, FileArchive,
@@ -36,7 +37,7 @@ const TreeNode = ({ node, depth = 0, onPreview }: { node: ZipTreeNode; depth?: n
 
   return (
     <div>
-      <button
+      <Button variant="legacy" size="custom"
         onClick={() => node.isDirectory ? setOpen(!open) : onPreview(node.path)}
         className={cn(
           "flex items-center gap-1.5 w-full text-left py-0.5 px-1 rounded hover:bg-accent/50 transition-colors text-[12px]",
@@ -53,7 +54,7 @@ const TreeNode = ({ node, depth = 0, onPreview }: { node: ZipTreeNode; depth?: n
         {!node.isDirectory && node.size > 0 && (
           <span className="text-[10px] text-muted-foreground ml-auto shrink-0">{formatSize(node.size)}</span>
         )}
-      </button>
+      </Button>
       {node.isDirectory && open && node.children.map((child) => (
         <TreeNode key={child.path} node={child} depth={depth + 1} onPreview={onPreview} />
       ))}
@@ -95,9 +96,9 @@ const FilePreview = ({ entry, onClose }: { entry: ZipFileEntry | null; onClose: 
             <FileCode className="w-4 h-4 text-muted-foreground" />
             <span className="text-sm font-mono text-foreground">{entry.path}</span>
           </div>
-          <button onClick={onClose} className="p-1 rounded hover:bg-accent transition-colors">
+          <Button variant="legacy" size="custom" onClick={onClose} className="p-1 rounded hover:bg-accent transition-colors">
             <X className="w-4 h-4 text-muted-foreground" />
-          </button>
+          </Button>
         </div>
         <pre className="p-4 overflow-auto max-h-[65vh] text-[12px] font-mono text-foreground leading-relaxed">
           {entry.content || "(Binary file — no preview available)"}
@@ -149,7 +150,7 @@ const ZipAnalysisCard = ({ analysis }: Props) => {
       {/* Tabs */}
       <div className="flex border-b border-border">
         {tabs.map((tab) => (
-          <button
+          <Button variant="legacy" size="custom"
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
             className={cn(
@@ -161,7 +162,7 @@ const ZipAnalysisCard = ({ analysis }: Props) => {
           >
             <tab.icon className="w-3.5 h-3.5" />
             {tab.label}
-          </button>
+          </Button>
         ))}
       </div>
 
@@ -199,7 +200,7 @@ const ZipAnalysisCard = ({ analysis }: Props) => {
               {filteredEntries.slice(0, 100).map((entry) => {
                 const Icon = getFileIcon(entry.extension);
                 return (
-                  <button
+                  <Button variant="legacy" size="custom"
                     key={entry.path}
                     onClick={() => entry.content && setPreviewPath(entry.path)}
                     className="flex items-center gap-2 w-full px-3 py-1.5 text-left hover:bg-accent/50 transition-colors"
@@ -208,7 +209,7 @@ const ZipAnalysisCard = ({ analysis }: Props) => {
                     <span className="text-[12px] text-foreground truncate flex-1">{entry.path}</span>
                     <span className="text-[10px] text-muted-foreground shrink-0">{formatSize(entry.size)}</span>
                     {entry.content && <Eye className="w-3 h-3 text-muted-foreground shrink-0" />}
-                  </button>
+                  </Button>
                 );
               })}
               {filteredEntries.length > 100 && (

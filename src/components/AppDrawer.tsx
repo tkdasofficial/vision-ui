@@ -19,6 +19,7 @@ import { Sheet, SheetContent, SheetTitle, SheetDescription } from "@/components/
 import { useChatHistory } from "@/context/ChatHistoryContext";
 import { useNavigate } from "@/lib/router-compat";
 import ProfileMenu from "./ProfileMenu";
+import visionMark from "@/assets/vision-mark.png";
 import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
@@ -88,8 +89,9 @@ export default function AppDrawer({
         className="flex h-[100dvh] w-[80vw] max-w-[320px] flex-col gap-0 border-border bg-background p-0 shadow-none sm:max-w-[320px] [&>button]:-right-[48px] [&>button]:top-1.5 [&>button]:flex [&>button]:size-ui-control [&>button]:items-center [&>button]:justify-center [&>button]:rounded-full [&>button]:border [&>button]:border-border [&>button]:bg-floating [&>button]:opacity-100 [&>button_svg]:size-ui-icon"
       >
         <div className="grid h-[49px] shrink-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-2 px-5">
-          <SheetTitle className="min-w-0 truncate font-sans text-ui-title font-semibold">
-            Super Copilot
+          <SheetTitle className="flex min-w-0 items-center gap-2 font-display text-ui-title font-semibold">
+            <img src={visionMark} alt="" width={28} height={28} className="vision-brand-mark size-7 shrink-0" />
+            <span className="truncate">Vision</span>
           </SheetTitle>
           <Button
             variant="secondary"
@@ -118,7 +120,7 @@ export default function AppDrawer({
           </div>
         )}
         <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-20 pt-4">
-          <nav aria-label="Workspace" className="space-y-0">
+          <nav aria-label="Workspace" className="space-y-1">
             {[
               { icon: Image, label: "Images", action: () => startChat("Generate an image of ") },
               {
@@ -156,7 +158,7 @@ export default function AppDrawer({
                 key={label}
                 variant="ghost"
                 onClick={action}
-                className="h-ui-row w-full justify-start gap-3 rounded-lg px-2 text-ui-label font-medium [&_svg]:size-ui-icon [&_svg]:stroke-[2]"
+                className="vision-prompt-row h-ui-row w-full justify-start gap-3 rounded-lg px-2 text-ui-label font-medium [&_svg]:size-ui-icon [&_svg]:text-primary [&_svg]:stroke-[1.7]"
               >
                 <Icon className="size-5" />
                 {label}

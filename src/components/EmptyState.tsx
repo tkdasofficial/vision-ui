@@ -4,6 +4,7 @@ import type { AITool } from "@/lib/types";
 import { STUDIO_CATEGORIES, type StudioCategory } from "@/lib/workflow-presets";
 import { Button } from "@/components/ui/button";
 import { ConversationEmptyState } from "@/components/ai-elements/conversation";
+import visionMark from "@/assets/vision-mark.png";
 
 type Props = { tool?: AITool; onPromptClick: (prompt: string) => void };
 export default function EmptyState({ tool, onPromptClick }: Props) {
@@ -79,14 +80,18 @@ export default function EmptyState({ tool, onPromptClick }: Props) {
     );
   return (
     <ConversationEmptyState className="min-h-full justify-end gap-0 px-4 pb-1 pt-6 text-left sm:px-6">
+      <div className="flex flex-1 flex-col items-center justify-center gap-4 pb-6">
+        <img src={visionMark} alt="" width={72} height={72} className="vision-brand-mark size-[72px]" />
+        <h1 className="font-display text-2xl font-medium text-foreground">Vision</h1>
+      </div>
       <div className="w-full max-w-2xl animate-fade-in">
-        <div className="space-y-0">
+        <div className="space-y-1">
           <Button
             variant="ghost"
             onClick={() =>
               document.querySelector<HTMLButtonElement>('button[title="Voice input"]')?.click()
             }
-            className="h-ui-row w-full justify-start gap-3 rounded-lg px-2 text-ui-label font-normal text-secondary-foreground [&_svg]:size-ui-icon"
+            className="vision-prompt-row h-ui-row w-full justify-start gap-3 rounded-lg px-3 text-sm font-normal text-secondary-foreground [&_svg]:size-ui-icon [&_svg]:text-primary"
           >
             <Headphones />
             Voice typing
@@ -94,7 +99,7 @@ export default function EmptyState({ tool, onPromptClick }: Props) {
           <Button
             variant="ghost"
             onClick={() => onPromptClick("Create an image of ")}
-            className="h-ui-row w-full justify-start gap-3 rounded-lg px-2 text-ui-label font-normal text-secondary-foreground [&_svg]:size-ui-icon"
+            className="vision-prompt-row h-ui-row w-full justify-start gap-3 rounded-lg px-3 text-sm font-normal text-secondary-foreground [&_svg]:size-ui-icon [&_svg]:text-primary"
           >
             <Image />
             Create an image or sticker
@@ -102,7 +107,7 @@ export default function EmptyState({ tool, onPromptClick }: Props) {
           <Button
             variant="ghost"
             onClick={() => onPromptClick("Help me write or edit ")}
-            className="h-ui-row w-full justify-start gap-3 rounded-lg px-2 text-ui-label font-normal text-secondary-foreground [&_svg]:size-ui-icon"
+            className="vision-prompt-row h-ui-row w-full justify-start gap-3 rounded-lg px-3 text-sm font-normal text-secondary-foreground [&_svg]:size-ui-icon [&_svg]:text-primary"
           >
             <PenLine />
             Write or edit

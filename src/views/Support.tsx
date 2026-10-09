@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useNavigate } from "@/lib/router-compat";
 import { ArrowLeft, MessageSquare, Mail, HelpCircle, ExternalLink, Loader2 } from "lucide-react";
 import { useState } from "react";
@@ -32,9 +33,9 @@ const Support = () => {
   return (
     <div className="min-h-[100dvh] bg-background flex flex-col">
       <header className="flex items-center justify-between px-4 py-3 border-b border-border bg-background/80 backdrop-blur-sm">
-        <button onClick={() => navigate(-1)} className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors">
+        <Button variant="legacy" size="custom" onClick={() => navigate(-1)} className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors">
           <ArrowLeft className="w-5 h-5" />
-        </button>
+        </Button>
         <h1 className="text-sm font-display font-semibold text-foreground">Support</h1>
         <ProfileMenu />
       </header>
@@ -51,13 +52,13 @@ const Support = () => {
                 { icon: Mail, label: "Email Us", desc: "support@supercopilot.ai", link: "#" },
                 { icon: ExternalLink, label: "Documentation", desc: "Guides & tutorials", link: "#" },
               ].map((item, i) => (
-                <button key={i} className="flex items-start gap-3 p-4 rounded-xl border border-border bg-card hover:bg-accent transition-colors text-left">
+                <Button variant="legacy" size="custom" key={i} className="flex items-start gap-3 p-4 rounded-xl border border-border bg-card hover:bg-accent transition-colors text-left">
                   <item.icon className="w-5 h-5 text-muted-foreground shrink-0 mt-0.5" />
                   <div>
                     <p className="text-sm font-medium text-foreground">{item.label}</p>
                     <p className="text-xs text-muted-foreground">{item.desc}</p>
                   </div>
-                </button>
+                </Button>
               ))}
             </div>
           </section>
@@ -72,12 +73,12 @@ const Support = () => {
                 </div>
                 <p className="text-sm font-medium text-foreground mb-1">Message sent!</p>
                 <p className="text-xs text-muted-foreground mb-4">We'll respond within 24 hours.</p>
-                <button
+                <Button variant="legacy" size="custom"
                   onClick={() => { setSubmitted(false); setSubject(""); setMessage(""); }}
                   className="text-sm text-foreground underline underline-offset-4 hover:opacity-70"
                 >
                   Send another
-                </button>
+                </Button>
               </div>
             ) : (
               <div className="space-y-3">
@@ -109,14 +110,14 @@ const Support = () => {
                     <option value="urgent">Urgent</option>
                   </select>
                 </div>
-                <button
+                <Button variant="legacy" size="custom"
                   onClick={handleSubmit}
                   disabled={!subject.trim() || !message.trim() || submitting}
                   className="w-full py-2.5 rounded-xl bg-foreground text-background text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-40 flex items-center justify-center gap-2"
                 >
                   {submitting && <Loader2 className="w-4 h-4 animate-spin" />}
                   Send message
-                </button>
+                </Button>
               </div>
             )}
           </section>
