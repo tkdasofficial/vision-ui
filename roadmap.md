@@ -9,7 +9,8 @@
 - [x] Verify compact screens, navigation and conversation on narrow/wide layouts
 
 # Vision premium upgrade
-- [ ] Rename all visible branding and page metadata to Vision
-- [ ] Apply the guide’s glass surface system, buttons, fields, overlays and readable light/dark themes across the entire app
-- [ ] Refine chat, drawer, account/settings, tools, auth and admin while preserving existing behavior and compact sizing
-- [ ] Verify navigation, chat controls, forms, major screens, theme contrast and narrow/wide layouts
+- [x] Rename visible app branding and page metadata to Vision; preserve established support contact addresses
+- [x] Apply the guide’s glass surface system, buttons, fields, overlays and readable light/dark themes across the entire app
+- [x] Refine chat, drawer, account/settings, tools, auth and admin while preserving existing behavior and compact sizing
+- [x] Verify navigation, chat controls, forms, major screens, theme contrast and narrow/wide layouts
+- Verification limitation: sending renders the conversation, but the existing AI endpoint returns HTML instead of JSON; AI replies remain unavailable with the local backend. UI navigation and profile persistence passed, with four regression tests passing.
