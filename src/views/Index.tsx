@@ -31,7 +31,9 @@ const Index = () => {
       setLoadedMessages(undefined);
       setChatKey((k) => k + 1);
     }
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [urlChatId, loadChatMessages]);
 
   const handleNewChat = () => {
@@ -42,14 +44,20 @@ const Index = () => {
     navigate("/app/new");
   };
 
-  const handleSelectChat = useCallback((id: string) => {
-    navigate(`/app/chat/${id}`);
-  }, [navigate]);
+  const handleSelectChat = useCallback(
+    (id: string) => {
+      navigate(`/app/chat/${id}`);
+    },
+    [navigate],
+  );
 
-  const handleChatCreated = useCallback((id: string) => {
-    setActiveChatId(id);
-    navigate(`/app/chat/${id}`, { replace: true });
-  }, [navigate]);
+  const handleChatCreated = useCallback(
+    (id: string) => {
+      setActiveChatId(id);
+      navigate(`/app/chat/${id}`, { replace: true });
+    },
+    [navigate],
+  );
 
   const activeChat = activeChatId ? getChatById(activeChatId) : undefined;
   const initialMessages = loadedMessages || activeChat?.messages;
@@ -66,15 +74,26 @@ const Index = () => {
         chatHistory={history}
       />
       <main className="flex-1 flex flex-col min-w-0">
-        {urlChatId && activeChatId !== urlChatId ? <div role="status" className="flex flex-1 items-center justify-center text-sm text-muted-foreground">Loading conversation…</div> : <ChatWorkspace
-          key={chatKey}
-          tool={selectedTool}
-          onMenuClick={() => setSidebarOpen(true)}
-          onNewChat={handleNewChat}
-          initialMessages={initialMessages && initialMessages.length > 0 ? initialMessages : undefined}
-          chatId={activeChatId}
-          onChatCreated={handleChatCreated}
-        />}
+        {urlChatId && activeChatId !== urlChatId ? (
+          <div
+            role="status"
+            className="flex flex-1 items-center justify-center text-sm text-muted-foreground"
+          >
+            Loading conversation…
+          </div>
+        ) : (
+          <ChatWorkspace
+            key={chatKey}
+            tool={selectedTool}
+            onMenuClick={() => setSidebarOpen(true)}
+            onNewChat={handleNewChat}
+            initialMessages={
+              initialMessages && initialMessages.length > 0 ? initialMessages : undefined
+            }
+            chatId={activeChatId}
+            onChatCreated={handleChatCreated}
+          />
+        )}
       </main>
     </div>
   );

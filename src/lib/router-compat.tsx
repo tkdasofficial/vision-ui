@@ -14,13 +14,16 @@ type NavOpts = { replace?: boolean; state?: unknown };
 export function useNavigate() {
   const navigate = useTsNavigate();
   const router = useRouter();
-  return useCallback((to: string | number, opts?: NavOpts) => {
-    if (typeof to === "number") {
-      if (to < 0) router.history.go(to);
-      return;
-    }
-    void navigate({ to: to as never, replace: opts?.replace });
-  }, [navigate, router]);
+  return useCallback(
+    (to: string | number, opts?: NavOpts) => {
+      if (typeof to === "number") {
+        if (to < 0) router.history.go(to);
+        return;
+      }
+      void navigate({ to: to as never, replace: opts?.replace });
+    },
+    [navigate, router],
+  );
 }
 
 export function useLocation() {
