@@ -11,3 +11,4 @@
 
 - Page UIs live in `src/views/`; each `src/routes/*` file only wraps a view (and `<Protected>` for signed-in pages). Why: keeps ported screens separate from routing.
 - Views navigate via `@/lib/router-compat` (thin adapter over TanStack Router). Why: lets ported code keep simple `navigate(path)` calls; never reintroduce react-router-dom.
+- Backend is browser-only: `src/backend/` (localStorage tables + local auth) exposes a Supabase-shaped `supabase` object so views keep their query code. Why: user chose no online backend; AI/edge features return an "unavailable" error.
