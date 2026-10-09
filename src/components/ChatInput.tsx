@@ -223,7 +223,7 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
                  aria-label="Attach file"
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                 className="size-8 shrink-0 rounded-full p-0 text-muted-foreground hover:text-foreground hover:bg-accent [&_svg]:size-5"
+                 className="size-8 shrink-0 rounded-full p-0 border border-border text-muted-foreground hover:text-foreground hover:bg-accent [&_svg]:size-[18px]"
                 title="Attach image"
               >
                 <Paperclip className="w-[18px] h-[18px]" />
@@ -239,10 +239,10 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
                 type="button"
                 onClick={toggleListening}
                 className={cn(
-                  "size-8 shrink-0 rounded-full p-0 transition-all [&_svg]:size-5",
+                  "size-8 shrink-0 rounded-full p-0 border transition-all [&_svg]:size-[18px]",
                   isListening
                     ? "bg-destructive text-destructive-foreground border-destructive animate-pulse"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                    : "border-border text-muted-foreground hover:text-foreground hover:bg-accent"
                 )}
                 title={isListening ? "Stop listening" : "Voice input"}
               >
@@ -255,7 +255,7 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
                 title="Send message"
                 status={disabled ? "submitted" : "ready"}
                 disabled={disabled}
-                className="size-8 shrink-0 rounded-full p-0 bg-foreground text-background hover:opacity-80 disabled:opacity-50 transition-all [&_svg]:size-5"
+                className="size-8 shrink-0 rounded-full p-0 border border-foreground bg-foreground text-background hover:opacity-80 disabled:opacity-50 transition-all [&_svg]:size-[18px]"
               >
                 <ArrowUp className="w-[18px] h-[18px]" />
               </PromptInputSubmit>
