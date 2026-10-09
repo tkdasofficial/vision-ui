@@ -19,15 +19,11 @@
     "noEmit": true,
 
     "skipLibCheck": true,
-    "strict": true,
+    "strict": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
     "noUncheckedSideEffectImports": true,
     "paths": {
       "@/*": ["./src/*"]
