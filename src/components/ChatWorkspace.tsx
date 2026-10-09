@@ -194,7 +194,7 @@ const ChatWorkspace = ({
             };
             setMessages((prev) => {
               // Avoid duplicates
-              if (prev.some((m) => m.id === chatMsg.id)) return prev;
+              if (prev.some((m) => m.id === chatMsg.id || (m.role === chatMsg.role && m.content === chatMsg.content))) return prev;
               return [...prev, chatMsg];
             });
             setNewMessageIds((prev) => new Set(prev).add(newMsg.id));
