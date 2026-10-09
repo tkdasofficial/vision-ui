@@ -42,7 +42,8 @@ const Auth = () => {
           },
         });
         if (error) throw error;
-        toast({ title: "Account created", description: "Check your email to confirm your account." });
+        toast({ title: "Account created", description: "Welcome to Super Copilot!" });
+        navigate("/app/new");
       } else {
         // Login flow
         const { data: signInData, error } = await supabase.auth.signInWithPassword({ email, password });
