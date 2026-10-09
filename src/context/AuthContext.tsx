@@ -18,7 +18,8 @@ type AuthContextType = {
   signOut: () => Promise<void>;
 };
 
-const AuthContext = createContext<AuthContextType | null>(null);
+const AuthContext: import("react").Context<AuthContextType | null> =
+  ((globalThis as any).__sc_auth_ctx__ ??= createContext<AuthContextType | null>(null));
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
