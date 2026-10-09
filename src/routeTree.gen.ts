@@ -10,33 +10,424 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminAnalyticsRouteImport } from './routes/admin.analytics'
+import { Route as AdminAnnouncementsRouteImport } from './routes/admin.announcements'
+import { Route as AdminAuditRouteImport } from './routes/admin.audit'
+import { Route as AdminBackgroundTasksRouteImport } from './routes/admin.background-tasks'
+import { Route as AdminChatSessionsRouteImport } from './routes/admin.chat-sessions'
+import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
+import { Route as AdminFeatureFlagsRouteImport } from './routes/admin.feature-flags'
+import { Route as AdminNotificationsRouteImport } from './routes/admin.notifications'
+import { Route as AdminReportsRouteImport } from './routes/admin.reports'
+import { Route as AdminSubscriptionsRouteImport } from './routes/admin.subscriptions'
+import { Route as AdminSupportRouteImport } from './routes/admin.support'
+import { Route as AdminSystemRouteImport } from './routes/admin.system'
+import { Route as AdminUsersRouteImport } from './routes/admin.users'
+import { Route as AppAccountRouteImport } from './routes/app.account'
+import { Route as AppInboxRouteImport } from './routes/app.inbox'
+import { Route as AppIntegrationsRouteImport } from './routes/app.integrations'
+import { Route as AppNewRouteImport } from './routes/app.new'
+import { Route as AppProspectingRouteImport } from './routes/app.prospecting'
+import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as AppSupportRouteImport } from './routes/app.support'
+import { Route as AppUpgradeRouteImport } from './routes/app.upgrade'
+import { Route as DocsPrivacyPolicyRouteImport } from './routes/docs.privacy-policy'
+import { Route as DocsTermsConditionsRouteImport } from './routes/docs.terms-conditions'
+import { Route as AppChatChatIdRouteImport } from './routes/app.chat.$chatId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAnalyticsRoute = AdminAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAnnouncementsRoute = AdminAnnouncementsRouteImport.update({
+  id: '/announcements',
+  path: '/announcements',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAuditRoute = AdminAuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBackgroundTasksRoute = AdminBackgroundTasksRouteImport.update({
+  id: '/background-tasks',
+  path: '/background-tasks',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminChatSessionsRoute = AdminChatSessionsRouteImport.update({
+  id: '/chat-sessions',
+  path: '/chat-sessions',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDashboardRoute = AdminDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFeatureFlagsRoute = AdminFeatureFlagsRouteImport.update({
+  id: '/feature-flags',
+  path: '/feature-flags',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminNotificationsRoute = AdminNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminReportsRoute = AdminReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSubscriptionsRoute = AdminSubscriptionsRouteImport.update({
+  id: '/subscriptions',
+  path: '/subscriptions',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSupportRoute = AdminSupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSystemRoute = AdminSystemRouteImport.update({
+  id: '/system',
+  path: '/system',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AppAccountRoute = AppAccountRouteImport.update({
+  id: '/app/account',
+  path: '/app/account',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppInboxRoute = AppInboxRouteImport.update({
+  id: '/app/inbox',
+  path: '/app/inbox',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppIntegrationsRoute = AppIntegrationsRouteImport.update({
+  id: '/app/integrations',
+  path: '/app/integrations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppNewRoute = AppNewRouteImport.update({
+  id: '/app/new',
+  path: '/app/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppProspectingRoute = AppProspectingRouteImport.update({
+  id: '/app/prospecting',
+  path: '/app/prospecting',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/app/settings',
+  path: '/app/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppSupportRoute = AppSupportRouteImport.update({
+  id: '/app/support',
+  path: '/app/support',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppUpgradeRoute = AppUpgradeRouteImport.update({
+  id: '/app/upgrade',
+  path: '/app/upgrade',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocsPrivacyPolicyRoute = DocsPrivacyPolicyRouteImport.update({
+  id: '/docs/privacy-policy',
+  path: '/docs/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocsTermsConditionsRoute = DocsTermsConditionsRouteImport.update({
+  id: '/docs/terms-conditions',
+  path: '/docs/terms-conditions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppChatChatIdRoute = AppChatChatIdRouteImport.update({
+  id: '/app/chat/$chatId',
+  path: '/app/chat/$chatId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/login': typeof LoginRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/signup': typeof SignupRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/announcements': typeof AdminAnnouncementsRoute
+  '/admin/audit': typeof AdminAuditRoute
+  '/admin/background-tasks': typeof AdminBackgroundTasksRoute
+  '/admin/chat-sessions': typeof AdminChatSessionsRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/feature-flags': typeof AdminFeatureFlagsRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
+  '/admin/reports': typeof AdminReportsRoute
+  '/admin/subscriptions': typeof AdminSubscriptionsRoute
+  '/admin/support': typeof AdminSupportRoute
+  '/admin/system': typeof AdminSystemRoute
+  '/admin/users': typeof AdminUsersRoute
+  '/app/account': typeof AppAccountRoute
+  '/app/inbox': typeof AppInboxRoute
+  '/app/integrations': typeof AppIntegrationsRoute
+  '/app/new': typeof AppNewRoute
+  '/app/prospecting': typeof AppProspectingRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/support': typeof AppSupportRoute
+  '/app/upgrade': typeof AppUpgradeRoute
+  '/docs/privacy-policy': typeof DocsPrivacyPolicyRoute
+  '/docs/terms-conditions': typeof DocsTermsConditionsRoute
+  '/admin/': typeof AdminIndexRoute
+  '/app/chat/$chatId': typeof AppChatChatIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/login': typeof LoginRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/signup': typeof SignupRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/announcements': typeof AdminAnnouncementsRoute
+  '/admin/audit': typeof AdminAuditRoute
+  '/admin/background-tasks': typeof AdminBackgroundTasksRoute
+  '/admin/chat-sessions': typeof AdminChatSessionsRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/feature-flags': typeof AdminFeatureFlagsRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
+  '/admin/reports': typeof AdminReportsRoute
+  '/admin/subscriptions': typeof AdminSubscriptionsRoute
+  '/admin/support': typeof AdminSupportRoute
+  '/admin/system': typeof AdminSystemRoute
+  '/admin/users': typeof AdminUsersRoute
+  '/app/account': typeof AppAccountRoute
+  '/app/inbox': typeof AppInboxRoute
+  '/app/integrations': typeof AppIntegrationsRoute
+  '/app/new': typeof AppNewRoute
+  '/app/prospecting': typeof AppProspectingRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/support': typeof AppSupportRoute
+  '/app/upgrade': typeof AppUpgradeRoute
+  '/docs/privacy-policy': typeof DocsPrivacyPolicyRoute
+  '/docs/terms-conditions': typeof DocsTermsConditionsRoute
+  '/admin': typeof AdminIndexRoute
+  '/app/chat/$chatId': typeof AppChatChatIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/login': typeof LoginRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/signup': typeof SignupRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/announcements': typeof AdminAnnouncementsRoute
+  '/admin/audit': typeof AdminAuditRoute
+  '/admin/background-tasks': typeof AdminBackgroundTasksRoute
+  '/admin/chat-sessions': typeof AdminChatSessionsRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/feature-flags': typeof AdminFeatureFlagsRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
+  '/admin/reports': typeof AdminReportsRoute
+  '/admin/subscriptions': typeof AdminSubscriptionsRoute
+  '/admin/support': typeof AdminSupportRoute
+  '/admin/system': typeof AdminSystemRoute
+  '/admin/users': typeof AdminUsersRoute
+  '/app/account': typeof AppAccountRoute
+  '/app/inbox': typeof AppInboxRoute
+  '/app/integrations': typeof AppIntegrationsRoute
+  '/app/new': typeof AppNewRoute
+  '/app/prospecting': typeof AppProspectingRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/support': typeof AppSupportRoute
+  '/app/upgrade': typeof AppUpgradeRoute
+  '/docs/privacy-policy': typeof DocsPrivacyPolicyRoute
+  '/docs/terms-conditions': typeof DocsTermsConditionsRoute
+  '/admin/': typeof AdminIndexRoute
+  '/app/chat/$chatId': typeof AppChatChatIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/forgot-password'
+    | '/login'
+    | '/reset-password'
+    | '/signup'
+    | '/admin/analytics'
+    | '/admin/announcements'
+    | '/admin/audit'
+    | '/admin/background-tasks'
+    | '/admin/chat-sessions'
+    | '/admin/dashboard'
+    | '/admin/feature-flags'
+    | '/admin/notifications'
+    | '/admin/reports'
+    | '/admin/subscriptions'
+    | '/admin/support'
+    | '/admin/system'
+    | '/admin/users'
+    | '/app/account'
+    | '/app/inbox'
+    | '/app/integrations'
+    | '/app/new'
+    | '/app/prospecting'
+    | '/app/settings'
+    | '/app/support'
+    | '/app/upgrade'
+    | '/docs/privacy-policy'
+    | '/docs/terms-conditions'
+    | '/admin/'
+    | '/app/chat/$chatId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/forgot-password'
+    | '/login'
+    | '/reset-password'
+    | '/signup'
+    | '/admin/analytics'
+    | '/admin/announcements'
+    | '/admin/audit'
+    | '/admin/background-tasks'
+    | '/admin/chat-sessions'
+    | '/admin/dashboard'
+    | '/admin/feature-flags'
+    | '/admin/notifications'
+    | '/admin/reports'
+    | '/admin/subscriptions'
+    | '/admin/support'
+    | '/admin/system'
+    | '/admin/users'
+    | '/app/account'
+    | '/app/inbox'
+    | '/app/integrations'
+    | '/app/new'
+    | '/app/prospecting'
+    | '/app/settings'
+    | '/app/support'
+    | '/app/upgrade'
+    | '/docs/privacy-policy'
+    | '/docs/terms-conditions'
+    | '/admin'
+    | '/app/chat/$chatId'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/forgot-password'
+    | '/login'
+    | '/reset-password'
+    | '/signup'
+    | '/admin/analytics'
+    | '/admin/announcements'
+    | '/admin/audit'
+    | '/admin/background-tasks'
+    | '/admin/chat-sessions'
+    | '/admin/dashboard'
+    | '/admin/feature-flags'
+    | '/admin/notifications'
+    | '/admin/reports'
+    | '/admin/subscriptions'
+    | '/admin/support'
+    | '/admin/system'
+    | '/admin/users'
+    | '/app/account'
+    | '/app/inbox'
+    | '/app/integrations'
+    | '/app/new'
+    | '/app/prospecting'
+    | '/app/settings'
+    | '/app/support'
+    | '/app/upgrade'
+    | '/docs/privacy-policy'
+    | '/docs/terms-conditions'
+    | '/admin/'
+    | '/app/chat/$chatId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  AuthRoute: typeof AuthRoute
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
+  LoginRoute: typeof LoginRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
+  SignupRoute: typeof SignupRoute
+  AppAccountRoute: typeof AppAccountRoute
+  AppInboxRoute: typeof AppInboxRoute
+  AppIntegrationsRoute: typeof AppIntegrationsRoute
+  AppNewRoute: typeof AppNewRoute
+  AppProspectingRoute: typeof AppProspectingRoute
+  AppSettingsRoute: typeof AppSettingsRoute
+  AppSupportRoute: typeof AppSupportRoute
+  AppUpgradeRoute: typeof AppUpgradeRoute
+  DocsPrivacyPolicyRoute: typeof DocsPrivacyPolicyRoute
+  DocsTermsConditionsRoute: typeof DocsTermsConditionsRoute
+  AppChatChatIdRoute: typeof AppChatChatIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +439,281 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/analytics': {
+      id: '/admin/analytics'
+      path: '/analytics'
+      fullPath: '/admin/analytics'
+      preLoaderRoute: typeof AdminAnalyticsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/announcements': {
+      id: '/admin/announcements'
+      path: '/announcements'
+      fullPath: '/admin/announcements'
+      preLoaderRoute: typeof AdminAnnouncementsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/audit': {
+      id: '/admin/audit'
+      path: '/audit'
+      fullPath: '/admin/audit'
+      preLoaderRoute: typeof AdminAuditRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/background-tasks': {
+      id: '/admin/background-tasks'
+      path: '/background-tasks'
+      fullPath: '/admin/background-tasks'
+      preLoaderRoute: typeof AdminBackgroundTasksRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/chat-sessions': {
+      id: '/admin/chat-sessions'
+      path: '/chat-sessions'
+      fullPath: '/admin/chat-sessions'
+      preLoaderRoute: typeof AdminChatSessionsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/dashboard': {
+      id: '/admin/dashboard'
+      path: '/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AdminDashboardRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/feature-flags': {
+      id: '/admin/feature-flags'
+      path: '/feature-flags'
+      fullPath: '/admin/feature-flags'
+      preLoaderRoute: typeof AdminFeatureFlagsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/notifications': {
+      id: '/admin/notifications'
+      path: '/notifications'
+      fullPath: '/admin/notifications'
+      preLoaderRoute: typeof AdminNotificationsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/reports': {
+      id: '/admin/reports'
+      path: '/reports'
+      fullPath: '/admin/reports'
+      preLoaderRoute: typeof AdminReportsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/subscriptions': {
+      id: '/admin/subscriptions'
+      path: '/subscriptions'
+      fullPath: '/admin/subscriptions'
+      preLoaderRoute: typeof AdminSubscriptionsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/support': {
+      id: '/admin/support'
+      path: '/support'
+      fullPath: '/admin/support'
+      preLoaderRoute: typeof AdminSupportRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/system': {
+      id: '/admin/system'
+      path: '/system'
+      fullPath: '/admin/system'
+      preLoaderRoute: typeof AdminSystemRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/users': {
+      id: '/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/app/account': {
+      id: '/app/account'
+      path: '/app/account'
+      fullPath: '/app/account'
+      preLoaderRoute: typeof AppAccountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/inbox': {
+      id: '/app/inbox'
+      path: '/app/inbox'
+      fullPath: '/app/inbox'
+      preLoaderRoute: typeof AppInboxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/integrations': {
+      id: '/app/integrations'
+      path: '/app/integrations'
+      fullPath: '/app/integrations'
+      preLoaderRoute: typeof AppIntegrationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/new': {
+      id: '/app/new'
+      path: '/app/new'
+      fullPath: '/app/new'
+      preLoaderRoute: typeof AppNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/prospecting': {
+      id: '/app/prospecting'
+      path: '/app/prospecting'
+      fullPath: '/app/prospecting'
+      preLoaderRoute: typeof AppProspectingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/settings': {
+      id: '/app/settings'
+      path: '/app/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/support': {
+      id: '/app/support'
+      path: '/app/support'
+      fullPath: '/app/support'
+      preLoaderRoute: typeof AppSupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/upgrade': {
+      id: '/app/upgrade'
+      path: '/app/upgrade'
+      fullPath: '/app/upgrade'
+      preLoaderRoute: typeof AppUpgradeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/docs/privacy-policy': {
+      id: '/docs/privacy-policy'
+      path: '/docs/privacy-policy'
+      fullPath: '/docs/privacy-policy'
+      preLoaderRoute: typeof DocsPrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/docs/terms-conditions': {
+      id: '/docs/terms-conditions'
+      path: '/docs/terms-conditions'
+      fullPath: '/docs/terms-conditions'
+      preLoaderRoute: typeof DocsTermsConditionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/chat/$chatId': {
+      id: '/app/chat/$chatId'
+      path: '/app/chat/$chatId'
+      fullPath: '/app/chat/$chatId'
+      preLoaderRoute: typeof AppChatChatIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminAnalyticsRoute: typeof AdminAnalyticsRoute
+  AdminAnnouncementsRoute: typeof AdminAnnouncementsRoute
+  AdminAuditRoute: typeof AdminAuditRoute
+  AdminBackgroundTasksRoute: typeof AdminBackgroundTasksRoute
+  AdminChatSessionsRoute: typeof AdminChatSessionsRoute
+  AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminFeatureFlagsRoute: typeof AdminFeatureFlagsRoute
+  AdminNotificationsRoute: typeof AdminNotificationsRoute
+  AdminReportsRoute: typeof AdminReportsRoute
+  AdminSubscriptionsRoute: typeof AdminSubscriptionsRoute
+  AdminSupportRoute: typeof AdminSupportRoute
+  AdminSystemRoute: typeof AdminSystemRoute
+  AdminUsersRoute: typeof AdminUsersRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminAnalyticsRoute: AdminAnalyticsRoute,
+  AdminAnnouncementsRoute: AdminAnnouncementsRoute,
+  AdminAuditRoute: AdminAuditRoute,
+  AdminBackgroundTasksRoute: AdminBackgroundTasksRoute,
+  AdminChatSessionsRoute: AdminChatSessionsRoute,
+  AdminDashboardRoute: AdminDashboardRoute,
+  AdminFeatureFlagsRoute: AdminFeatureFlagsRoute,
+  AdminNotificationsRoute: AdminNotificationsRoute,
+  AdminReportsRoute: AdminReportsRoute,
+  AdminSubscriptionsRoute: AdminSubscriptionsRoute,
+  AdminSupportRoute: AdminSupportRoute,
+  AdminSystemRoute: AdminSystemRoute,
+  AdminUsersRoute: AdminUsersRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
+  AuthRoute: AuthRoute,
+  ForgotPasswordRoute: ForgotPasswordRoute,
+  LoginRoute: LoginRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
+  SignupRoute: SignupRoute,
+  AppAccountRoute: AppAccountRoute,
+  AppInboxRoute: AppInboxRoute,
+  AppIntegrationsRoute: AppIntegrationsRoute,
+  AppNewRoute: AppNewRoute,
+  AppProspectingRoute: AppProspectingRoute,
+  AppSettingsRoute: AppSettingsRoute,
+  AppSupportRoute: AppSupportRoute,
+  AppUpgradeRoute: AppUpgradeRoute,
+  DocsPrivacyPolicyRoute: DocsPrivacyPolicyRoute,
+  DocsTermsConditionsRoute: DocsTermsConditionsRoute,
+  AppChatChatIdRoute: AppChatChatIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

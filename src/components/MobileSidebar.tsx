@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { X, PenSquare, MessageSquare, Pencil, Trash2, Check, Image, Video, FileText, Music, Sparkles, Plug } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@/lib/router-compat";
 import { useState } from "react";
 import { useChatHistory } from "@/context/ChatHistoryContext";
 import logo from "@/assets/logo.svg";
