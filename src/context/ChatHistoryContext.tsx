@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from "react";
 import type { ChatMessage } from "@/lib/types";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/backend/client";
 import { useAuth } from "./AuthContext";
 
 export type ChatHistoryItem = {

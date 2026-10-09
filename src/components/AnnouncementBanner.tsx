@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/backend/client";
 import { X, Info, AlertTriangle, AlertOctagon, CheckCircle2 } from "lucide-react";
 
 type Announcement = { id: string; title: string; body: string; level: string };

@@ -1,4 +1,4 @@
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/backend/client";
 
 export type GeneratedFile = {
   path: string;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/backend/client";
 import { Settings, Key, CheckCircle2, XCircle, Globe, Database, Server } from "lucide-react";
 
 type SecretStatus = { name: string; configured: boolean };
