@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { Menu, SquarePen, Plus } from "lucide-react";
+import { AlignLeft, SquarePen, Sparkle, MessageCircleDashed } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Conversation,
@@ -971,56 +971,45 @@ const ChatWorkspace = ({
   const hasMessages = messages.length > 0;
   const defaultTitle = tool ? tool.shortName : "Super Copilot";
 
-  // Truncate display title to ~2-3 words with ellipsis
-  const displayTitle = chatTitle
-    ? chatTitle.length > 30
-      ? chatTitle.slice(0, 30) + "…"
-      : chatTitle
-    : defaultTitle;
-
   return (
     <div className="flex flex-col h-full flex-1 min-w-0">
-      <header className="relative flex h-[49px] shrink-0 items-center justify-between px-4 sm:px-6 bg-background">
+      <header aria-label={chatTitle || defaultTitle} className="relative flex h-[49px] shrink-0 items-center gap-2 px-3 sm:px-6 bg-background">
         <Button
           variant="ghost"
           size="icon-sm"
           aria-label="Open navigation"
           onClick={onMenuClick}
-          className="rounded-full bg-floating"
+          className="size-11 rounded-full border border-border bg-floating [&_svg]:size-6"
         >
-          <Menu className="size-5" />
+          <AlignLeft />
         </Button>
-        {hasMessages ? (
-          <h2
-            className="mx-3 min-w-0 truncate font-sans text-sm font-medium"
-            title={chatTitle || defaultTitle}
-          >
-            {displayTitle}
-          </h2>
-        ) : (
+        {!hasMessages && (
           <Button
             variant="secondary"
             onClick={() => navigate("/app/upgrade")}
-            className="h-8 gap-1.5 rounded-full bg-floating px-4 text-sm font-medium"
+            className="h-11 gap-2 rounded-full border border-border bg-upgrade px-3 text-[17px] font-semibold text-upgrade-foreground hover:bg-upgrade/90 [&_svg]:size-[18px]"
           >
-            <Plus className="size-3.5" />
+            <Sparkle />
             Get Plus
           </Button>
         )}
+        <div className={hasMessages ? "ml-auto flex h-11 items-center rounded-full border border-border bg-floating" : "ml-auto"}>
         <Button
           variant="ghost"
           size="icon-sm"
           aria-label="New chat"
           onClick={onNewChat}
-          className="rounded-full bg-floating"
+          className={hasMessages ? "size-11 rounded-full [&_svg]:size-6" : "size-11 rounded-full border border-border bg-floating [&_svg]:size-6"}
         >
-          <SquarePen className="size-5" />
+          {hasMessages ? <SquarePen /> : <MessageCircleDashed />}
         </Button>
+        {hasMessages && <ProfileMenu conversation />}
+        </div>
       </header>
       <AnnouncementBanner />
       <Conversation className="min-h-0">
         <ConversationContent
-          className={hasMessages ? "gap-0 px-0 py-6 pb-20" : "h-full min-h-full p-0"}
+          className={hasMessages ? "gap-0 px-0 pt-4 pb-8" : "h-full min-h-full p-0"}
         >
           {hasMessages ? (
             <>

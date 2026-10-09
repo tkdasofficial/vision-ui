@@ -45,6 +45,11 @@
   --color-floating: var(--floating);
   --color-chat-user: var(--chat-user);
   --color-chat-user-foreground: var(--chat-user-foreground);
+  --color-upgrade: var(--upgrade);
+  --color-upgrade-foreground: var(--upgrade-foreground);
+  --color-avatar: var(--avatar);
+  --color-avatar-foreground: var(--avatar-foreground);
+  --color-drawer-scrim: var(--drawer-scrim);
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
   --animate-fade-up: fade-up 0.5s ease-out;
@@ -81,6 +86,11 @@
     --floating: oklch(0.95 0 0);
     --chat-user: oklch(0.94 0 0);
     --chat-user-foreground: oklch(0 0 0);
+    --upgrade: oklch(0.94 0.015 245);
+    --upgrade-foreground: oklch(0.55 0.16 250);
+    --avatar: oklch(0.72 0.16 345);
+    --avatar-foreground: oklch(1 0 0);
+    --drawer-scrim: oklch(0 0 0 / 0.35);
 
     --card: 0 0% 98%;
     --card-foreground: 0 0% 5%;
@@ -127,9 +137,11 @@
     :root {
       --background: 0 0% 0%;
       --foreground: 0 0% 100%;
-      --floating: oklch(0.27 0 0);
-      --chat-user: oklch(0.29 0.07 258);
+      --floating: oklch(0.30 0 0);
+      --chat-user: oklch(0.33 0.085 258);
       --chat-user-foreground: oklch(1 0 0);
+      --upgrade: oklch(0.37 0.025 240);
+      --upgrade-foreground: oklch(0.70 0.15 250);
 
       --card: 0 0% 10%;
       --card-foreground: 0 0% 93%;

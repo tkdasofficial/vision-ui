@@ -9,6 +9,7 @@ import {
   Crown,
   LayoutDashboard,
   Inbox,
+  MoreVertical,
 } from "lucide-react";
 import { useNavigate } from "@/lib/router-compat";
 import { useAuth } from "@/context/AuthContext";
@@ -21,7 +22,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const ProfileMenu = () => {
+const ProfileMenu = ({ conversation = false }: { conversation?: boolean }) => {
   const navigate = useNavigate();
   const { profile, isAdmin, signOut } = useAuth();
 
@@ -37,16 +38,18 @@ const ProfileMenu = () => {
           variant="ghost"
           size="icon"
           aria-label="Open profile menu"
-          className="size-10 rounded-full bg-floating border border-border flex items-center justify-center hover:bg-accent transition-colors"
+          className={conversation ? "size-11 rounded-full bg-transparent [&_svg]:size-6" : "size-12 rounded-full bg-floating border border-border flex items-center justify-center hover:bg-accent transition-colors"}
         >
-          {profile?.avatar_url ? (
+          {conversation ? <MoreVertical /> : profile?.avatar_url ? (
             <img
               src={profile.avatar_url}
               alt=""
               className="w-full h-full rounded-full object-cover"
             />
           ) : (
-            <User className="w-4 h-4 text-foreground" />
+            <span className="flex size-8 items-center justify-center rounded-full bg-avatar text-sm font-normal text-avatar-foreground">
+              {(profile?.full_name || "User").split(/\s+/).slice(0, 2).map((part) => part[0]).join("").toUpperCase()}
+            </span>
           )}
         </Button>
       </DropdownMenuTrigger>
