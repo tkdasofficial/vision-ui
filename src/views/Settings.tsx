@@ -107,9 +107,9 @@ const Settings = () => {
     if (permission === "granted") {
       toast({ title: "Notifications Enabled", description: "You'll receive push notifications." });
       // Show a test notification
-      new Notification("SuperCopilot", {
+      new Notification("Vision", {
         body: "Push notifications are now enabled! 🎉",
-        icon: "/og-icon.png",
+        icon: "/favicon.png",
       });
       if (!notifications) {
         setNotifications(true);
@@ -155,7 +155,7 @@ const Settings = () => {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `supercopilot-export-${new Date().toISOString().slice(0, 10)}.json`;
+      a.download = `vision-export-${new Date().toISOString().slice(0, 10)}.json`;
       a.click();
       URL.revokeObjectURL(url);
       toast({ title: "Exported", description: "Your data has been downloaded." });

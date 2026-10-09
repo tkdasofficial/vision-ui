@@ -317,9 +317,14 @@
 }
 .vision-control:disabled { cursor: not-allowed; }
 .vision-control:not(:disabled):active { filter: brightness(0.94); }
-.vision-control:is([class~="bg-foreground"], [class~="bg-primary"], [class~="bg-navigation"]) {
+.vision-control:is([class~="bg-foreground"], [class~="bg-primary"], [class~="bg-navigation"]):not([class~="h-6"]):not([role="switch"]) {
   background-image: var(--glass-sheen);
   box-shadow: inset 0 1px 0 var(--glass-highlight), 0 4px 16px -8px var(--glass-shadow-color);
+}
+.vision-control:is([class~="h-6"], [role="switch"]) { background-image: none; box-shadow: none; }
+.vision-theme button[class~="bg-foreground"]:not([class~="h-6"]) {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
 }
 .vision-theme [class*="tracking-"] { letter-spacing: 0; }
 .vision-theme [class~="bg-card"] [class~="bg-card"] { box-shadow: none; background-image: none; }
