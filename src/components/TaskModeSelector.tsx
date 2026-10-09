@@ -69,10 +69,11 @@ const TaskModeSelector = ({ selectedMode, onModeChange }: Props) => {
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "size-8 shrink-0 rounded-full p-0 transition-colors [&_svg]:size-5",
+          "h-8 shrink-0 rounded-full border transition-colors gap-1.5",
+          selectedMode === "general" ? "w-8 p-0 [&_svg]:size-[18px]" : "w-auto px-2.5 [&_svg]:size-3.5",
           isOpen
             ? "bg-foreground text-background border-foreground"
-            : "text-muted-foreground hover:text-foreground hover:bg-accent"
+            : "border-border text-muted-foreground hover:text-foreground hover:bg-accent"
         )}
         title={`Mode: ${currentMode.label}`}
         aria-label={`Mode: ${currentMode.label}`}
@@ -82,7 +83,10 @@ const TaskModeSelector = ({ selectedMode, onModeChange }: Props) => {
         {selectedMode === "general" ? (
           <Plus className={cn("w-[18px] h-[18px] transition-transform", isOpen && "rotate-45")} />
         ) : (
-          <currentMode.icon className="size-5 shrink-0" />
+          <>
+            <currentMode.icon className="size-3.5 shrink-0" />
+            <span className="text-xs font-medium leading-none">{currentMode.label}</span>
+          </>
         )}
       </Button>
 
