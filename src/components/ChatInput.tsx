@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { PromptInput, PromptInputTextarea, PromptInputFooter, PromptInputSubmit } from "@/components/ai-elements/prompt-input";
 import TaskModeSelector, { type TaskMode } from "./TaskModeSelector";
+import { appendTranscript } from "@/lib/append-transcript";
 
 type Props = {
   toolName?: string;
@@ -20,6 +21,7 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
   const [isListening, setIsListening] = useState(false);
   const recognitionRef = useRef<any>(null);
   const finalTranscriptRef = useRef("");
+  const acceptingSpeechRef = useRef(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -34,24 +36,27 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
     recognition.lang = "en-US";
 
     recognition.onresult = (event: any) => {
+      if (!acceptingSpeechRef.current) return;
       let interim = "";
       for (let i = event.resultIndex; i < event.results.length; i++) {
         if (event.results[i].isFinal) {
-          finalTranscriptRef.current += event.results[i][0].transcript + " ";
+          finalTranscriptRef.current = appendTranscript(finalTranscriptRef.current, event.results[i][0].transcript);
         } else {
           interim += event.results[i][0].transcript;
         }
       }
-      const newValue = (finalTranscriptRef.current + interim).trimStart();
+      const newValue = appendTranscript(finalTranscriptRef.current, interim);
       setValue(newValue);
-      autoResize();
+      requestAnimationFrame(autoResize);
     };
 
     recognition.onerror = (e: any) => {
       console.warn("Speech recognition error:", e.error);
+      acceptingSpeechRef.current = false;
       setIsListening(false);
     };
     recognition.onend = () => {
+      acceptingSpeechRef.current = false;
       setIsListening(false);
     };
 
@@ -77,9 +82,11 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
     } else {
       finalTranscriptRef.current = value;
       try {
+        acceptingSpeechRef.current = true;
         recognitionRef.current.start();
         setIsListening(true);
       } catch (e) {
+        acceptingSpeechRef.current = false;
         console.warn("Speech recognition start failed:", e);
       }
     }
@@ -90,6 +97,7 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
 
   const handleSend = () => {
     if (!hasContent || disabled) return;
+    acceptingSpeechRef.current = false;
     if (isListening && recognitionRef.current) {
       recognitionRef.current.stop();
       setIsListening(false);
@@ -199,7 +207,7 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
             <PromptInputTextarea
               ref={textareaRef}
               value={value}
-              onChange={(e) => { setValue(e.target.value); autoResize(); }}
+              onChange={(e) => { setValue(e.target.value); finalTranscriptRef.current = e.target.value; autoResize(); }}
               onKeyDown={handleKeyDown}
               placeholder={`Ask Copilot${animatedDots}`}
               aria-label="Message Copilot"
@@ -231,7 +239,10 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
               <TaskModeSelector selectedMode={taskMode} onModeChange={setTaskMode} />
             </div>
 
-            {!hasContent && (
+            <div className={cn(
+              "relative h-8 shrink-0 transition-[width] duration-200 ease-out motion-reduce:transition-none",
+              hasContent ? "w-[72px]" : "w-8"
+            )}>
               <Button
                 variant="ghost"
                 size="icon"
@@ -239,7 +250,7 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
                 type="button"
                 onClick={toggleListening}
                 className={cn(
-                  "size-8 shrink-0 rounded-full p-0 border transition-all [&_svg]:size-[18px]",
+                  "absolute left-0 top-0 size-8 shrink-0 rounded-full p-0 border transition-colors duration-200 motion-reduce:transition-none [&_svg]:size-[18px]",
                   isListening
                     ? "bg-destructive text-destructive-foreground border-destructive animate-pulse"
                     : "border-border text-muted-foreground hover:text-foreground hover:bg-accent"
@@ -248,18 +259,21 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
               >
                 {isListening ? <MicOff className="w-[18px] h-[18px]" /> : <Mic className="w-[18px] h-[18px]" />}
               </Button>
-            )}
-            {hasContent && (
               <PromptInputSubmit
                 aria-label="Send message"
                 title="Send message"
                 status={disabled ? "submitted" : "ready"}
-                disabled={disabled}
-                className="size-8 shrink-0 rounded-full p-0 border border-foreground bg-foreground text-background hover:opacity-80 disabled:opacity-50 transition-all [&_svg]:size-[18px]"
+                disabled={disabled || !hasContent}
+                aria-hidden={!hasContent}
+                tabIndex={hasContent ? 0 : -1}
+                className={cn(
+                  "absolute right-0 top-0 size-8 shrink-0 rounded-full p-0 border border-foreground bg-foreground text-background hover:opacity-80 transition-[opacity,transform] duration-200 ease-out motion-reduce:transition-none [&_svg]:size-[18px]",
+                  hasContent ? "opacity-100 scale-100" : "pointer-events-none opacity-0 scale-75 disabled:opacity-0"
+                )}
               >
                 <ArrowUp className="w-[18px] h-[18px]" />
               </PromptInputSubmit>
-            )}
+            </div>
           </PromptInputFooter>
         </PromptInput>
 
