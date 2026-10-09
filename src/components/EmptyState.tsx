@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { ArrowLeft, ChevronRight, AudioLines, Image, PenLine, Grid2X2 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ArrowLeft, ChevronRight, Headphones, Image, PenLine } from "lucide-react";
 import type { AITool } from "@/lib/types";
 import { STUDIO_CATEGORIES, type StudioCategory } from "@/lib/workflow-presets";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,11 @@ type Props = { tool?: AITool; onPromptClick: (prompt: string) => void };
 export default function EmptyState({ tool, onPromptClick }: Props) {
   const [studio, setStudio] = useState<StudioCategory | null>(null);
   const [showStudios, setShowStudios] = useState(false);
+  useEffect(() => {
+    const openProjects = () => setShowStudios(true);
+    window.addEventListener("open-projects", openProjects);
+    return () => window.removeEventListener("open-projects", openProjects);
+  }, []);
   if (tool)
     return (
       <ConversationEmptyState className="px-6">
@@ -73,47 +78,34 @@ export default function EmptyState({ tool, onPromptClick }: Props) {
       </div>
     );
   return (
-    <ConversationEmptyState className="justify-end gap-0 px-3 pb-5 pt-10 text-left sm:justify-center sm:px-6 sm:pb-24">
-      <div className="w-full max-w-[390px] animate-fade-in">
-        <h1 className="mb-9 text-center font-sans text-2xl font-semibold">Super Copilot</h1>
-        <div className="space-y-3">
+    <ConversationEmptyState className="min-h-full justify-end gap-0 px-4 pb-1 pt-6 text-left sm:px-6">
+      <div className="w-full max-w-2xl animate-fade-in">
+        <div className="space-y-0">
           <Button
             variant="ghost"
             onClick={() =>
               document.querySelector<HTMLButtonElement>('button[title="Voice input"]')?.click()
             }
-            className="h-14 w-full justify-start gap-4 rounded-full px-4 text-base font-normal"
+            className="h-[50px] w-full justify-start gap-3 rounded-lg px-2 text-[18px] font-normal text-secondary-foreground [&_svg]:size-[22px]"
           >
-            <AudioLines className="size-6" />
+            <Headphones />
             Voice typing
-            <ChevronRight className="ml-auto size-4 text-muted-foreground" />
           </Button>
           <Button
             variant="ghost"
             onClick={() => onPromptClick("Create an image of ")}
-            className="h-14 w-full justify-start gap-4 rounded-full px-4 text-base font-normal"
+            className="h-[50px] w-full justify-start gap-3 rounded-lg px-2 text-[18px] font-normal text-secondary-foreground [&_svg]:size-[22px]"
           >
-            <Image className="size-6" />
-            Create an image
-            <ChevronRight className="ml-auto size-4 text-muted-foreground" />
+            <Image />
+            Create an image or sticker
           </Button>
           <Button
             variant="ghost"
             onClick={() => onPromptClick("Help me write or edit ")}
-            className="h-14 w-full justify-start gap-4 rounded-full px-4 text-base font-normal"
+            className="h-[50px] w-full justify-start gap-3 rounded-lg px-2 text-[18px] font-normal text-secondary-foreground [&_svg]:size-[22px]"
           >
-            <PenLine className="size-6" />
+            <PenLine />
             Write or edit
-            <ChevronRight className="ml-auto size-4 text-muted-foreground" />
-          </Button>
-          <Button
-            variant="ghost"
-            onClick={() => setShowStudios(true)}
-            className="h-14 w-full justify-start gap-4 rounded-full px-4 text-base font-normal"
-          >
-            <Grid2X2 className="size-6" />
-            Projects
-            <ChevronRight className="ml-auto size-4 text-muted-foreground" />
           </Button>
         </div>
       </div>
