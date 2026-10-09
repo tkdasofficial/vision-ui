@@ -1,10 +1,9 @@
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useNavigate, useLocation } from "@/lib/router-compat";
 import { supabase } from "@/backend/client";
 import { Mail, Lock, User, Eye, EyeOff, ArrowLeft, ShieldCheck, Smartphone } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import logo from "@/assets/vision-mark.png";
+import logo from "@/assets/logo.svg";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 
 type Mode = "login" | "signup" | "forgot" | "otp-email" | "otp-totp";
@@ -43,7 +42,7 @@ const Auth = () => {
           },
         });
         if (error) throw error;
-        toast({ title: "Account created", description: "Welcome to Vision!" });
+        toast({ title: "Account created", description: "Welcome to Super Copilot!" });
         navigate("/app/new");
       } else {
         // Login flow
@@ -141,7 +140,7 @@ const Auth = () => {
       <div className="min-h-[100dvh] bg-background flex items-center justify-center px-4">
         <div className="w-full max-w-sm space-y-6">
           <div className="flex flex-col items-center gap-3">
-            <div className="size-10 rounded-full bg-primary/10 flex items-center justify-center">
+            <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
               {isTotp ? (
                 <Smartphone className="w-7 h-7 text-primary" />
               ) : (
@@ -170,17 +169,17 @@ const Auth = () => {
             </InputOTP>
           </div>
 
-          <Button variant="legacy" size="custom"
+          <button
             onClick={isTotp ? handleVerifyTotpOtp : handleVerifyEmailOtp}
             disabled={loading || otpCode.length < 6}
             className="w-full py-2.5 rounded-xl bg-foreground text-background text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
           >
             {loading ? "Verifying..." : "Verify"}
-          </Button>
+          </button>
 
           <div className="flex flex-col items-center gap-2">
             {!isTotp && (
-              <Button variant="legacy" size="custom"
+              <button
                 onClick={async () => {
                   const { error } = await supabase.auth.signInWithOtp({ email });
                   if (!error) toast({ title: "Code resent", description: "Check your email." });
@@ -188,15 +187,15 @@ const Auth = () => {
                 className="text-xs text-muted-foreground hover:text-foreground transition-colors"
               >
                 Resend code
-              </Button>
+              </button>
             )}
-            <Button variant="legacy" size="custom"
+            <button
               onClick={() => { setMode("login"); setOtpCode(""); navigate("/login"); }}
               className="flex items-center gap-1 text-xs text-foreground font-medium hover:underline"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               Back to sign in
-            </Button>
+            </button>
           </div>
         </div>
       </div>
@@ -207,10 +206,7 @@ const Auth = () => {
     <div className="min-h-[100dvh] bg-background flex items-center justify-center px-4">
       <div className="w-full max-w-sm space-y-6">
         <div className="flex flex-col items-center gap-3">
-          <div className="flex items-center gap-2.5">
-            <img src={logo} alt="" width={40} height={40} className="vision-brand-mark size-10" />
-            <span className="font-display text-xl font-semibold">Vision</span>
-          </div>
+          <img src={logo} alt="Super Copilot" className="w-14 h-14 rounded-full" />
           <h1 className="font-display text-xl font-semibold text-foreground">
             {mode === "login" ? "Welcome back" : mode === "signup" ? "Create account" : "Reset password"}
           </h1>
@@ -218,14 +214,14 @@ const Auth = () => {
             {mode === "forgot"
               ? "Enter your email and we'll send a reset link"
               : mode === "signup"
-              ? "Sign up to start using Vision"
-              : "Sign in to your Vision account"}
+              ? "Sign up to start using Super Copilot"
+              : "Sign in to your Super Copilot account"}
           </p>
         </div>
 
         {mode !== "forgot" && (
           <div className="grid grid-cols-2 gap-2">
-            <Button variant="legacy" size="custom"
+            <button
               onClick={() => handleOAuth("google")}
               className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-border bg-card text-sm font-medium text-foreground hover:bg-accent transition-colors"
             >
@@ -236,8 +232,8 @@ const Auth = () => {
                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
               </svg>
               Google
-            </Button>
-            <Button variant="legacy" size="custom"
+            </button>
+            <button
               onClick={() => handleOAuth("github")}
               className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-border bg-card text-sm font-medium text-foreground hover:bg-accent transition-colors"
             >
@@ -245,7 +241,7 @@ const Auth = () => {
                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
               </svg>
               GitHub
-            </Button>
+            </button>
           </div>
         )}
 
@@ -293,26 +289,26 @@ const Auth = () => {
                 onKeyDown={(e) => e.key === "Enter" && handleEmailAuth()}
                 className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-border bg-card text-sm text-foreground outline-none focus:border-foreground/20 transition-colors"
               />
-              <Button variant="legacy" size="custom"
+              <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-              </Button>
+              </button>
             </div>
           )}
 
           {mode === "login" && (
-            <Button variant="legacy" size="custom"
+            <button
               onClick={() => { setMode("forgot"); navigate("/forgot-password"); }}
               className="text-xs text-muted-foreground hover:text-foreground transition-colors"
             >
               Forgot password?
-            </Button>
+            </button>
           )}
 
-          <Button variant="legacy" size="custom"
+          <button
             onClick={handleEmailAuth}
             disabled={loading}
             className="w-full py-2.5 rounded-xl bg-foreground text-background text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
@@ -324,29 +320,29 @@ const Auth = () => {
               : mode === "signup"
               ? "Create account"
               : "Send reset link"}
-          </Button>
+          </button>
         </div>
 
         <p className="text-center text-sm text-muted-foreground">
           {mode === "login" ? (
             <>
               Don't have an account?{" "}
-              <Button variant="legacy" size="custom" onClick={() => { setMode("signup"); navigate("/signup"); }} className="text-foreground font-medium hover:underline">
+              <button onClick={() => { setMode("signup"); navigate("/signup"); }} className="text-foreground font-medium hover:underline">
                 Sign up
-              </Button>
+              </button>
             </>
           ) : mode === "signup" ? (
             <>
               Already have an account?{" "}
-              <Button variant="legacy" size="custom" onClick={() => { setMode("login"); navigate("/login"); }} className="text-foreground font-medium hover:underline">
+              <button onClick={() => { setMode("login"); navigate("/login"); }} className="text-foreground font-medium hover:underline">
                 Sign in
-              </Button>
+              </button>
             </>
           ) : (
-            <Button variant="legacy" size="custom" onClick={() => { setMode("login"); navigate("/login"); }} className="flex items-center gap-1 text-foreground font-medium hover:underline mx-auto">
+            <button onClick={() => { setMode("login"); navigate("/login"); }} className="flex items-center gap-1 text-foreground font-medium hover:underline mx-auto">
               <ArrowLeft className="w-3.5 h-3.5" />
               Back to sign in
-            </Button>
+            </button>
           )}
         </p>
       </div>

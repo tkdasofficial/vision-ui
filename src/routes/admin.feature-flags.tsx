@@ -4,12 +4,10 @@ import Page from "@/views/admin/FeatureFlags";
 export const Route = createFileRoute("/admin/feature-flags")({
   head: () => ({
     meta: [
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { title: "Admin · Feature flags — Vision" },
-      { name: "description", content: "Admin · Feature flags in Vision, your all-in-one AI workspace." },
-      { property: "og:title", content: "Admin · Feature flags — Vision" },
-      { property: "og:description", content: "Admin · Feature flags in Vision, your all-in-one AI workspace." },
+      { title: "Admin · Feature flags — Super Copilot" },
+      { name: "description", content: "Admin · Feature flags in Super Copilot, your all-in-one AI workspace." },
+      { property: "og:title", content: "Admin · Feature flags — Super Copilot" },
+      { property: "og:description", content: "Admin · Feature flags in Super Copilot, your all-in-one AI workspace." },
     ],
   }),
   component: RouteComponent,

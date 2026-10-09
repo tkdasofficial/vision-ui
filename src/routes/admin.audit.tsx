@@ -4,12 +4,10 @@ import Page from "@/views/admin/AuditLog";
 export const Route = createFileRoute("/admin/audit")({
   head: () => ({
     meta: [
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { title: "Admin · Audit log — Vision" },
-      { name: "description", content: "Admin · Audit log in Vision, your all-in-one AI workspace." },
-      { property: "og:title", content: "Admin · Audit log — Vision" },
-      { property: "og:description", content: "Admin · Audit log in Vision, your all-in-one AI workspace." },
+      { title: "Admin · Audit log — Super Copilot" },
+      { name: "description", content: "Admin · Audit log in Super Copilot, your all-in-one AI workspace." },
+      { property: "og:title", content: "Admin · Audit log — Super Copilot" },
+      { property: "og:description", content: "Admin · Audit log in Super Copilot, your all-in-one AI workspace." },
     ],
   }),
   component: RouteComponent,

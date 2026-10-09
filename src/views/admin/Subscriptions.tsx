@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { supabase } from "@/backend/client";
 import { useToast } from "@/hooks/use-toast";
@@ -128,9 +127,9 @@ const AdminSubscriptions = () => {
                     {s.expires_at ? new Date(s.expires_at).toLocaleDateString() : "—"}
                   </td>
                   <td className="p-3 text-right whitespace-nowrap">
-                    <Button variant="legacy" size="custom" onClick={() => extend(s, 7)} className="text-xs px-2 py-1 border border-border rounded-md hover:bg-accent">+7d</Button>
-                    <Button variant="legacy" size="custom" onClick={() => extend(s, 30)} className="text-xs px-2 py-1 border border-border rounded-md hover:bg-accent ml-1">+30d</Button>
-                    <Button variant="legacy" size="custom" onClick={() => extend(s, 365)} className="text-xs px-2 py-1 border border-border rounded-md hover:bg-accent ml-1">+1y</Button>
+                    <button onClick={() => extend(s, 7)} className="text-xs px-2 py-1 border border-border rounded-md hover:bg-accent">+7d</button>
+                    <button onClick={() => extend(s, 30)} className="text-xs px-2 py-1 border border-border rounded-md hover:bg-accent ml-1">+30d</button>
+                    <button onClick={() => extend(s, 365)} className="text-xs px-2 py-1 border border-border rounded-md hover:bg-accent ml-1">+1y</button>
                   </td>
                 </tr>
               ))}

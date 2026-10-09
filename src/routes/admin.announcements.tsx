@@ -4,12 +4,10 @@ import Page from "@/views/admin/Announcements";
 export const Route = createFileRoute("/admin/announcements")({
   head: () => ({
     meta: [
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { title: "Admin · Announcements — Vision" },
-      { name: "description", content: "Admin · Announcements in Vision, your all-in-one AI workspace." },
-      { property: "og:title", content: "Admin · Announcements — Vision" },
-      { property: "og:description", content: "Admin · Announcements in Vision, your all-in-one AI workspace." },
+      { title: "Admin · Announcements — Super Copilot" },
+      { name: "description", content: "Admin · Announcements in Super Copilot, your all-in-one AI workspace." },
+      { property: "og:title", content: "Admin · Announcements — Super Copilot" },
+      { property: "og:description", content: "Admin · Announcements in Super Copilot, your all-in-one AI workspace." },
     ],
   }),
   component: RouteComponent,

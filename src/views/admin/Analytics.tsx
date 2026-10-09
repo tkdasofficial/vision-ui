@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { supabase } from "@/backend/client";
 import {
@@ -111,7 +110,7 @@ const AdminAnalytics = () => {
         <div className="flex items-center gap-2">
           <Calendar className="w-4 h-4 text-muted-foreground" />
           {[7, 14, 30].map((days) => (
-            <Button variant="legacy" size="custom"
+            <button
               key={days}
               onClick={() => setTimeRange(days)}
               className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
@@ -119,7 +118,7 @@ const AdminAnalytics = () => {
               }`}
             >
               {days}d
-            </Button>
+            </button>
           ))}
         </div>
       </div>

@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { supabase } from "@/backend/client";
 import { useAuth } from "@/context/AuthContext";
@@ -82,14 +81,14 @@ const AdminNotifications = () => {
             <option value="pro">Pro Users</option>
             <option value="business">Business Users</option>
           </select>
-          <Button variant="legacy" size="custom"
+          <button
             onClick={sendNotification}
             disabled={sending || !title.trim() || !message.trim()}
             className="flex items-center gap-2 px-4 py-2 rounded-xl bg-foreground text-background text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
           >
             <Send className="w-4 h-4" />
             Send
-          </Button>
+          </button>
         </div>
       </div>
 
@@ -113,12 +112,12 @@ const AdminNotifications = () => {
                   <span className="text-xs text-muted-foreground">{new Date(n.created_at).toLocaleString()}</span>
                 </div>
               </div>
-              <Button variant="legacy" size="custom"
+              <button
                 onClick={() => deleteNotification(n.id)}
                 className="p-1.5 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors shrink-0"
               >
                 <Trash2 className="w-4 h-4" />
-              </Button>
+              </button>
             </div>
           ))
         )}

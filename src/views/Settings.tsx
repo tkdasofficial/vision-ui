@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { useNavigate } from "@/lib/router-compat";
 import { ArrowLeft, Globe, Bell, BellOff, Trash2, Download, AlertTriangle, Loader2, Check, BellRing } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
@@ -107,9 +106,9 @@ const Settings = () => {
     if (permission === "granted") {
       toast({ title: "Notifications Enabled", description: "You'll receive push notifications." });
       // Show a test notification
-      new Notification("Vision", {
+      new Notification("SuperCopilot", {
         body: "Push notifications are now enabled! 🎉",
-        icon: "/favicon.png",
+        icon: "/og-icon.png",
       });
       if (!notifications) {
         setNotifications(true);
@@ -155,7 +154,7 @@ const Settings = () => {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `vision-export-${new Date().toISOString().slice(0, 10)}.json`;
+      a.download = `supercopilot-export-${new Date().toISOString().slice(0, 10)}.json`;
       a.click();
       URL.revokeObjectURL(url);
       toast({ title: "Exported", description: "Your data has been downloaded." });
@@ -209,15 +208,15 @@ const Settings = () => {
   return (
     <div className="min-h-[100dvh] bg-background flex flex-col">
       <header className="flex items-center justify-between px-4 py-3 border-b border-border bg-background/80 backdrop-blur-sm">
-        <Button variant="legacy" size="custom" onClick={() => navigate(-1)} className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors">
+        <button onClick={() => navigate(-1)} className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors">
           <ArrowLeft className="w-5 h-5" />
-        </Button>
+        </button>
         <h1 className="text-sm font-display font-semibold text-foreground">Settings</h1>
         <ProfileMenu />
       </header>
 
-      <div className="flex-1 px-4 py-4 sm:px-6 overflow-y-auto">
-        <div className="max-w-lg mx-auto space-y-4">
+      <div className="flex-1 px-4 py-6 sm:px-6 overflow-y-auto">
+        <div className="max-w-lg mx-auto space-y-6">
           {/* Saving indicator */}
           {saving && (
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -230,7 +229,7 @@ const Settings = () => {
           <section>
             <h2 className="font-display text-lg font-semibold text-foreground mb-4">Preferences</h2>
             <div className="space-y-3">
-              <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-xl border border-border bg-card p-3">
+              <div className="flex items-center justify-between rounded-xl border border-border bg-card p-4">
                 <div className="flex items-center gap-3">
                   <Globe className="w-4 h-4 text-muted-foreground" />
                   <div>
@@ -251,7 +250,7 @@ const Settings = () => {
                 </select>
               </div>
 
-              <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-xl border border-border bg-card p-3">
+              <div className="flex items-center justify-between rounded-xl border border-border bg-card p-4">
                 <div className="flex items-center gap-3">
                   {notifications ? <Bell className="w-4 h-4 text-muted-foreground" /> : <BellOff className="w-4 h-4 text-muted-foreground" />}
                   <div>
@@ -259,15 +258,15 @@ const Settings = () => {
                     <p className="text-xs text-muted-foreground">Enable or disable alerts</p>
                   </div>
                 </div>
-                <Button variant="legacy" size="custom"
+                <button
                   onClick={handleNotificationsToggle}
                   className={`w-10 h-6 rounded-full transition-colors relative ${notifications ? "bg-foreground" : "bg-muted"}`}
                 >
                   <div className={`w-4 h-4 rounded-full bg-background absolute top-1 transition-all ${notifications ? "left-5" : "left-1"}`} />
-                </Button>
+                </button>
               </div>
 
-              <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-xl border border-border bg-card p-3">
+              <div className="flex items-center justify-between rounded-xl border border-border bg-card p-4">
                 <div>
                   <p className="text-sm font-medium text-foreground">Default tool</p>
                   <p className="text-xs text-muted-foreground">Opens on launch</p>
@@ -312,13 +311,13 @@ const Settings = () => {
                       <span className="text-[hsl(var(--success))]">Enabled</span>
                     </div>
                   ) : (
-                    <Button variant="legacy" size="custom"
+                    <button
                       onClick={handleRequestPush}
                       disabled={pushPermission === "denied"}
                       className="text-xs font-medium px-3 py-1.5 rounded-lg bg-foreground text-background hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       Enable
-                    </Button>
+                    </button>
                   )}
                 </div>
               </div>
@@ -329,7 +328,7 @@ const Settings = () => {
           <section>
             <h2 className="font-display text-lg font-semibold text-foreground mb-4">Data & Privacy</h2>
             <div className="space-y-3">
-              <Button variant="legacy" size="custom"
+              <button
                 onClick={handleExport}
                 disabled={exporting}
                 className="w-full flex items-center gap-3 rounded-xl border border-border bg-card p-4 hover:bg-accent transition-colors text-left disabled:opacity-50"
@@ -339,9 +338,9 @@ const Settings = () => {
                   <p className="text-sm font-medium text-foreground">Export data</p>
                   <p className="text-xs text-muted-foreground">Download all your conversations & data as JSON</p>
                 </div>
-              </Button>
+              </button>
 
-              <Button variant="legacy" size="custom"
+              <button
                 onClick={handleClearHistory}
                 disabled={clearing}
                 className="w-full flex items-center gap-3 rounded-xl border border-border bg-card p-4 hover:bg-accent transition-colors text-left disabled:opacity-50"
@@ -351,9 +350,9 @@ const Settings = () => {
                   <p className="text-sm font-medium text-foreground">Clear all history</p>
                   <p className="text-xs text-muted-foreground">Delete all saved conversations (kept for 7 days)</p>
                 </div>
-              </Button>
+              </button>
 
-              <Button variant="legacy" size="custom"
+              <button
                 onClick={() => setShowDeleteConfirm(!showDeleteConfirm)}
                 className="w-full flex items-center gap-3 rounded-xl border border-destructive/30 bg-card p-4 hover:bg-destructive/5 transition-colors text-left"
               >
@@ -362,24 +361,24 @@ const Settings = () => {
                   <p className="text-sm font-medium text-destructive">Delete account</p>
                   <p className="text-xs text-muted-foreground">Permanently delete your account & data</p>
                 </div>
-              </Button>
+              </button>
 
               {showDeleteConfirm && (
                 <div className="rounded-xl border border-destructive/30 bg-destructive/5 p-4 animate-fade-up">
                   <p className="text-sm text-foreground mb-3">Are you sure? This action cannot be undone.</p>
                   <div className="flex gap-2">
-                    <Button variant="legacy" size="custom"
+                    <button
                       onClick={() => setShowDeleteConfirm(false)}
                       className="flex-1 py-2 rounded-lg border border-border text-sm text-foreground hover:bg-accent transition-colors"
                     >
                       Cancel
-                    </Button>
-                    <Button variant="legacy" size="custom"
+                    </button>
+                    <button
                       onClick={handleDeleteAccount}
                       className="flex-1 py-2 rounded-lg bg-destructive text-destructive-foreground text-sm font-medium hover:opacity-90 transition-opacity"
                     >
                       Delete
-                    </Button>
+                    </button>
                   </div>
                 </div>
               )}

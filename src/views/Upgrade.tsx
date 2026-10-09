@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { useNavigate } from "@/lib/router-compat";
 import { ArrowLeft, Check, Sparkles, Loader2 } from "lucide-react";
@@ -70,30 +69,30 @@ const Upgrade = () => {
     <div className="min-h-[100dvh] bg-background">
       <div className="px-4 py-3 sticky top-0 bg-background/85 backdrop-blur-md z-20 border-b border-border/60">
         <div className="max-w-7xl mx-auto flex items-center gap-3">
-          <Button variant="legacy" size="custom" onClick={() => navigate(-1)} className="p-2 -ml-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors">
+          <button onClick={() => navigate(-1)} className="p-2 -ml-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors">
             <ArrowLeft className="w-4.5 h-4.5" strokeWidth={2} />
-          </Button>
+          </button>
           <h1 className="text-base font-display font-semibold text-foreground">Plans & Pricing</h1>
           <div className="ml-auto"><ProfileMenu /></div>
         </div>
       </div>
 
-      <div className="px-4 py-6 max-w-7xl mx-auto">
-        <div className="text-center mb-6">
+      <div className="px-4 py-10 max-w-7xl mx-auto">
+        <div className="text-center mb-8">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full mb-4">
             <Sparkles className="w-3.5 h-3.5" />
             5 tiers · BYOK on every paid plan
           </div>
-          <h2 className="text-xl md:text-2xl font-display font-bold text-foreground">Pick the plan that scales with you</h2>
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground tracking-tight">Pick the plan that scales with you</h2>
           <p className="text-sm md:text-base text-muted-foreground mt-3 max-w-xl mx-auto">
             Chat, images, video, TTS — all from one workspace. Bring your own API keys on any paid plan to remove every limit.
           </p>
 
           <div className="inline-flex items-center gap-1 mt-6 p-1 bg-accent rounded-full">
-            <Button variant="legacy" size="custom" onClick={() => setBilling("monthly")} className={`px-4 py-1.5 text-xs font-medium rounded-full transition-colors ${billing === "monthly" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground"}`}>Monthly</Button>
-            <Button variant="legacy" size="custom" onClick={() => setBilling("yearly")} className={`px-4 py-1.5 text-xs font-medium rounded-full transition-colors flex items-center gap-1.5 ${billing === "yearly" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground"}`}>
+            <button onClick={() => setBilling("monthly")} className={`px-4 py-1.5 text-xs font-medium rounded-full transition-colors ${billing === "monthly" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground"}`}>Monthly</button>
+            <button onClick={() => setBilling("yearly")} className={`px-4 py-1.5 text-xs font-medium rounded-full transition-colors flex items-center gap-1.5 ${billing === "yearly" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground"}`}>
               Yearly <span className="text-[10px] px-1.5 py-0.5 bg-primary/15 text-primary rounded-full">−17%</span>
-            </Button>
+            </button>
           </div>
         </div>
 
@@ -106,7 +105,7 @@ const Upgrade = () => {
               const monthly = billing === "monthly" ? p.price_monthly : (p.price_yearly / 12);
               const yearly = p.price_yearly;
               return (
-                <div key={p.plan} className={`relative rounded-lg p-4 border ${p.popular ? "border-primary bg-primary/[0.03] shadow-lg" : "border-border bg-card"}`}>
+                <div key={p.plan} className={`relative rounded-2xl p-5 border ${p.popular ? "border-primary bg-primary/[0.03] shadow-lg" : "border-border bg-card"}`}>
                   {p.popular && (
                     <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 bg-primary text-primary-foreground text-[10px] font-semibold uppercase tracking-wider rounded-full">
                       Most popular
@@ -116,14 +115,14 @@ const Upgrade = () => {
                   <p className="text-xs text-muted-foreground mt-0.5 min-h-[2.4em]">{p.tagline}</p>
 
                   <div className="mt-4 flex items-baseline gap-1">
-                    <span className="text-2xl font-bold text-foreground">${Number(monthly).toFixed(0)}</span>
+                    <span className="text-3xl font-bold text-foreground">${Number(monthly).toFixed(0)}</span>
                     <span className="text-xs text-muted-foreground">/mo</span>
                   </div>
                   <p className="text-[11px] text-muted-foreground mt-0.5 min-h-[1.2em]">
                     {p.price_monthly > 0 && billing === "yearly" ? `Billed $${yearly}/yr` : p.price_monthly === 0 ? "Free forever" : "Billed monthly"}
                   </p>
 
-                  <Button variant="legacy" size="custom"
+                  <button
                     onClick={() => handleSelect(p.plan)}
                     disabled={isCurrent || updating === p.plan}
                     className={`w-full mt-4 py-2.5 rounded-lg text-sm font-semibold transition-colors disabled:opacity-60 ${
@@ -133,7 +132,7 @@ const Upgrade = () => {
                     }`}
                   >
                     {updating === p.plan ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : isCurrent ? "Current plan" : p.plan === "free" ? "Downgrade" : "Get started"}
-                  </Button>
+                  </button>
 
                   <ul className="space-y-2 mt-5">
                     {(p.features as string[]).map((f, i) => (

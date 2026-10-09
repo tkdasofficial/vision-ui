@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { useNavigate } from "@/lib/router-compat";
 import { ArrowLeft } from "lucide-react";
 import ProfileMenu from "@/components/ProfileMenu";
@@ -9,9 +8,9 @@ const Privacy = () => {
   return (
     <div className="min-h-[100dvh] bg-background flex flex-col">
       <header className="flex items-center justify-between px-4 py-3 border-b border-border bg-background/80 backdrop-blur-sm">
-        <Button variant="legacy" size="custom" onClick={() => navigate(-1)} className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors">
+        <button onClick={() => navigate(-1)} className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors">
           <ArrowLeft className="w-5 h-5" />
-        </Button>
+        </button>
         <h1 className="text-sm font-display font-semibold text-foreground">Privacy Policy</h1>
         <ProfileMenu />
       </header>

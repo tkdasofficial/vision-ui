@@ -5,12 +5,10 @@ import { Protected } from "@/components/Protected";
 export const Route = createFileRoute("/app/chat/$chatId")({
   head: () => ({
     meta: [
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { title: "Chat — Vision" },
-      { name: "description", content: "Chat in Vision, your all-in-one AI workspace." },
-      { property: "og:title", content: "Chat — Vision" },
-      { property: "og:description", content: "Chat in Vision, your all-in-one AI workspace." },
+      { title: "Chat — Super Copilot" },
+      { name: "description", content: "Chat in Super Copilot, your all-in-one AI workspace." },
+      { property: "og:title", content: "Chat — Super Copilot" },
+      { property: "og:description", content: "Chat in Super Copilot, your all-in-one AI workspace." },
     ],
   }),
   component: RouteComponent,

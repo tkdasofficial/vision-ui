@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { supabase } from "@/backend/client";
 import { useAuth } from "@/context/AuthContext";
@@ -171,12 +170,12 @@ export default function Prospecting() {
         {/* Discovery */}
         <section className="border border-border rounded-xl bg-card">
           <div className="flex border-b border-border">
-            <Button variant="legacy" size="custom" onClick={() => setTab("youtube")} className={`px-5 py-3 text-sm font-medium flex items-center gap-2 ${tab === "youtube" ? "border-b-2 border-foreground" : "text-muted-foreground"}`}>
+            <button onClick={() => setTab("youtube")} className={`px-5 py-3 text-sm font-medium flex items-center gap-2 ${tab === "youtube" ? "border-b-2 border-foreground" : "text-muted-foreground"}`}>
               <Youtube className="w-4 h-4" /> YouTube (API v3)
-            </Button>
-            <Button variant="legacy" size="custom" onClick={() => setTab("web")} className={`px-5 py-3 text-sm font-medium flex items-center gap-2 ${tab === "web" ? "border-b-2 border-foreground" : "text-muted-foreground"}`}>
+            </button>
+            <button onClick={() => setTab("web")} className={`px-5 py-3 text-sm font-medium flex items-center gap-2 ${tab === "web" ? "border-b-2 border-foreground" : "text-muted-foreground"}`}>
               <Globe className="w-4 h-4" /> Web Discovery
-            </Button>
+            </button>
           </div>
 
           {tab === "youtube" ? (
@@ -189,9 +188,9 @@ export default function Prospecting() {
               <Field label="Target count" type="number" value={target} onChange={(v: any) => setTarget(Number(v))} />
               <div className="md:col-span-6 flex items-center justify-between pt-1">
                 <p className="text-xs text-muted-foreground flex items-center gap-1.5"><Filter className="w-3.5 h-3.5" />Needs your YouTube API key — add it under Integrations → API Keys (provider: youtube).</p>
-                <Button variant="legacy" size="custom" onClick={startYouTube} disabled={running} className="px-4 py-2 rounded-lg bg-foreground text-background text-sm font-medium flex items-center gap-2 disabled:opacity-50">
+                <button onClick={startYouTube} disabled={running} className="px-4 py-2 rounded-lg bg-foreground text-background text-sm font-medium flex items-center gap-2 disabled:opacity-50">
                   <Play className="w-4 h-4" />Run YouTube prospecting
-                </Button>
+                </button>
               </div>
             </div>
           ) : (
@@ -199,9 +198,9 @@ export default function Prospecting() {
               <Field className="md:col-span-2" label="Industry / niche" value={webNiche} onChange={setWebNiche} placeholder="e.g. food companies in Mumbai" />
               <Field label="Target count" type="number" value={webTarget} onChange={(v: any) => setWebTarget(Number(v))} />
               <div className="flex items-end">
-                <Button variant="legacy" size="custom" onClick={startWeb} disabled={running} className="w-full px-4 py-2 rounded-lg bg-foreground text-background text-sm font-medium flex items-center justify-center gap-2 disabled:opacity-50">
+                <button onClick={startWeb} disabled={running} className="w-full px-4 py-2 rounded-lg bg-foreground text-background text-sm font-medium flex items-center justify-center gap-2 disabled:opacity-50">
                   <Play className="w-4 h-4" />Discover companies
-                </Button>
+                </button>
               </div>
               <p className="md:col-span-4 text-xs text-muted-foreground">Uses Gemini Search Grounding to find real companies, then scrapes their contact/about pages for emails with human-like delays.</p>
             </div>
@@ -216,12 +215,12 @@ export default function Prospecting() {
               <span className="text-xs text-muted-foreground">{leads.length} leads · {selected.size} selected</span>
             </div>
             <div className="flex items-center gap-2">
-              <Button variant="legacy" size="custom" onClick={deleteSelected} disabled={selected.size === 0} className="px-3 py-1.5 text-xs rounded-lg border border-border hover:bg-accent disabled:opacity-40 flex items-center gap-1.5">
+              <button onClick={deleteSelected} disabled={selected.size === 0} className="px-3 py-1.5 text-xs rounded-lg border border-border hover:bg-accent disabled:opacity-40 flex items-center gap-1.5">
                 <Trash2 className="w-3.5 h-3.5" />Delete
-              </Button>
-              <Button variant="legacy" size="custom" onClick={queueOutreach} disabled={selected.size === 0} className="px-3 py-1.5 text-xs rounded-lg bg-foreground text-background hover:opacity-90 disabled:opacity-40 flex items-center gap-1.5">
+              </button>
+              <button onClick={queueOutreach} disabled={selected.size === 0} className="px-3 py-1.5 text-xs rounded-lg bg-foreground text-background hover:opacity-90 disabled:opacity-40 flex items-center gap-1.5">
                 <Send className="w-3.5 h-3.5" />Queue outreach ({selected.size})
-              </Button>
+              </button>
             </div>
           </div>
           <div className="overflow-x-auto">
@@ -279,9 +278,9 @@ export default function Prospecting() {
                 placeholder="jane@acme.com, ops@studio.io" />
             </div>
             <div className="flex items-end">
-              <Button variant="legacy" size="custom" onClick={addManualLeads} className="w-full px-4 py-2 rounded-lg bg-foreground text-background text-sm font-medium flex items-center justify-center gap-2">
+              <button onClick={addManualLeads} className="w-full px-4 py-2 rounded-lg bg-foreground text-background text-sm font-medium flex items-center justify-center gap-2">
                 <UserPlus className="w-4 h-4" />Add to board
-              </Button>
+              </button>
             </div>
           </div>
         </section>
@@ -303,7 +302,7 @@ export default function Prospecting() {
             </div>
             <Field label="New campaign name" value={newCampaignName} onChange={setNewCampaignName} placeholder="Q1 outbound" />
             <div className="md:col-span-1 flex items-end">
-              <Button variant="legacy" size="custom" onClick={createCampaign} className="w-full px-4 py-2 rounded-lg border border-border text-sm hover:bg-accent">Create campaign</Button>
+              <button onClick={createCampaign} className="w-full px-4 py-2 rounded-lg border border-border text-sm hover:bg-accent">Create campaign</button>
             </div>
             <div className="md:col-span-3">
               <label className="text-xs text-muted-foreground">Pitch context (what you're offering, why it fits them)</label>

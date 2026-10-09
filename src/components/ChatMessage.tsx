@@ -1,34 +1,8 @@
 import { useState, useCallback, useEffect, useRef, useMemo, forwardRef } from "react";
 import type { ChatMessage as ChatMessageType, StockVideo } from "@/lib/types";
-import {
-  Copy,
-  Check,
-  Play,
-  ExternalLink,
-  Download,
-  Volume2,
-  VolumeX,
-  ThumbsUp,
-  ThumbsDown,
-  MoreVertical,
-  FileCode,
-  Share2,
-} from "lucide-react";
+import { Copy, Check, Play, ExternalLink, Download, Volume2, VolumeX, ThumbsUp, ThumbsDown, Flag, FileCode } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
-import {
-  Message,
-  MessageContent,
-  MessageResponse,
-  MessageAction,
-} from "@/components/ai-elements/message";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
 import type { Components } from "react-markdown";
 import { useToast } from "@/hooks/use-toast";
 import VideoGenerationCard from "./VideoGenerationCard";
@@ -89,17 +63,15 @@ const CodeBlock = ({ children, className }: { children: React.ReactNode; classNa
       <div className="flex items-center justify-between px-3 py-1.5 bg-muted/60 border-b border-border">
         <div className="flex items-center gap-1.5">
           <FileCode className="w-3.5 h-3.5 text-muted-foreground" />
-          <span className="text-[11px] font-mono text-muted-foreground uppercase tracking-wider">
-            {lang || "code"}
-          </span>
+          <span className="text-[11px] font-mono text-muted-foreground uppercase tracking-wider">{lang || "code"}</span>
         </div>
-        <Button variant="legacy" size="custom"
+        <button
           onClick={handleCopy}
           className="flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
         >
           {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
           {copied ? "Copied" : "Copy"}
-        </Button>
+        </button>
       </div>
       <pre className="p-4 overflow-x-auto">
         <code className="text-[13px] font-mono bg-transparent p-0">{code}</code>
@@ -114,11 +86,7 @@ const mdComponents: Components = {
   code: ({ children, className, ...props }: any) => {
     const isBlock = className?.startsWith("language-") || String(children).includes("\n");
     if (isBlock) return <CodeBlock className={className}>{children}</CodeBlock>;
-    return (
-      <code className="bg-accent px-1.5 py-0.5 rounded-md text-[13px] font-mono" {...props}>
-        {children}
-      </code>
-    );
+    return <code className="bg-accent px-1.5 py-0.5 rounded-md text-[13px] font-mono" {...props}>{children}</code>;
   },
 };
 
@@ -131,13 +99,13 @@ const CardCopyButton = ({ content }: { content: string }) => {
     setTimeout(() => setCopied(false), 2000);
   };
   return (
-    <Button variant="legacy" size="custom"
+    <button
       onClick={handleCopy}
       className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium text-muted-foreground hover:text-foreground hover:bg-accent/80 bg-accent border border-border transition-colors"
     >
       {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
       {copied ? "Copied" : "Copy"}
-    </Button>
+    </button>
   );
 };
 
@@ -166,13 +134,7 @@ const splitContent = (raw: string): Segment[] => {
     const l = lines[i].trim();
     if (taskStart === -1) {
       // Detect task body start
-      if (
-        /^#{1,3}\s/.test(l) ||
-        /^```/.test(l) ||
-        /^\d+\.\s/.test(l) ||
-        /^\*\*[^*]+\*\*/.test(l) ||
-        /^[-*]\s/.test(l)
-      ) {
+      if (/^#{1,3}\s/.test(l) || /^```/.test(l) || /^\d+\.\s/.test(l) || /^\*\*[^*]+\*\*/.test(l) || /^[-*]\s/.test(l)) {
         // Only treat as task if there's enough content after
         const remaining = lines.slice(i).join("\n").length;
         if (remaining > 150) {
@@ -190,30 +152,14 @@ const splitContent = (raw: string): Segment[] => {
     const l = lines[i].trim();
     if (l === "") continue;
     // If the last non-empty lines are short plain text (no markdown markers), they're the outro
-    if (
-      !/^#{1,3}\s/.test(l) &&
-      !/^```/.test(l) &&
-      !/^\d+\.\s/.test(l) &&
-      !/^[-*]\s/.test(l) &&
-      !/^\*\*/.test(l) &&
-      l.length < 200
-    ) {
+    if (!/^#{1,3}\s/.test(l) && !/^```/.test(l) && !/^\d+\.\s/.test(l) && !/^[-*]\s/.test(l) && !/^\*\*/.test(l) && l.length < 200) {
       // Check if this is truly a closing remark (short paragraph block)
       let outroStart = i;
       // Walk up to find the start of the outro block (consecutive short plain lines)
       for (let j = i - 1; j > taskStart; j--) {
         const lj = lines[j].trim();
-        if (lj === "") {
-          outroStart = j + 1;
-          break;
-        }
-        if (
-          /^#{1,3}\s/.test(lj) ||
-          /^```/.test(lj) ||
-          /^\d+\.\s/.test(lj) ||
-          /^[-*]\s/.test(lj) ||
-          /^\*\*/.test(lj)
-        ) {
+        if (lj === "") { outroStart = j + 1; break; }
+        if (/^#{1,3}\s/.test(lj) || /^```/.test(lj) || /^\d+\.\s/.test(lj) || /^[-*]\s/.test(lj) || /^\*\*/.test(lj)) {
           outroStart = j + 1;
           break;
         }
@@ -246,7 +192,7 @@ const splitContent = (raw: string): Segment[] => {
 */
 const useSegmentedTypewriter = (segments: Segment[], enabled: boolean) => {
   const [charCounts, setCharCounts] = useState<number[]>(() =>
-    enabled ? segments.map(() => 0) : segments.map((s) => s.content.length),
+    enabled ? segments.map(() => 0) : segments.map((s) => s.content.length)
   );
   const [allDone, setAllDone] = useState(!enabled);
   const rafRef = useRef(0);
@@ -309,9 +255,7 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
 
   // Animate on first mount for new AI messages only
   const shouldAnimate = isNew && !isUser && !mountedRef.current;
-  useEffect(() => {
-    mountedRef.current = true;
-  }, []);
+  useEffect(() => { mountedRef.current = true; }, []);
 
   const segments = useMemo(() => splitContent(message.content), [message.content]);
   const { charCounts, allDone: typingDone } = useSegmentedTypewriter(segments, shouldAnimate);
@@ -331,11 +275,7 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
       return;
     }
     if (!("speechSynthesis" in window)) {
-      toast({
-        title: "Not supported",
-        description: "Text-to-speech is not supported in this browser.",
-        variant: "destructive",
-      });
+      toast({ title: "Not supported", description: "Text-to-speech is not supported in this browser.", variant: "destructive" });
       return;
     }
     const plainText = message.content
@@ -355,7 +295,7 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
   }, [speaking, message.content, toast]);
 
   const handleFeedback = (type: "up" | "down") => {
-    setFeedback((prev) => (prev === type ? null : type));
+    setFeedback(prev => prev === type ? null : type);
     toast({
       title: type === "up" ? "Thanks for the feedback!" : "We'll improve",
       description: type === "up" ? "Glad this was helpful." : "Sorry about that. We'll work on it.",
@@ -368,31 +308,27 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
   };
 
   // Find which segment is currently animating (for cursor placement)
-  const activeSegIdx =
-    shouldAnimate && !typingDone
-      ? charCounts.findIndex((c, i) => c < segments[i].content.length)
-      : -1;
+  const activeSegIdx = shouldAnimate && !typingDone
+    ? charCounts.findIndex((c, i) => c < segments[i].content.length)
+    : -1;
 
   return (
     <div
       ref={ref}
       className={cn(
-        "px-4 sm:px-6 w-full max-w-3xl mx-auto transition-all duration-300",
-        isUser ? "py-2" : "pt-3 pb-4",
-        isNew && "animate-fade-in",
+        "px-3 sm:px-4 md:px-6 w-full max-w-2xl mx-auto transition-all duration-300",
+        isUser ? "py-1.5" : "py-3",
+        isNew && "animate-fade-in"
       )}
     >
       {isUser ? (
-        <Message from="user" className="max-w-full">
-          <MessageContent
+        <div className="flex justify-end">
+          <div
             className={cn(
-              "relative group-[.is-user]:rounded-[20px] group-[.is-user]:bg-chat-user group-[.is-user]:text-chat-user-foreground transition-all duration-200",
-              size === "short" &&
-                "group-[.is-user]:px-3.5 group-[.is-user]:py-2.5 text-ui-label max-w-[80%] sm:max-w-[75%]",
-              size === "medium" &&
-                "group-[.is-user]:px-3.5 group-[.is-user]:py-2.5 text-ui-label max-w-[85%] sm:max-w-[82%]",
-              size === "long" &&
-                "group-[.is-user]:px-3.5 group-[.is-user]:py-2.5 text-ui-label max-w-[92%] sm:max-w-[88%] leading-relaxed",
+              "relative rounded-2xl rounded-br-sm bg-muted text-foreground transition-all duration-200",
+              size === "short" && "px-3.5 py-2 text-[15px] max-w-[80%] sm:max-w-[75%]",
+              size === "medium" && "px-3.5 py-2.5 text-[15px] max-w-[85%] sm:max-w-[82%]",
+              size === "long" && "px-3.5 py-3 text-[14px] max-w-[92%] sm:max-w-[88%] leading-relaxed",
             )}
           >
             {message.imageUrl && (
@@ -403,10 +339,10 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
               />
             )}
             <p className="leading-relaxed whitespace-pre-wrap break-words">{message.content}</p>
-          </MessageContent>
-        </Message>
+          </div>
+        </div>
       ) : (
-        <div className="group relative max-w-full">
+        <div className="group relative max-w-full sm:max-w-[92%]">
           <div className="space-y-3">
             {message.imageUrl && (
               <img
@@ -416,22 +352,61 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
               />
             )}
 
-            {message.content && (
-              <Message from="assistant" className="max-w-full">
-                <MessageResponse
-                  className={cn("text-ui-label leading-6 break-words", proseClasses)}
-                  isAnimating={shouldAnimate && !typingDone}
-                >
-                  {segments
-                    .map((segment, index) =>
-                      segment.content.slice(0, charCounts[index] ?? segment.content.length),
-                    )
-                    .join("\n\n")}
-                </MessageResponse>
-              </Message>
-            )}
+            {/* Render segments: text → task card → text */}
+            {message.content && segments.map((seg, i) => {
+              const displayed = seg.content.slice(0, charCounts[i] ?? seg.content.length);
+              const isActive = activeSegIdx === i;
+              const segVisible = charCounts[i] > 0 || !shouldAnimate;
 
-            {message.videos && message.videos.length > 0 && <VideoGrid videos={message.videos} />}
+              if (!segVisible) return null;
+
+              if (seg.type === "task") {
+                const segDone = charCounts[i] >= seg.content.length;
+                return (
+                  <div key={i} className="rounded-xl border border-border bg-card overflow-hidden w-full will-change-contents">
+                    <div className="flex items-center justify-between px-3 sm:px-4 md:px-5 pt-2.5 pb-1">
+                      <span className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider">Task</span>
+                      {segDone && <CardCopyButton content={seg.content} />}
+                    </div>
+                    <div className="overflow-y-auto px-3 sm:px-4 md:px-5 pb-3 sm:pb-4 max-h-[50vh] sm:max-h-[60vh] md:max-h-[70vh]">
+                      <div className={cn(
+                        "prose prose-sm prose-neutral dark:prose-invert max-w-none text-foreground text-[13px] sm:text-sm",
+                        proseClasses
+                      )}>
+                        <ReactMarkdown components={mdComponents}>{displayed}</ReactMarkdown>
+                        {isActive && <span className="inline-block w-[2px] h-[1em] bg-foreground/70 align-middle animate-pulse ml-0.5" />}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
+              // Text segment (intro or outro)
+              const textSize = getMessageSize(displayed);
+              return (
+                <div
+                  key={i}
+                  className={cn(
+                    "relative rounded-2xl rounded-tl-sm will-change-contents",
+                    textSize === "short"
+                      ? "bg-card border border-border px-3.5 py-2.5 inline-block"
+                      : "px-0.5"
+                  )}
+                >
+                  <div className={cn(
+                    "prose prose-sm prose-neutral dark:prose-invert max-w-none text-foreground text-[13px] sm:text-sm break-words",
+                    proseClasses
+                  )}>
+                    <ReactMarkdown components={mdComponents}>{displayed}</ReactMarkdown>
+                    {isActive && <span className="inline-block w-[2px] h-[1em] bg-foreground/70 align-middle animate-pulse ml-0.5" />}
+                  </div>
+                </div>
+              );
+            })}
+
+            {message.videos && message.videos.length > 0 && (
+              <VideoGrid videos={message.videos} />
+            )}
             {message.videoGeneration && (
               <VideoGenerationCard
                 topic={message.videoGeneration.topic}
@@ -439,81 +414,49 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
                 aspectRatio={message.videoGeneration.aspectRatio}
               />
             )}
-            {message.videoEdit && <VideoEditorCard userMessage={message.videoEdit.userMessage} />}
-            {message.webApp && <WebAppPreviewCard project={message.webApp} />}
-            {message.zipAnalysis && <ZipAnalysisCard analysis={message.zipAnalysis} />}
-            {message.convertFile && <FileConverterCard file={message.convertFile} />}
-            {message.ttsScript && <TTSCard script={message.ttsScript} />}
-            {message.generatedFile && <FileCreatorCard file={message.generatedFile} />}
-            {message.agentPlan && <AgentProgressCard plan={message.agentPlan} />}
+            {message.videoEdit && (
+              <VideoEditorCard userMessage={message.videoEdit.userMessage} />
+            )}
+            {message.webApp && (
+              <WebAppPreviewCard project={message.webApp} />
+            )}
+            {message.zipAnalysis && (
+              <ZipAnalysisCard analysis={message.zipAnalysis} />
+            )}
+            {message.convertFile && (
+              <FileConverterCard file={message.convertFile} />
+            )}
+            {message.ttsScript && (
+              <TTSCard script={message.ttsScript} />
+            )}
+            {message.generatedFile && (
+              <FileCreatorCard file={message.generatedFile} />
+            )}
+            {message.agentPlan && (
+              <AgentProgressCard plan={message.agentPlan} />
+            )}
             {message.story && (
-              <StoryFlowCard
-                projectId={message.story.projectId}
-                initialPrompt={message.story.initialPrompt}
-              />
+              <StoryFlowCard projectId={message.story.projectId} initialPrompt={message.story.initialPrompt} />
             )}
 
             {/* Action bar */}
             {message.content && typingDone && (
-              <div className="-ml-2 flex items-center gap-0 pt-1">
+              <div className="flex items-center gap-0.5 pt-1">
+                <ActionButton onClick={handleSpeak} active={speaking} title={speaking ? "Stop listening" : "Listen"}>
+                  {speaking ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
+                </ActionButton>
                 <ActionButton onClick={handleCopy} active={copied} title="Copy">
                   {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                 </ActionButton>
-                <ActionButton
-                  onClick={() => handleFeedback("up")}
-                  active={feedback === "up"}
-                  title="Good response"
-                >
+                <ActionButton onClick={() => handleFeedback("up")} active={feedback === "up"} title="Good response">
                   <ThumbsUp className="w-3.5 h-3.5" />
                 </ActionButton>
-                <ActionButton
-                  onClick={() => handleFeedback("down")}
-                  active={feedback === "down"}
-                  title="Bad response"
-                >
+                <ActionButton onClick={() => handleFeedback("down")} active={feedback === "down"} title="Bad response">
                   <ThumbsDown className="w-3.5 h-3.5" />
                 </ActionButton>
-                <ActionButton
-                  onClick={handleSpeak}
-                  active={speaking}
-                  title={speaking ? "Stop listening" : "Listen"}
-                >
-                  {speaking ? <VolumeX /> : <Volume2 />}
+                <ActionButton onClick={handleReport} active={reported} disabled={reported} title="Report">
+                  <Flag className="w-3.5 h-3.5" />
                 </ActionButton>
-                <ActionButton
-                  onClick={async () => {
-                    if (navigator.share) {
-                      try {
-                        await navigator.share({ text: message.content });
-                      } catch {
-                        /* Dismissing sharing needs no error. */
-                      }
-                    } else {
-                      handleCopy();
-                    }
-                  }}
-                  title="Share"
-                >
-                  <Share2 />
-                </ActionButton>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      size="icon-sm"
-                      aria-label="More response actions"
-                      title="More response actions"
-                      className="size-8 rounded-full text-muted-foreground [&_svg]:size-4"
-                    >
-                      <MoreVertical />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start">
-                    <DropdownMenuItem disabled={reported} onClick={handleReport}>
-                      Report response
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
               </div>
             )}
           </div>
@@ -537,21 +480,20 @@ const ActionButton = ({
   disabled?: boolean;
   title: string;
 }) => (
-  <MessageAction
+  <button
     onClick={onClick}
     disabled={disabled}
-    tooltip={title}
-    label={title}
+    title={title}
     className={cn(
-      "size-8 rounded-full transition-colors [&_svg]:size-4 [&_svg]:stroke-[1.8]",
+      "p-1.5 rounded-lg transition-colors",
       active
         ? "text-foreground bg-accent"
         : "text-muted-foreground hover:text-foreground hover:bg-accent",
-      disabled && "opacity-50 cursor-not-allowed",
+      disabled && "opacity-50 cursor-not-allowed"
     )}
   >
     {children}
-  </MessageAction>
+  </button>
 );
 
 const VideoGrid = ({ videos }: { videos: StockVideo[] }) => {
@@ -575,7 +517,10 @@ const VideoGrid = ({ videos }: { videos: StockVideo[] }) => {
               onClick={() => setPlayingId(null)}
             />
           ) : (
-            <div className="relative cursor-pointer" onClick={() => setPlayingId(video.id)}>
+            <div
+              className="relative cursor-pointer"
+              onClick={() => setPlayingId(video.id)}
+            >
               <img
                 src={video.image}
                 alt="Video thumbnail"
@@ -596,22 +541,10 @@ const VideoGrid = ({ videos }: { videos: StockVideo[] }) => {
               by {video.user.name}
             </p>
             <div className="flex items-center gap-1">
-              <a
-                href={video.videoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-1 rounded text-muted-foreground hover:text-foreground transition-colors"
-                title="Download HD"
-              >
+              <a href={video.videoUrl} target="_blank" rel="noopener noreferrer" className="p-1 rounded text-muted-foreground hover:text-foreground transition-colors" title="Download HD">
                 <Download className="w-3.5 h-3.5" />
               </a>
-              <a
-                href={video.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-1 rounded text-muted-foreground hover:text-foreground transition-colors"
-                title="View on Pexels"
-              >
+              <a href={video.url} target="_blank" rel="noopener noreferrer" className="p-1 rounded text-muted-foreground hover:text-foreground transition-colors" title="View on Pexels">
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
             </div>

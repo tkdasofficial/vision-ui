@@ -237,13 +237,13 @@ const FileCreatorCard = ({ file }: Props) => {
         {/* Content preview */}
         <div className="space-y-1.5">
           <div className="flex items-center justify-between">
-            <Button variant="legacy" size="custom"
+            <button
               onClick={() => setShowPreview(!showPreview)}
               className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
             >
               {showPreview ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
               {showPreview ? "Hide" : "Show"} Preview
-            </Button>
+            </button>
             <span className="text-[10px] text-muted-foreground font-mono">{file.format.toUpperCase()}</span>
           </div>
 

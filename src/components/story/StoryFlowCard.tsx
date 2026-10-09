@@ -80,8 +80,8 @@ export default function StoryFlowCard({ projectId: initialProjectId, initialProm
           <Field label="Category">
             <div className="flex flex-wrap gap-1.5">
               {CATEGORIES.map((c) => (
-                <Button variant="legacy" size="custom" key={c} type="button" onClick={() => setCategory(c)}
-                  className={`px-2.5 py-1 rounded-md text-xs border ${category === c ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:bg-accent"}`}>{c}</Button>
+                <button key={c} type="button" onClick={() => setCategory(c)}
+                  className={`px-2.5 py-1 rounded-md text-xs border ${category === c ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:bg-accent"}`}>{c}</button>
               ))}
             </div>
           </Field>

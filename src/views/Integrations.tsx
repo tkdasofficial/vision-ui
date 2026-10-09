@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { useNavigate } from "@/lib/router-compat";
 import { supabase } from "@/backend/client";
@@ -94,9 +93,9 @@ const Integrations = () => {
     <div className="min-h-[100dvh] bg-background text-foreground">
       <header className="sticky top-0 z-10 border-b border-border bg-background/80 backdrop-blur-md">
         <div className="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
-          <Button variant="legacy" size="custom" onClick={() => navigate(-1)} className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors">
+          <button onClick={() => navigate(-1)} className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors">
             <ArrowLeft className="w-5 h-5" />
-          </Button>
+          </button>
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
               <Plug className="w-4 h-4 text-primary" />
@@ -143,21 +142,21 @@ const Integrations = () => {
                   </div>
                   <div className="mt-3 flex justify-end">
                     {isConnected ? (
-                      <Button variant="legacy" size="custom"
+                      <button
                         onClick={() => handleDisconnect(intg)}
                         disabled={isPending}
                         className="px-3 py-1.5 rounded-lg text-xs font-medium text-muted-foreground hover:text-destructive hover:bg-accent disabled:opacity-50"
                       >
                         {isPending ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : "Disconnect"}
-                      </Button>
+                      </button>
                     ) : (
-                      <Button variant="legacy" size="custom"
+                      <button
                         onClick={() => handleConnect(intg)}
                         disabled={isPending}
                         className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
                       >
                         {isPending ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <>Connect</>}
-                      </Button>
+                      </button>
                     )}
                   </div>
                 </div>
