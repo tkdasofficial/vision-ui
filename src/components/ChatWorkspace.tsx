@@ -777,7 +777,7 @@ const ChatWorkspace = ({ tool, onMenuClick, initialMessages, chatId: externalCha
 
   return (
     <div className="flex flex-col h-full flex-1 min-w-0">
-      <header className="flex items-center justify-between px-3 py-2.5 sm:px-4 sm:py-3 border-b border-border bg-background/80 backdrop-blur-sm">
+      <header className="flex items-center justify-between px-3 py-1.5 sm:px-4 sm:py-2 border-b border-border bg-background/80 backdrop-blur-sm">
         <button
           onClick={onMenuClick}
           className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors lg:hidden"
