@@ -3,3 +3,5 @@
 - [x] Main chat screen and conversation presentation; preserve composer
 - [x] Pure black/white theme backgrounds and main text
 - [x] Verify navigation, conversations and light/dark layouts
+- [ ] Refine main screen, drawer and conversation to closely match uploaded references without restyling the chat input
+- [ ] Verify the refined screens and navigation in dark/light themes and narrow/wide layouts
