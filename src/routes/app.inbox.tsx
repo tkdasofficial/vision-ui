@@ -5,6 +5,8 @@ import { Protected } from "@/components/Protected";
 export const Route = createFileRoute("/app/inbox")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Inbox — Super Copilot" },
       { name: "description", content: "Inbox in Super Copilot, your all-in-one AI workspace." },
       { property: "og:title", content: "Inbox — Super Copilot" },

@@ -74,6 +74,20 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
     el.style.height = `${Math.min(el.scrollHeight, 200)}px`;
   }, []);
 
+  useEffect(() => {
+    const prefill = () => {
+      const prompt = sessionStorage.getItem("prefill_prompt");
+      if (!prompt) return;
+      sessionStorage.removeItem("prefill_prompt");
+      setValue(prompt);
+      finalTranscriptRef.current = prompt;
+      requestAnimationFrame(() => { autoResize(); textareaRef.current?.focus(); });
+    };
+    prefill();
+    window.addEventListener("prefill-prompt", prefill);
+    return () => window.removeEventListener("prefill-prompt", prefill);
+  }, [autoResize]);
+
   const toggleListening = () => {
     if (!recognitionRef.current) return;
     if (isListening) {

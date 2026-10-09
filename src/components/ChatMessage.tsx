@@ -1,6 +1,18 @@
 import { useState, useCallback, useEffect, useRef, useMemo, forwardRef } from "react";
 import type { ChatMessage as ChatMessageType, StockVideo } from "@/lib/types";
-import { Copy, Check, Play, ExternalLink, Download, Volume2, VolumeX, ThumbsUp, ThumbsDown, Flag, FileCode } from "lucide-react";
+import {
+  Copy,
+  Check,
+  Play,
+  ExternalLink,
+  Download,
+  Volume2,
+  VolumeX,
+  ThumbsUp,
+  ThumbsDown,
+  Flag,
+  FileCode,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
 import { Message, MessageResponse, MessageAction } from "@/components/ai-elements/message";
@@ -64,7 +76,9 @@ const CodeBlock = ({ children, className }: { children: React.ReactNode; classNa
       <div className="flex items-center justify-between px-3 py-1.5 bg-muted/60 border-b border-border">
         <div className="flex items-center gap-1.5">
           <FileCode className="w-3.5 h-3.5 text-muted-foreground" />
-          <span className="text-[11px] font-mono text-muted-foreground uppercase tracking-wider">{lang || "code"}</span>
+          <span className="text-[11px] font-mono text-muted-foreground uppercase tracking-wider">
+            {lang || "code"}
+          </span>
         </div>
         <button
           onClick={handleCopy}
@@ -87,7 +101,11 @@ const mdComponents: Components = {
   code: ({ children, className, ...props }: any) => {
     const isBlock = className?.startsWith("language-") || String(children).includes("\n");
     if (isBlock) return <CodeBlock className={className}>{children}</CodeBlock>;
-    return <code className="bg-accent px-1.5 py-0.5 rounded-md text-[13px] font-mono" {...props}>{children}</code>;
+    return (
+      <code className="bg-accent px-1.5 py-0.5 rounded-md text-[13px] font-mono" {...props}>
+        {children}
+      </code>
+    );
   },
 };
 
@@ -135,7 +153,13 @@ const splitContent = (raw: string): Segment[] => {
     const l = lines[i].trim();
     if (taskStart === -1) {
       // Detect task body start
-      if (/^#{1,3}\s/.test(l) || /^```/.test(l) || /^\d+\.\s/.test(l) || /^\*\*[^*]+\*\*/.test(l) || /^[-*]\s/.test(l)) {
+      if (
+        /^#{1,3}\s/.test(l) ||
+        /^```/.test(l) ||
+        /^\d+\.\s/.test(l) ||
+        /^\*\*[^*]+\*\*/.test(l) ||
+        /^[-*]\s/.test(l)
+      ) {
         // Only treat as task if there's enough content after
         const remaining = lines.slice(i).join("\n").length;
         if (remaining > 150) {
@@ -153,14 +177,30 @@ const splitContent = (raw: string): Segment[] => {
     const l = lines[i].trim();
     if (l === "") continue;
     // If the last non-empty lines are short plain text (no markdown markers), they're the outro
-    if (!/^#{1,3}\s/.test(l) && !/^```/.test(l) && !/^\d+\.\s/.test(l) && !/^[-*]\s/.test(l) && !/^\*\*/.test(l) && l.length < 200) {
+    if (
+      !/^#{1,3}\s/.test(l) &&
+      !/^```/.test(l) &&
+      !/^\d+\.\s/.test(l) &&
+      !/^[-*]\s/.test(l) &&
+      !/^\*\*/.test(l) &&
+      l.length < 200
+    ) {
       // Check if this is truly a closing remark (short paragraph block)
       let outroStart = i;
       // Walk up to find the start of the outro block (consecutive short plain lines)
       for (let j = i - 1; j > taskStart; j--) {
         const lj = lines[j].trim();
-        if (lj === "") { outroStart = j + 1; break; }
-        if (/^#{1,3}\s/.test(lj) || /^```/.test(lj) || /^\d+\.\s/.test(lj) || /^[-*]\s/.test(lj) || /^\*\*/.test(lj)) {
+        if (lj === "") {
+          outroStart = j + 1;
+          break;
+        }
+        if (
+          /^#{1,3}\s/.test(lj) ||
+          /^```/.test(lj) ||
+          /^\d+\.\s/.test(lj) ||
+          /^[-*]\s/.test(lj) ||
+          /^\*\*/.test(lj)
+        ) {
           outroStart = j + 1;
           break;
         }
@@ -193,7 +233,7 @@ const splitContent = (raw: string): Segment[] => {
 */
 const useSegmentedTypewriter = (segments: Segment[], enabled: boolean) => {
   const [charCounts, setCharCounts] = useState<number[]>(() =>
-    enabled ? segments.map(() => 0) : segments.map((s) => s.content.length)
+    enabled ? segments.map(() => 0) : segments.map((s) => s.content.length),
   );
   const [allDone, setAllDone] = useState(!enabled);
   const rafRef = useRef(0);
@@ -256,7 +296,9 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
 
   // Animate on first mount for new AI messages only
   const shouldAnimate = isNew && !isUser && !mountedRef.current;
-  useEffect(() => { mountedRef.current = true; }, []);
+  useEffect(() => {
+    mountedRef.current = true;
+  }, []);
 
   const segments = useMemo(() => splitContent(message.content), [message.content]);
   const { charCounts, allDone: typingDone } = useSegmentedTypewriter(segments, shouldAnimate);
@@ -276,7 +318,11 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
       return;
     }
     if (!("speechSynthesis" in window)) {
-      toast({ title: "Not supported", description: "Text-to-speech is not supported in this browser.", variant: "destructive" });
+      toast({
+        title: "Not supported",
+        description: "Text-to-speech is not supported in this browser.",
+        variant: "destructive",
+      });
       return;
     }
     const plainText = message.content
@@ -296,7 +342,7 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
   }, [speaking, message.content, toast]);
 
   const handleFeedback = (type: "up" | "down") => {
-    setFeedback(prev => prev === type ? null : type);
+    setFeedback((prev) => (prev === type ? null : type));
     toast({
       title: type === "up" ? "Thanks for the feedback!" : "We'll improve",
       description: type === "up" ? "Glad this was helpful." : "Sorry about that. We'll work on it.",
@@ -309,9 +355,10 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
   };
 
   // Find which segment is currently animating (for cursor placement)
-  const activeSegIdx = shouldAnimate && !typingDone
-    ? charCounts.findIndex((c, i) => c < segments[i].content.length)
-    : -1;
+  const activeSegIdx =
+    shouldAnimate && !typingDone
+      ? charCounts.findIndex((c, i) => c < segments[i].content.length)
+      : -1;
 
   return (
     <div
@@ -319,7 +366,7 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
       className={cn(
         "px-5 sm:px-6 w-full max-w-3xl mx-auto transition-all duration-300",
         isUser ? "py-4" : "py-5",
-        isNew && "animate-fade-in"
+        isNew && "animate-fade-in",
       )}
     >
       {isUser ? (
@@ -329,7 +376,8 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
               "relative rounded-[24px] bg-chat-user text-chat-user-foreground transition-all duration-200",
               size === "short" && "px-3.5 py-2 text-[15px] max-w-[80%] sm:max-w-[75%]",
               size === "medium" && "px-3.5 py-2.5 text-[15px] max-w-[85%] sm:max-w-[82%]",
-              size === "long" && "px-3.5 py-3 text-[14px] max-w-[92%] sm:max-w-[88%] leading-relaxed",
+              size === "long" &&
+                "px-3.5 py-3 text-[14px] max-w-[92%] sm:max-w-[88%] leading-relaxed",
             )}
           >
             {message.imageUrl && (
@@ -353,15 +401,22 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
               />
             )}
 
-            {message.content && <Message from="assistant" className="max-w-full">
-              <MessageResponse className={cn("text-[15px] leading-7 break-words", proseClasses)} isAnimating={shouldAnimate && !typingDone}>
-                {segments.map((segment, index) => segment.content.slice(0, charCounts[index] ?? segment.content.length)).join("\n\n")}
-              </MessageResponse>
-            </Message>}
-
-            {message.videos && message.videos.length > 0 && (
-              <VideoGrid videos={message.videos} />
+            {message.content && (
+              <Message from="assistant" className="max-w-full">
+                <MessageResponse
+                  className={cn("text-[15px] leading-7 break-words", proseClasses)}
+                  isAnimating={shouldAnimate && !typingDone}
+                >
+                  {segments
+                    .map((segment, index) =>
+                      segment.content.slice(0, charCounts[index] ?? segment.content.length),
+                    )
+                    .join("\n\n")}
+                </MessageResponse>
+              </Message>
             )}
+
+            {message.videos && message.videos.length > 0 && <VideoGrid videos={message.videos} />}
             {message.videoGeneration && (
               <VideoGenerationCard
                 topic={message.videoGeneration.topic}
@@ -369,47 +424,57 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
                 aspectRatio={message.videoGeneration.aspectRatio}
               />
             )}
-            {message.videoEdit && (
-              <VideoEditorCard userMessage={message.videoEdit.userMessage} />
-            )}
-            {message.webApp && (
-              <WebAppPreviewCard project={message.webApp} />
-            )}
-            {message.zipAnalysis && (
-              <ZipAnalysisCard analysis={message.zipAnalysis} />
-            )}
-            {message.convertFile && (
-              <FileConverterCard file={message.convertFile} />
-            )}
-            {message.ttsScript && (
-              <TTSCard script={message.ttsScript} />
-            )}
-            {message.generatedFile && (
-              <FileCreatorCard file={message.generatedFile} />
-            )}
-            {message.agentPlan && (
-              <AgentProgressCard plan={message.agentPlan} />
-            )}
+            {message.videoEdit && <VideoEditorCard userMessage={message.videoEdit.userMessage} />}
+            {message.webApp && <WebAppPreviewCard project={message.webApp} />}
+            {message.zipAnalysis && <ZipAnalysisCard analysis={message.zipAnalysis} />}
+            {message.convertFile && <FileConverterCard file={message.convertFile} />}
+            {message.ttsScript && <TTSCard script={message.ttsScript} />}
+            {message.generatedFile && <FileCreatorCard file={message.generatedFile} />}
+            {message.agentPlan && <AgentProgressCard plan={message.agentPlan} />}
             {message.story && (
-              <StoryFlowCard projectId={message.story.projectId} initialPrompt={message.story.initialPrompt} />
+              <StoryFlowCard
+                projectId={message.story.projectId}
+                initialPrompt={message.story.initialPrompt}
+              />
             )}
 
             {/* Action bar */}
             {message.content && typingDone && (
               <div className="flex items-center gap-1 pt-2">
-                <ActionButton onClick={handleSpeak} active={speaking} title={speaking ? "Stop listening" : "Listen"}>
-                  {speaking ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
+                <ActionButton
+                  onClick={handleSpeak}
+                  active={speaking}
+                  title={speaking ? "Stop listening" : "Listen"}
+                >
+                  {speaking ? (
+                    <VolumeX className="w-3.5 h-3.5" />
+                  ) : (
+                    <Volume2 className="w-3.5 h-3.5" />
+                  )}
                 </ActionButton>
                 <ActionButton onClick={handleCopy} active={copied} title="Copy">
                   {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                 </ActionButton>
-                <ActionButton onClick={() => handleFeedback("up")} active={feedback === "up"} title="Good response">
+                <ActionButton
+                  onClick={() => handleFeedback("up")}
+                  active={feedback === "up"}
+                  title="Good response"
+                >
                   <ThumbsUp className="w-3.5 h-3.5" />
                 </ActionButton>
-                <ActionButton onClick={() => handleFeedback("down")} active={feedback === "down"} title="Bad response">
+                <ActionButton
+                  onClick={() => handleFeedback("down")}
+                  active={feedback === "down"}
+                  title="Bad response"
+                >
                   <ThumbsDown className="w-3.5 h-3.5" />
                 </ActionButton>
-                <ActionButton onClick={handleReport} active={reported} disabled={reported} title="Report">
+                <ActionButton
+                  onClick={handleReport}
+                  active={reported}
+                  disabled={reported}
+                  title="Report"
+                >
                   <Flag className="w-3.5 h-3.5" />
                 </ActionButton>
               </div>
@@ -445,7 +510,7 @@ const ActionButton = ({
       active
         ? "text-foreground bg-accent"
         : "text-muted-foreground hover:text-foreground hover:bg-accent",
-      disabled && "opacity-50 cursor-not-allowed"
+      disabled && "opacity-50 cursor-not-allowed",
     )}
   >
     {children}
@@ -473,10 +538,7 @@ const VideoGrid = ({ videos }: { videos: StockVideo[] }) => {
               onClick={() => setPlayingId(null)}
             />
           ) : (
-            <div
-              className="relative cursor-pointer"
-              onClick={() => setPlayingId(video.id)}
-            >
+            <div className="relative cursor-pointer" onClick={() => setPlayingId(video.id)}>
               <img
                 src={video.image}
                 alt="Video thumbnail"
@@ -497,10 +559,22 @@ const VideoGrid = ({ videos }: { videos: StockVideo[] }) => {
               by {video.user.name}
             </p>
             <div className="flex items-center gap-1">
-              <a href={video.videoUrl} target="_blank" rel="noopener noreferrer" className="p-1 rounded text-muted-foreground hover:text-foreground transition-colors" title="Download HD">
+              <a
+                href={video.videoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-1 rounded text-muted-foreground hover:text-foreground transition-colors"
+                title="Download HD"
+              >
                 <Download className="w-3.5 h-3.5" />
               </a>
-              <a href={video.url} target="_blank" rel="noopener noreferrer" className="p-1 rounded text-muted-foreground hover:text-foreground transition-colors" title="View on Pexels">
+              <a
+                href={video.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-1 rounded text-muted-foreground hover:text-foreground transition-colors"
+                title="View on Pexels"
+              >
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
             </div>
