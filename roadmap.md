@@ -7,3 +7,9 @@
 - [x] Verify the refined screens and navigation in dark/light themes and narrow/wide layouts
 - [x] Apply a consistent compact size scale to oversized app elements, preserving the chat input
 - [x] Verify compact screens, navigation and conversation on narrow/wide layouts
+
+# Vision premium upgrade
+- [ ] Rename all visible branding and page metadata to Vision
+- [ ] Apply the guide’s glass surface system, buttons, fields, overlays and readable light/dark themes across the entire app
+- [ ] Refine chat, drawer, account/settings, tools, auth and admin while preserving existing behavior and compact sizing
+- [ ] Verify navigation, chat controls, forms, major screens, theme contrast and narrow/wide layouts
