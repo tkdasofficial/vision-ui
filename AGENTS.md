@@ -14,3 +14,5 @@
 - Backend is browser-only: `src/backend/` (localStorage tables + local auth) exposes a Supabase-shaped `supabase` object so views keep their query code. Why: user chose no online backend; AI/edge features return an "unavailable" error.
 - The chat composer uses AI Elements PromptInput primitives; its existing file-routing callbacks remain separate from the primitive's attachment collection. Why: preserves ZIP/conversion behavior while sharing accessible input and submission controls.
 - Speech text is joined through the browser-safe appendTranscript helper, with regression tests alongside existing tests. Why: preserves typed text and whitespace across recognition updates without coupling transcription to a service.
+- Chat navigation uses a single controlled AppDrawer on all screen sizes. Why: keeps search, history and chat actions consistent with accessible dismissible navigation.
+- Conversation layout and message markdown use AI Elements primitives, with existing domain result cards retained. Why: shares accessible transcript, scrolling and message controls without changing offline tool behavior.

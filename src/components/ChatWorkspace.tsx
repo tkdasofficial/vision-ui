@@ -1,5 +1,8 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { Menu } from "lucide-react";
+import { Menu, SquarePen, Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Conversation, ConversationContent, ConversationScrollButton } from "@/components/ai-elements/conversation";
+import { useNavigate } from "@/lib/router-compat";
 import AnnouncementBanner from "./AnnouncementBanner";
 
 import type { AITool, ChatMessage as ChatMessageType } from "@/lib/types";
@@ -20,6 +23,7 @@ import { useAuth } from "@/context/AuthContext";
 type Props = {
   tool?: AITool;
   onMenuClick: () => void;
+  onNewChat?: () => void;
   initialMessages?: ChatMessageType[];
   chatId?: string;
   onChatCreated?: (id: string) => void;
@@ -30,7 +34,8 @@ const CODE_GEN_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/code-gen
 const FILE_CREATOR_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/file-creator`;
 const AGENT_PLANNER_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/agent-planner`;
 
-const ChatWorkspace = ({ tool, onMenuClick, initialMessages, chatId: externalChatId, onChatCreated }: Props) => {
+const ChatWorkspace = ({ tool, onMenuClick, onNewChat, initialMessages, chatId: externalChatId, onChatCreated }: Props) => {
+  const navigate = useNavigate();
   const [messages, setMessages] = useState<ChatMessageType[]>(initialMessages || []);
   const [isTyping, setIsTyping] = useState(false);
   const initialMsgCount = useRef((initialMessages || []).length);
@@ -777,41 +782,21 @@ const ChatWorkspace = ({ tool, onMenuClick, initialMessages, chatId: externalCha
 
   return (
     <div className="flex flex-col h-full flex-1 min-w-0">
-      <header className="flex items-center justify-between px-3 py-1.5 sm:px-4 sm:py-2 border-b border-border bg-background/80 backdrop-blur-sm">
-        <button
-          onClick={onMenuClick}
-          className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors lg:hidden"
-        >
-          <Menu className="w-5 h-5" />
-        </button>
-        <div className="flex items-center gap-2 min-w-0 max-w-[60%]">
-          {tool && <tool.icon className="w-4 h-4 text-foreground shrink-0" />}
-          <h2 className="text-sm font-display font-semibold text-foreground truncate" title={chatTitle || defaultTitle}>
-            {displayTitle}
-          </h2>
-        </div>
-        <ProfileMenu />
+      <header className="relative flex h-[49px] shrink-0 items-center justify-between px-4 sm:px-6 bg-background">
+        <Button variant="ghost" size="icon-sm" aria-label="Open navigation" onClick={onMenuClick} className="rounded-full"><Menu className="size-5" /></Button>
+        {hasMessages ? <h2 className="mx-3 min-w-0 truncate font-sans text-sm font-medium" title={chatTitle || defaultTitle}>{displayTitle}</h2> : <Button variant="secondary" onClick={() => navigate("/app/upgrade")} className="h-8 gap-1.5 rounded-full bg-floating px-4 text-sm font-medium"><Plus className="size-3.5" />Get Plus</Button>}
+        <Button variant="ghost" size="icon-sm" aria-label="New chat" onClick={onNewChat} className="rounded-full"><SquarePen className="size-5" /></Button>
       </header>
-
       <AnnouncementBanner />
-
-      <div ref={scrollRef} className="flex-1 overflow-y-auto">
-
-        {hasMessages ? (
-          <div className="py-3">
-            {messages.map((msg) => (
-              <ChatMessage
-                key={msg.id}
-                message={msg}
-                isNew={newMessageIds.has(msg.id)}
-              />
-            ))}
+      <Conversation className="min-h-0" scrollRef={scrollRef}>
+        <ConversationContent className={hasMessages ? "gap-0 px-0 py-6 pb-20" : "h-full min-h-full p-0"}>
+          {hasMessages ? <>
+            {messages.map((msg) => <ChatMessage key={msg.id} message={msg} isNew={newMessageIds.has(msg.id)} />)}
             {isTyping && <TypingIndicator phase={thinkingPhase} />}
-          </div>
-        ) : (
-          <EmptyState tool={tool} onPromptClick={(prompt) => handleSend(prompt)} />
-        )}
-      </div>
+          </> : <EmptyState tool={tool} onPromptClick={(prompt) => { sessionStorage.setItem("prefill_prompt", prompt); window.dispatchEvent(new Event("prefill-prompt")); }} />}
+        </ConversationContent>
+        <ConversationScrollButton aria-label="Scroll to latest message" className="bottom-5 size-10" />
+      </Conversation>
 
       <ChatInput toolName={tool?.shortName} onSend={handleSend} onZipUpload={handleZipUpload} onFileConvert={handleFileConvert} disabled={isTyping} />
     </div>

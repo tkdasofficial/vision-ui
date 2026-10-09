@@ -3,6 +3,7 @@ import type { ChatMessage as ChatMessageType, StockVideo } from "@/lib/types";
 import { Copy, Check, Play, ExternalLink, Download, Volume2, VolumeX, ThumbsUp, ThumbsDown, Flag, FileCode } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
+import { Message, MessageResponse, MessageAction } from "@/components/ai-elements/message";
 import type { Components } from "react-markdown";
 import { useToast } from "@/hooks/use-toast";
 import VideoGenerationCard from "./VideoGenerationCard";
@@ -316,8 +317,8 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
     <div
       ref={ref}
       className={cn(
-        "px-3 sm:px-4 md:px-6 w-full max-w-2xl mx-auto transition-all duration-300",
-        isUser ? "py-1.5" : "py-3",
+        "px-5 sm:px-6 w-full max-w-3xl mx-auto transition-all duration-300",
+        isUser ? "py-4" : "py-5",
         isNew && "animate-fade-in"
       )}
     >
@@ -325,7 +326,7 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
         <div className="flex justify-end">
           <div
             className={cn(
-              "relative rounded-2xl rounded-br-sm bg-muted text-foreground transition-all duration-200",
+              "relative rounded-[24px] bg-chat-user text-chat-user-foreground transition-all duration-200",
               size === "short" && "px-3.5 py-2 text-[15px] max-w-[80%] sm:max-w-[75%]",
               size === "medium" && "px-3.5 py-2.5 text-[15px] max-w-[85%] sm:max-w-[82%]",
               size === "long" && "px-3.5 py-3 text-[14px] max-w-[92%] sm:max-w-[88%] leading-relaxed",
@@ -342,7 +343,7 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
           </div>
         </div>
       ) : (
-        <div className="group relative max-w-full sm:max-w-[92%]">
+        <div className="group relative max-w-full">
           <div className="space-y-3">
             {message.imageUrl && (
               <img
@@ -352,57 +353,11 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
               />
             )}
 
-            {/* Render segments: text → task card → text */}
-            {message.content && segments.map((seg, i) => {
-              const displayed = seg.content.slice(0, charCounts[i] ?? seg.content.length);
-              const isActive = activeSegIdx === i;
-              const segVisible = charCounts[i] > 0 || !shouldAnimate;
-
-              if (!segVisible) return null;
-
-              if (seg.type === "task") {
-                const segDone = charCounts[i] >= seg.content.length;
-                return (
-                  <div key={i} className="rounded-xl border border-border bg-card overflow-hidden w-full will-change-contents">
-                    <div className="flex items-center justify-between px-3 sm:px-4 md:px-5 pt-2.5 pb-1">
-                      <span className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider">Task</span>
-                      {segDone && <CardCopyButton content={seg.content} />}
-                    </div>
-                    <div className="overflow-y-auto px-3 sm:px-4 md:px-5 pb-3 sm:pb-4 max-h-[50vh] sm:max-h-[60vh] md:max-h-[70vh]">
-                      <div className={cn(
-                        "prose prose-sm prose-neutral dark:prose-invert max-w-none text-foreground text-[13px] sm:text-sm",
-                        proseClasses
-                      )}>
-                        <ReactMarkdown components={mdComponents}>{displayed}</ReactMarkdown>
-                        {isActive && <span className="inline-block w-[2px] h-[1em] bg-foreground/70 align-middle animate-pulse ml-0.5" />}
-                      </div>
-                    </div>
-                  </div>
-                );
-              }
-
-              // Text segment (intro or outro)
-              const textSize = getMessageSize(displayed);
-              return (
-                <div
-                  key={i}
-                  className={cn(
-                    "relative rounded-2xl rounded-tl-sm will-change-contents",
-                    textSize === "short"
-                      ? "bg-card border border-border px-3.5 py-2.5 inline-block"
-                      : "px-0.5"
-                  )}
-                >
-                  <div className={cn(
-                    "prose prose-sm prose-neutral dark:prose-invert max-w-none text-foreground text-[13px] sm:text-sm break-words",
-                    proseClasses
-                  )}>
-                    <ReactMarkdown components={mdComponents}>{displayed}</ReactMarkdown>
-                    {isActive && <span className="inline-block w-[2px] h-[1em] bg-foreground/70 align-middle animate-pulse ml-0.5" />}
-                  </div>
-                </div>
-              );
-            })}
+            {message.content && <Message from="assistant" className="max-w-full">
+              <MessageResponse className={cn("text-[15px] leading-7 break-words", proseClasses)} isAnimating={shouldAnimate && !typingDone}>
+                {segments.map((segment, index) => segment.content.slice(0, charCounts[index] ?? segment.content.length)).join("\n\n")}
+              </MessageResponse>
+            </Message>}
 
             {message.videos && message.videos.length > 0 && (
               <VideoGrid videos={message.videos} />
@@ -441,7 +396,7 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
 
             {/* Action bar */}
             {message.content && typingDone && (
-              <div className="flex items-center gap-0.5 pt-1">
+              <div className="flex items-center gap-1 pt-2">
                 <ActionButton onClick={handleSpeak} active={speaking} title={speaking ? "Stop listening" : "Listen"}>
                   {speaking ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
                 </ActionButton>
@@ -480,12 +435,13 @@ const ActionButton = ({
   disabled?: boolean;
   title: string;
 }) => (
-  <button
+  <MessageAction
     onClick={onClick}
     disabled={disabled}
-    title={title}
+    tooltip={title}
+    label={title}
     className={cn(
-      "p-1.5 rounded-lg transition-colors",
+      "size-9 rounded-full transition-colors",
       active
         ? "text-foreground bg-accent"
         : "text-muted-foreground hover:text-foreground hover:bg-accent",
@@ -493,7 +449,7 @@ const ActionButton = ({
     )}
   >
     {children}
-  </button>
+  </MessageAction>
 );
 
 const VideoGrid = ({ videos }: { videos: StockVideo[] }) => {
