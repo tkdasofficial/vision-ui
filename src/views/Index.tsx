@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import { useParams, useNavigate } from "@/lib/router-compat";
-import { type AITool } from "@/lib/types";
+import { type AITool, type ChatMessage } from "@/lib/types";
 import { useChatHistory } from "@/context/ChatHistoryContext";
 import AppDrawer from "@/components/AppDrawer";
 import ChatWorkspace from "@/components/ChatWorkspace";
@@ -14,7 +14,7 @@ const Index = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [chatKey, setChatKey] = useState(0);
   const [activeChatId, setActiveChatId] = useState<string | undefined>(undefined);
-  const [loadedMessages, setLoadedMessages] = useState<any[] | undefined>(undefined);
+  const [loadedMessages, setLoadedMessages] = useState<ChatMessage[] | undefined>(undefined);
 
   // Sync URL param to state
   useEffect(() => {
