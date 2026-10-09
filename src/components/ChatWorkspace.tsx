@@ -42,7 +42,6 @@ const ChatWorkspace = ({ tool, onMenuClick, onNewChat, initialMessages, chatId: 
   const [thinkingPhase, setThinkingPhase] = useState<ThinkingPhase>("thinking");
   const [chatId, setChatId] = useState<string | null>(externalChatId || null);
   const [chatTitle, setChatTitle] = useState<string | null>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
   const { addChat, updateChatMessages } = useChatHistory();
   const { tasks: bgTasks, activeTasks, dispatch: dispatchBgTask } = useBackgroundTasks(chatId);
   const { user } = useAuth();
@@ -122,10 +121,6 @@ const ChatWorkspace = ({ tool, onMenuClick, onNewChat, initialMessages, chatId: 
       }
     }
   }, [initialMessages]);
-
-  useEffect(() => {
-    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
-  }, [messages, isTyping]);
 
   // Persist messages to history whenever they change
   useEffect(() => {
@@ -783,12 +778,12 @@ const ChatWorkspace = ({ tool, onMenuClick, onNewChat, initialMessages, chatId: 
   return (
     <div className="flex flex-col h-full flex-1 min-w-0">
       <header className="relative flex h-[49px] shrink-0 items-center justify-between px-4 sm:px-6 bg-background">
-        <Button variant="ghost" size="icon-sm" aria-label="Open navigation" onClick={onMenuClick} className="rounded-full"><Menu className="size-5" /></Button>
+        <Button variant="ghost" size="icon-sm" aria-label="Open navigation" onClick={onMenuClick} className="rounded-full bg-floating"><Menu className="size-5" /></Button>
         {hasMessages ? <h2 className="mx-3 min-w-0 truncate font-sans text-sm font-medium" title={chatTitle || defaultTitle}>{displayTitle}</h2> : <Button variant="secondary" onClick={() => navigate("/app/upgrade")} className="h-8 gap-1.5 rounded-full bg-floating px-4 text-sm font-medium"><Plus className="size-3.5" />Get Plus</Button>}
-        <Button variant="ghost" size="icon-sm" aria-label="New chat" onClick={onNewChat} className="rounded-full"><SquarePen className="size-5" /></Button>
+        <Button variant="ghost" size="icon-sm" aria-label="New chat" onClick={onNewChat} className="rounded-full bg-floating"><SquarePen className="size-5" /></Button>
       </header>
       <AnnouncementBanner />
-      <Conversation className="min-h-0" scrollRef={scrollRef}>
+      <Conversation className="min-h-0">
         <ConversationContent className={hasMessages ? "gap-0 px-0 py-6 pb-20" : "h-full min-h-full p-0"}>
           {hasMessages ? <>
             {messages.map((msg) => <ChatMessage key={msg.id} message={msg} isNew={newMessageIds.has(msg.id)} />)}
