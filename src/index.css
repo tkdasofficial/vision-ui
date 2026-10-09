@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 5%;
+
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 5%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 5%;
+
+    --primary: 0 0% 8%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 0 0% 95%;
+    --secondary-foreground: 0 0% 15%;
+
+    --muted: 0 0% 94%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 0 0% 92%;
+    --accent-foreground: 0 0% 10%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 20%;
+
+    --radius: 1rem;
+
+    --sidebar-background: 0 0% 97%;
+    --sidebar-foreground: 0 0% 35%;
+    --sidebar-primary: 0 0% 8%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 0 0% 93%;
+    --sidebar-accent-foreground: 0 0% 10%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 0 0% 20%;
+
+    --surface-elevated: 0 0% 96%;
+    --success: 150 60% 40%;
+    --success-foreground: 0 0% 100%;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background: 0 0% 7%;
+      --foreground: 0 0% 93%;
+
+      --card: 0 0% 10%;
+      --card-foreground: 0 0% 93%;
+
+      --popover: 0 0% 10%;
+      --popover-foreground: 0 0% 93%;
+
+      --primary: 0 0% 93%;
+      --primary-foreground: 0 0% 7%;
+
+      --secondary: 0 0% 14%;
+      --secondary-foreground: 0 0% 80%;
+
+      --muted: 0 0% 15%;
+      --muted-foreground: 0 0% 55%;
+
+      --accent: 0 0% 17%;
+      --accent-foreground: 0 0% 90%;
+
+      --destructive: 0 62% 30%;
+      --destructive-foreground: 0 0% 98%;
+
+      --border: 0 0% 18%;
+      --input: 0 0% 18%;
+      --ring: 0 0% 80%;
+
+      --sidebar-background: 0 0% 9%;
+      --sidebar-foreground: 0 0% 60%;
+      --sidebar-primary: 0 0% 93%;
+      --sidebar-primary-foreground: 0 0% 7%;
+      --sidebar-accent: 0 0% 14%;
+      --sidebar-accent-foreground: 0 0% 90%;
+      --sidebar-border: 0 0% 15%;
+      --sidebar-ring: 0 0% 80%;
+
+      --surface-elevated: 0 0% 12%;
+      --success: 150 60% 45%;
+      --success-foreground: 0 0% 7%;
+    }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(0 0% 40% / 0.3);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(0 0% 40% / 0.5);
+}
+
+/* Hide scrollbar on mobile */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  * {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
