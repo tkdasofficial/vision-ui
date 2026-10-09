@@ -976,7 +976,7 @@ const ChatWorkspace = ({
   }
 
   const hasMessages = messages.length > 0;
-  const defaultTitle = tool ? tool.shortName : "Super Copilot";
+  const defaultTitle = tool ? tool.shortName : "Vision";
 
   return (
     <div className="flex flex-col h-full flex-1 min-w-0">

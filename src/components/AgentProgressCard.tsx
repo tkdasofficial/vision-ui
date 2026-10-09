@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { CheckCircle2, Circle, Loader2, AlertCircle, ChevronDown, ChevronUp, Image, FileText, Code2, Mic, Video, MessageSquare, Zap } from "lucide-react";
 import ReactMarkdown from "react-markdown";
@@ -106,7 +107,7 @@ export default function AgentProgressCard({ plan, onComplete }: Props) {
 
           return (
             <div key={step.id} className="group">
-              <button
+              <Button variant="legacy" size="custom"
                 onClick={() => hasContent && setExpandedStep(isExpanded ? null : step.id)}
                 className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-muted/20 transition-colors"
                 disabled={!hasContent}
@@ -123,7 +124,7 @@ export default function AgentProgressCard({ plan, onComplete }: Props) {
                     ? <ChevronUp className="w-3.5 h-3.5 text-muted-foreground" />
                     : <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
                 )}
-              </button>
+              </Button>
 
               {/* Expanded content */}
               {isExpanded && hasContent && (

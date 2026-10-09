@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation, Outlet } from "@/lib/router-compat";
 import { useAuth } from "@/context/AuthContext";
@@ -6,7 +7,7 @@ import {
   MessageSquare, Zap, TrendingUp, Settings, LifeBuoy, Megaphone, ToggleLeft, ScrollText,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import logo from "@/assets/logo.svg";
+import logo from "@/assets/vision-mark.png";
 
 const NAV_GROUPS: { label: string; items: { path: string; label: string; icon: any }[] }[] = [
   {
@@ -73,7 +74,7 @@ const AdminLayout = () => {
               const Icon = item.icon;
               const active = location.pathname === item.path;
               return (
-                <button
+                <Button variant="legacy" size="custom"
                   key={item.path}
                   onClick={() => { navigate(item.path); onClick?.(); }}
                   className={cn(
@@ -83,7 +84,7 @@ const AdminLayout = () => {
                 >
                   <Icon className="w-4 h-4" />
                   <span>{item.label}</span>
-                </button>
+                </Button>
               );
             })}
           </div>
@@ -101,9 +102,9 @@ const AdminLayout = () => {
         </div>
         <NavBody />
         <div className="px-3 pb-4">
-          <button onClick={() => navigate("/app/new")} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-sidebar-foreground hover:bg-sidebar-accent transition-colors">
+          <Button variant="legacy" size="custom" onClick={() => navigate("/app/new")} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-sidebar-foreground hover:bg-sidebar-accent transition-colors">
             <ArrowLeft className="w-4 h-4" /><span>Back to App</span>
-          </button>
+          </Button>
         </div>
       </aside>
 
@@ -111,19 +112,19 @@ const AdminLayout = () => {
       <div className={cn("fixed top-0 left-0 bottom-0 w-[260px] bg-sidebar border-r border-sidebar-border z-50 flex flex-col transition-transform duration-300 lg:hidden", mobileOpen ? "translate-x-0" : "-translate-x-full")}>
         <div className="flex items-center justify-between px-4 py-4">
           <span className="font-display font-semibold text-foreground text-sm">Admin Panel</span>
-          <button onClick={() => setMobileOpen(false)} className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground"><X className="w-5 h-5" /></button>
+          <Button variant="legacy" size="custom" onClick={() => setMobileOpen(false)} className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground"><X className="w-5 h-5" /></Button>
         </div>
         <NavBody onClick={() => setMobileOpen(false)} />
         <div className="px-3 pb-4">
-          <button onClick={() => navigate("/app/new")} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-sidebar-foreground hover:bg-sidebar-accent transition-colors">
+          <Button variant="legacy" size="custom" onClick={() => navigate("/app/new")} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-sidebar-foreground hover:bg-sidebar-accent transition-colors">
             <ArrowLeft className="w-4 h-4" /><span>Back to App</span>
-          </button>
+          </Button>
         </div>
       </div>
 
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
         <header className="flex items-center gap-3 px-4 py-3 border-b border-border bg-background/80 backdrop-blur-sm lg:hidden">
-          <button onClick={() => setMobileOpen(true)} className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"><Menu className="w-5 h-5" /></button>
+          <Button variant="legacy" size="custom" onClick={() => setMobileOpen(true)} className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"><Menu className="w-5 h-5" /></Button>
           <h1 className="text-sm font-display font-semibold text-foreground">Admin</h1>
         </header>
         <div className="flex-1 overflow-y-auto"><Outlet /></div>

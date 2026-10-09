@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { supabase } from "@/backend/client";
 import { Megaphone, Loader2, Plus, Trash2 } from "lucide-react";
@@ -66,9 +67,9 @@ const AdminAnnouncements = () => {
           </select>
           <textarea value={form.body} onChange={(e) => setForm({ ...form, body: e.target.value })} placeholder="Body" rows={3} className="bg-background border border-border rounded-lg px-3 py-2 text-sm sm:col-span-2 resize-none" />
           <input type="datetime-local" value={form.ends_at} onChange={(e) => setForm({ ...form, ends_at: e.target.value })} className="bg-background border border-border rounded-lg px-3 py-2 text-sm" />
-          <button onClick={create} disabled={saving} className="bg-primary text-primary-foreground rounded-lg px-3 py-2 text-sm font-medium flex items-center justify-center gap-1.5 disabled:opacity-60">
+          <Button variant="legacy" size="custom" onClick={create} disabled={saving} className="bg-primary text-primary-foreground rounded-lg px-3 py-2 text-sm font-medium flex items-center justify-center gap-1.5 disabled:opacity-60">
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />} Publish
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -91,8 +92,8 @@ const AdminAnnouncements = () => {
                 <p className="text-[10px] text-muted-foreground mt-2">{new Date(a.created_at).toLocaleString()}{a.ends_at && ` · ends ${new Date(a.ends_at).toLocaleDateString()}`}</p>
               </div>
               <div className="flex gap-1 shrink-0">
-                <button onClick={() => toggle(a.id, a.active)} className="px-2 py-1 text-xs rounded-md border border-border text-foreground hover:bg-accent">{a.active ? "Pause" : "Activate"}</button>
-                <button onClick={() => remove(a.id)} className="p-1.5 text-muted-foreground hover:text-red-500"><Trash2 className="w-3.5 h-3.5" /></button>
+                <Button variant="legacy" size="custom" onClick={() => toggle(a.id, a.active)} className="px-2 py-1 text-xs rounded-md border border-border text-foreground hover:bg-accent">{a.active ? "Pause" : "Activate"}</Button>
+                <Button variant="legacy" size="custom" onClick={() => remove(a.id)} className="p-1.5 text-muted-foreground hover:text-red-500"><Trash2 className="w-3.5 h-3.5" /></Button>
               </div>
             </div>
           ))}

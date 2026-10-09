@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useState, useEffect, useCallback } from "react";
 import {
   Download, Film, Sparkles, ImageIcon, Volume2, Clapperboard,
@@ -172,7 +173,7 @@ const VideoGenerationCard = ({ topic, duration, aspectRatio }: Props) => {
           return (
             <div key={group} className="rounded-lg overflow-hidden">
               {/* Group header */}
-              <button
+              <Button variant="legacy" size="custom"
                 onClick={() => toggleGroup(group)}
                 className="w-full flex items-center gap-2 px-3 py-2 hover:bg-accent/50 transition-colors rounded-lg"
               >
@@ -197,7 +198,7 @@ const VideoGenerationCard = ({ topic, duration, aspectRatio }: Props) => {
                     ? <ChevronUp className="w-3 h-3 text-muted-foreground" />
                     : <ChevronDown className="w-3 h-3 text-muted-foreground" />
                 )}
-              </button>
+              </Button>
 
               {/* Individual tasks */}
               {isExpanded && gTasks.length > 1 && (
@@ -269,13 +270,13 @@ const VideoGenerationCard = ({ topic, duration, aspectRatio }: Props) => {
               Video ready in {formatTime(elapsed)}
             </span>
           </div>
-          <button
+          <Button variant="legacy" size="custom"
             onClick={handleDownload}
             className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-foreground text-background text-sm font-medium hover:opacity-90 transition-opacity"
           >
             <Download className="w-4 h-4" />
             Download MP4
-          </button>
+          </Button>
         </div>
       )}
     </div>

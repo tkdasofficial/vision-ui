@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { supabase } from "@/backend/client";
 import { Shield, Search, ChevronDown, ChevronUp, Eye, Ban, UserCheck } from "lucide-react";
@@ -221,21 +222,21 @@ const AdminUsers = () => {
                   </td>
                   <td className="px-4 py-2.5 text-right">
                     <div className="flex items-center gap-1 justify-end">
-                      <button
+                      <Button variant="legacy" size="custom"
                         onClick={() => viewUserSessions(user.id)}
                         className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
                         title="View sessions"
-                      ><Eye className="w-4 h-4" /></button>
-                      <button
+                      ><Eye className="w-4 h-4" /></Button>
+                      <Button variant="legacy" size="custom"
                         onClick={() => toggleAdmin(user.id)}
                         className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
                         title={roles[user.id]?.includes("admin") ? "Remove admin" : "Make admin"}
-                      ><Shield className="w-4 h-4" /></button>
-                      <button
+                      ><Shield className="w-4 h-4" /></Button>
+                      <Button variant="legacy" size="custom"
                         onClick={() => toggleBan(user.id, !!user.is_banned)}
                         className={`p-1.5 rounded-lg hover:bg-accent transition-colors ${user.is_banned ? "text-emerald-600" : "text-muted-foreground hover:text-amber-600"}`}
                         title={user.is_banned ? "Unban" : "Ban"}
-                      >{user.is_banned ? <UserCheck className="w-4 h-4" /> : <Ban className="w-4 h-4" />}</button>
+                      >{user.is_banned ? <UserCheck className="w-4 h-4" /> : <Ban className="w-4 h-4" />}</Button>
                     </div>
                   </td>
                 </tr>

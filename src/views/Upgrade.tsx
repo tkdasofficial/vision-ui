@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { useNavigate } from "@/lib/router-compat";
 import { ArrowLeft, Check, Sparkles, Loader2 } from "lucide-react";
@@ -69,9 +70,9 @@ const Upgrade = () => {
     <div className="min-h-[100dvh] bg-background">
       <div className="px-4 py-3 sticky top-0 bg-background/85 backdrop-blur-md z-20 border-b border-border/60">
         <div className="max-w-7xl mx-auto flex items-center gap-3">
-          <button onClick={() => navigate(-1)} className="p-2 -ml-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors">
+          <Button variant="legacy" size="custom" onClick={() => navigate(-1)} className="p-2 -ml-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors">
             <ArrowLeft className="w-4.5 h-4.5" strokeWidth={2} />
-          </button>
+          </Button>
           <h1 className="text-base font-display font-semibold text-foreground">Plans & Pricing</h1>
           <div className="ml-auto"><ProfileMenu /></div>
         </div>
@@ -89,10 +90,10 @@ const Upgrade = () => {
           </p>
 
           <div className="inline-flex items-center gap-1 mt-6 p-1 bg-accent rounded-full">
-            <button onClick={() => setBilling("monthly")} className={`px-4 py-1.5 text-xs font-medium rounded-full transition-colors ${billing === "monthly" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground"}`}>Monthly</button>
-            <button onClick={() => setBilling("yearly")} className={`px-4 py-1.5 text-xs font-medium rounded-full transition-colors flex items-center gap-1.5 ${billing === "yearly" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground"}`}>
+            <Button variant="legacy" size="custom" onClick={() => setBilling("monthly")} className={`px-4 py-1.5 text-xs font-medium rounded-full transition-colors ${billing === "monthly" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground"}`}>Monthly</Button>
+            <Button variant="legacy" size="custom" onClick={() => setBilling("yearly")} className={`px-4 py-1.5 text-xs font-medium rounded-full transition-colors flex items-center gap-1.5 ${billing === "yearly" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground"}`}>
               Yearly <span className="text-[10px] px-1.5 py-0.5 bg-primary/15 text-primary rounded-full">−17%</span>
-            </button>
+            </Button>
           </div>
         </div>
 
@@ -122,7 +123,7 @@ const Upgrade = () => {
                     {p.price_monthly > 0 && billing === "yearly" ? `Billed $${yearly}/yr` : p.price_monthly === 0 ? "Free forever" : "Billed monthly"}
                   </p>
 
-                  <button
+                  <Button variant="legacy" size="custom"
                     onClick={() => handleSelect(p.plan)}
                     disabled={isCurrent || updating === p.plan}
                     className={`w-full mt-4 py-2.5 rounded-lg text-sm font-semibold transition-colors disabled:opacity-60 ${
@@ -132,7 +133,7 @@ const Upgrade = () => {
                     }`}
                   >
                     {updating === p.plan ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : isCurrent ? "Current plan" : p.plan === "free" ? "Downgrade" : "Get started"}
-                  </button>
+                  </Button>
 
                   <ul className="space-y-2 mt-5">
                     {(p.features as string[]).map((f, i) => (

@@ -223,8 +223,8 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
               value={value}
               onChange={(e) => { setValue(e.target.value); finalTranscriptRef.current = e.target.value; autoResize(); }}
               onKeyDown={handleKeyDown}
-              placeholder={`Ask Copilot${animatedDots}`}
-              aria-label="Message Copilot"
+              placeholder={`Ask Vision${animatedDots}`}
+              aria-label="Message Vision"
               rows={1}
               className="w-full bg-transparent text-foreground text-[15px] placeholder:text-muted-foreground resize-none outline-none min-h-[44px] max-h-[200px] py-3 px-4 focus-visible:ring-0! focus-visible:ring-offset-0! shadow-none!"
             />
@@ -292,7 +292,7 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
         </PromptInput>
 
         <p className="text-[11px] text-muted-foreground text-center mt-2 hidden sm:block">
-          Super Copilot may produce inaccurate results. Verify important information.
+          Vision may produce inaccurate results. Verify important information.
         </p>
       </div>
     </div>

@@ -232,12 +232,12 @@ const TTSCard = ({ script }: Props) => {
         {audioUrl && (
           <div className="space-y-3">
             <div className="flex items-center gap-3 p-3 rounded-lg bg-primary/5 border border-primary/20">
-              <button
+              <Button variant="legacy" size="custom"
                 onClick={togglePlay}
                 className="w-9 h-9 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:opacity-90 transition-opacity shrink-0"
               >
                 {playing ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 ml-0.5" />}
-              </button>
+              </Button>
               <div className="flex-1 min-w-0">
                 <p className="text-xs font-medium text-foreground truncate">voiceover.{selectedFormat}</p>
                 <p className="text-xs text-muted-foreground">{voiceName} • {selectedFormat.toUpperCase()}</p>

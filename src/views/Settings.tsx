@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useNavigate } from "@/lib/router-compat";
 import { ArrowLeft, Globe, Bell, BellOff, Trash2, Download, AlertTriangle, Loader2, Check, BellRing } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
@@ -208,9 +209,9 @@ const Settings = () => {
   return (
     <div className="min-h-[100dvh] bg-background flex flex-col">
       <header className="flex items-center justify-between px-4 py-3 border-b border-border bg-background/80 backdrop-blur-sm">
-        <button onClick={() => navigate(-1)} className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors">
+        <Button variant="legacy" size="custom" onClick={() => navigate(-1)} className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors">
           <ArrowLeft className="w-5 h-5" />
-        </button>
+        </Button>
         <h1 className="text-sm font-display font-semibold text-foreground">Settings</h1>
         <ProfileMenu />
       </header>
@@ -258,12 +259,12 @@ const Settings = () => {
                     <p className="text-xs text-muted-foreground">Enable or disable alerts</p>
                   </div>
                 </div>
-                <button
+                <Button variant="legacy" size="custom"
                   onClick={handleNotificationsToggle}
                   className={`w-10 h-6 rounded-full transition-colors relative ${notifications ? "bg-foreground" : "bg-muted"}`}
                 >
                   <div className={`w-4 h-4 rounded-full bg-background absolute top-1 transition-all ${notifications ? "left-5" : "left-1"}`} />
-                </button>
+                </Button>
               </div>
 
               <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-xl border border-border bg-card p-3">
@@ -311,13 +312,13 @@ const Settings = () => {
                       <span className="text-[hsl(var(--success))]">Enabled</span>
                     </div>
                   ) : (
-                    <button
+                    <Button variant="legacy" size="custom"
                       onClick={handleRequestPush}
                       disabled={pushPermission === "denied"}
                       className="text-xs font-medium px-3 py-1.5 rounded-lg bg-foreground text-background hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       Enable
-                    </button>
+                    </Button>
                   )}
                 </div>
               </div>
@@ -328,7 +329,7 @@ const Settings = () => {
           <section>
             <h2 className="font-display text-lg font-semibold text-foreground mb-4">Data & Privacy</h2>
             <div className="space-y-3">
-              <button
+              <Button variant="legacy" size="custom"
                 onClick={handleExport}
                 disabled={exporting}
                 className="w-full flex items-center gap-3 rounded-xl border border-border bg-card p-4 hover:bg-accent transition-colors text-left disabled:opacity-50"
@@ -338,9 +339,9 @@ const Settings = () => {
                   <p className="text-sm font-medium text-foreground">Export data</p>
                   <p className="text-xs text-muted-foreground">Download all your conversations & data as JSON</p>
                 </div>
-              </button>
+              </Button>
 
-              <button
+              <Button variant="legacy" size="custom"
                 onClick={handleClearHistory}
                 disabled={clearing}
                 className="w-full flex items-center gap-3 rounded-xl border border-border bg-card p-4 hover:bg-accent transition-colors text-left disabled:opacity-50"
@@ -350,9 +351,9 @@ const Settings = () => {
                   <p className="text-sm font-medium text-foreground">Clear all history</p>
                   <p className="text-xs text-muted-foreground">Delete all saved conversations (kept for 7 days)</p>
                 </div>
-              </button>
+              </Button>
 
-              <button
+              <Button variant="legacy" size="custom"
                 onClick={() => setShowDeleteConfirm(!showDeleteConfirm)}
                 className="w-full flex items-center gap-3 rounded-xl border border-destructive/30 bg-card p-4 hover:bg-destructive/5 transition-colors text-left"
               >
@@ -361,24 +362,24 @@ const Settings = () => {
                   <p className="text-sm font-medium text-destructive">Delete account</p>
                   <p className="text-xs text-muted-foreground">Permanently delete your account & data</p>
                 </div>
-              </button>
+              </Button>
 
               {showDeleteConfirm && (
                 <div className="rounded-xl border border-destructive/30 bg-destructive/5 p-4 animate-fade-up">
                   <p className="text-sm text-foreground mb-3">Are you sure? This action cannot be undone.</p>
                   <div className="flex gap-2">
-                    <button
+                    <Button variant="legacy" size="custom"
                       onClick={() => setShowDeleteConfirm(false)}
                       className="flex-1 py-2 rounded-lg border border-border text-sm text-foreground hover:bg-accent transition-colors"
                     >
                       Cancel
-                    </button>
-                    <button
+                    </Button>
+                    <Button variant="legacy" size="custom"
                       onClick={handleDeleteAccount}
                       className="flex-1 py-2 rounded-lg bg-destructive text-destructive-foreground text-sm font-medium hover:opacity-90 transition-opacity"
                     >
                       Delete
-                    </button>
+                    </Button>
                   </div>
                 </div>
               )}

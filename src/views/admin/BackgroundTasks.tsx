@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { supabase } from "@/backend/client";
 import { Zap, RefreshCw, Search, XCircle, CheckCircle2, Clock, Loader2 } from "lucide-react";
@@ -93,9 +94,9 @@ const AdminBackgroundTasks = () => {
           Background Tasks
         </h2>
         <div className="flex items-center gap-2">
-          <button onClick={load} className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors">
+          <Button variant="legacy" size="custom" onClick={load} className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors">
             <RefreshCw className="w-4 h-4" />
-          </button>
+          </Button>
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input
@@ -111,7 +112,7 @@ const AdminBackgroundTasks = () => {
       {/* Status filters */}
       <div className="flex gap-2 flex-wrap">
         {(["all", "pending", "running", "done", "error"] as const).map((status) => (
-          <button
+          <Button variant="legacy" size="custom"
             key={status}
             onClick={() => setFilter(status)}
             className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
@@ -121,7 +122,7 @@ const AdminBackgroundTasks = () => {
             }`}
           >
             {status.charAt(0).toUpperCase() + status.slice(1)} ({counts[status]})
-          </button>
+          </Button>
         ))}
       </div>
 
@@ -172,13 +173,13 @@ const AdminBackgroundTasks = () => {
                   </td>
                   <td className="px-4 py-2.5 text-right">
                     {(task.status === "pending" || task.status === "running") && (
-                      <button
+                      <Button variant="legacy" size="custom"
                         onClick={() => cancelTask(task.id)}
                         className="p-1.5 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
                         title="Cancel task"
                       >
                         <XCircle className="w-4 h-4" />
-                      </button>
+                      </Button>
                     )}
                     {task.status === "error" && task.error && (
                       <span className="text-xs text-destructive truncate max-w-[120px] block" title={task.error}>

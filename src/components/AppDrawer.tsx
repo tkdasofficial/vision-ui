@@ -89,7 +89,7 @@ export default function AppDrawer({
       >
         <div className="grid h-[49px] shrink-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-2 px-5">
           <SheetTitle className="min-w-0 truncate font-sans text-ui-title font-semibold">
-            Super Copilot
+            Vision
           </SheetTitle>
           <Button
             variant="secondary"
