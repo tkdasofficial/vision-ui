@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import Page from "@/views/admin/Notifications"; from "@/components/Protected";}
+import Page from "@/views/admin/Notifications";
 
 export const Route = createFileRoute("/admin/notifications")({
   head: () => ({

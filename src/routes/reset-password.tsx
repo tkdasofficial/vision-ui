@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import Page from "@/views/ResetPassword"; from "@/components/Protected";}
+import Page from "@/views/ResetPassword";
 
 export const Route = createFileRoute("/reset-password")({
   head: () => ({

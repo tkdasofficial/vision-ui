@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import Page from "@/views/Privacy"; from "@/components/Protected";}
+import Page from "@/views/Privacy";
 
 export const Route = createFileRoute("/docs/privacy-policy")({
   head: () => ({

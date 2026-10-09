@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import Page from "@/views/admin/BackgroundTasks"; from "@/components/Protected";}
+import Page from "@/views/admin/BackgroundTasks";
 
 export const Route = createFileRoute("/admin/background-tasks")({
   head: () => ({
