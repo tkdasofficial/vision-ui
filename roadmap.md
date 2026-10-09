@@ -5,3 +5,5 @@
 - [x] Verify navigation, conversations and light/dark layouts
 - [x] Refine main screen, drawer and conversation to closely match uploaded references without restyling the chat input
 - [x] Verify the refined screens and navigation in dark/light themes and narrow/wide layouts
+- [ ] Apply a consistent compact size scale to oversized app elements, preserving the chat input
+- [ ] Verify compact screens, navigation and conversation on narrow/wide layouts
