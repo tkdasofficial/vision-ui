@@ -286,7 +286,7 @@ export const ChatHistoryProvider = ({ children }: { children: ReactNode }) => {
     if (newMessages.length === 0) return;
 
     const rows = newMessages.map((m) => ({
-      id: m.id.length < 36 ? crypto.randomUUID() : m.id,
+      id: m.id,
       session_id: id,
       role: m.role as string,
       content: m.content,
