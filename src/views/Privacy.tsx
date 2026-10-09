@@ -28,7 +28,7 @@ const Privacy = () => {
             { title: "Data Sharing", content: "We do not sell your personal information. We may share data with trusted service providers who assist in operating our platform, subject to confidentiality agreements. We may disclose information when required by law." },
             { title: "Your Rights", content: "You can access, correct, or delete your personal data at any time through account settings. You can export your data, opt out of marketing communications, and request account deletion." },
             { title: "Cookies", content: "We use essential cookies for authentication and preferences. Analytics cookies help us understand usage patterns. You can manage cookie preferences in your browser settings." },
-            { title: "Contact Us", content: "For privacy inquiries, contact us through the Support page." },
+            { title: "Contact Us", content: "For privacy inquiries, contact us at privacy@supercopilot.ai or through the Support page." },
           ].map((section, i) => (
             <div key={i} className="mb-5">
               <h3 className="text-sm font-display font-semibold text-foreground mb-2">{section.title}</h3>
