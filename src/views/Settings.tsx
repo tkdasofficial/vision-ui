@@ -215,8 +215,8 @@ const Settings = () => {
         <ProfileMenu />
       </header>
 
-      <div className="flex-1 px-4 py-6 sm:px-6 overflow-y-auto">
-        <div className="max-w-lg mx-auto space-y-6">
+      <div className="flex-1 px-4 py-4 sm:px-6 overflow-y-auto">
+        <div className="max-w-lg mx-auto space-y-4">
           {/* Saving indicator */}
           {saving && (
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -229,7 +229,7 @@ const Settings = () => {
           <section>
             <h2 className="font-display text-lg font-semibold text-foreground mb-4">Preferences</h2>
             <div className="space-y-3">
-              <div className="flex items-center justify-between rounded-xl border border-border bg-card p-4">
+              <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-xl border border-border bg-card p-3">
                 <div className="flex items-center gap-3">
                   <Globe className="w-4 h-4 text-muted-foreground" />
                   <div>
@@ -250,7 +250,7 @@ const Settings = () => {
                 </select>
               </div>
 
-              <div className="flex items-center justify-between rounded-xl border border-border bg-card p-4">
+              <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-xl border border-border bg-card p-3">
                 <div className="flex items-center gap-3">
                   {notifications ? <Bell className="w-4 h-4 text-muted-foreground" /> : <BellOff className="w-4 h-4 text-muted-foreground" />}
                   <div>
@@ -266,7 +266,7 @@ const Settings = () => {
                 </button>
               </div>
 
-              <div className="flex items-center justify-between rounded-xl border border-border bg-card p-4">
+              <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-xl border border-border bg-card p-3">
                 <div>
                   <p className="text-sm font-medium text-foreground">Default tool</p>
                   <p className="text-xs text-muted-foreground">Opens on launch</p>

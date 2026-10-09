@@ -150,18 +150,18 @@ const Account = () => {
         <ProfileMenu />
       </header>
 
-      <div className="flex-1 px-4 py-6 sm:px-6 overflow-y-auto">
-        <div className="max-w-lg mx-auto space-y-6">
+      <div className="flex-1 px-4 py-4 sm:px-6 overflow-y-auto">
+        <div className="max-w-lg mx-auto space-y-4">
           {/* Profile */}
           <section>
             <h2 className="font-display text-lg font-semibold text-foreground mb-4">Profile</h2>
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded-full bg-foreground/10 flex items-center justify-center overflow-hidden">
+                <div className="size-12 shrink-0 rounded-full bg-foreground/10 flex items-center justify-center overflow-hidden">
                   {profile?.avatar_url ? (
                     <img src={profile.avatar_url} alt="" className="w-full h-full object-cover" />
                   ) : (
-                    <User className="w-7 h-7 text-foreground" />
+                    <User className="size-5 text-foreground" />
                   )}
                 </div>
                 <div>

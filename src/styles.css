@@ -7,6 +7,13 @@
 @theme inline {
   --font-display: "Space Grotesk", sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
+  --spacing-ui-control: 2.25rem;
+  --spacing-ui-row: 2.5rem;
+  --spacing-ui-icon: 1.125rem;
+  --text-ui-label: 0.9375rem;
+  --text-ui-label--line-height: 1.5;
+  --text-ui-title: 1.125rem;
+  --text-ui-title--line-height: 1.4;
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 4px);
   --radius-sm: calc(var(--radius) - 8px);

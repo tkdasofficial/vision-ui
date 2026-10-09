@@ -40,8 +40,8 @@ const ProfileMenu = ({ conversation = false }: { conversation?: boolean }) => {
           aria-label="Open profile menu"
           className={
             conversation
-              ? "size-11 rounded-full bg-transparent [&_svg]:size-6"
-              : "size-12 rounded-full bg-floating border border-border flex items-center justify-center hover:bg-accent transition-colors"
+              ? "size-ui-control shrink-0 rounded-full bg-transparent [&_svg]:size-ui-icon"
+              : "size-ui-control shrink-0 rounded-full bg-floating border border-border flex items-center justify-center hover:bg-accent transition-colors"
           }
         >
           {conversation ? (
@@ -53,7 +53,7 @@ const ProfileMenu = ({ conversation = false }: { conversation?: boolean }) => {
               className="w-full h-full rounded-full object-cover"
             />
           ) : (
-            <span className="flex size-8 items-center justify-center rounded-full bg-avatar text-sm font-normal text-avatar-foreground">
+            <span className="flex size-6 items-center justify-center rounded-full bg-avatar text-xs font-normal text-avatar-foreground">
               {(profile?.full_name || "User")
                 .split(/\s+/)
                 .slice(0, 2)

@@ -140,7 +140,7 @@ const Auth = () => {
       <div className="min-h-[100dvh] bg-background flex items-center justify-center px-4">
         <div className="w-full max-w-sm space-y-6">
           <div className="flex flex-col items-center gap-3">
-            <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
+            <div className="size-10 rounded-full bg-primary/10 flex items-center justify-center">
               {isTotp ? (
                 <Smartphone className="w-7 h-7 text-primary" />
               ) : (
@@ -206,7 +206,7 @@ const Auth = () => {
     <div className="min-h-[100dvh] bg-background flex items-center justify-center px-4">
       <div className="w-full max-w-sm space-y-6">
         <div className="flex flex-col items-center gap-3">
-          <img src={logo} alt="Super Copilot" className="w-14 h-14 rounded-full" />
+          <img src={logo} alt="Super Copilot" className="size-10 rounded-full" />
           <h1 className="font-display text-xl font-semibold text-foreground">
             {mode === "login" ? "Welcome back" : mode === "signup" ? "Create account" : "Reset password"}
           </h1>
