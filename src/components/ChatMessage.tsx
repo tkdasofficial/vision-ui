@@ -12,10 +12,11 @@ import {
   ThumbsDown,
   Flag,
   FileCode,
+  Share2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
-import { Message, MessageResponse, MessageAction } from "@/components/ai-elements/message";
+import { Message, MessageContent, MessageResponse, MessageAction } from "@/components/ai-elements/message";
 import type { Components } from "react-markdown";
 import { useToast } from "@/hooks/use-toast";
 import VideoGenerationCard from "./VideoGenerationCard";
@@ -364,20 +365,20 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
     <div
       ref={ref}
       className={cn(
-        "px-5 sm:px-6 w-full max-w-3xl mx-auto transition-all duration-300",
-        isUser ? "py-4" : "py-5",
+        "px-4 sm:px-6 w-full max-w-3xl mx-auto transition-all duration-300",
+        isUser ? "py-2" : "pt-4 pb-5",
         isNew && "animate-fade-in",
       )}
     >
       {isUser ? (
-        <div className="flex justify-end">
-          <div
+        <Message from="user" className="max-w-full">
+          <MessageContent
             className={cn(
-              "relative rounded-[24px] bg-chat-user text-chat-user-foreground transition-all duration-200",
-              size === "short" && "px-3.5 py-2 text-[15px] max-w-[80%] sm:max-w-[75%]",
-              size === "medium" && "px-3.5 py-2.5 text-[15px] max-w-[85%] sm:max-w-[82%]",
+              "relative group-[.is-user]:rounded-[24px] group-[.is-user]:bg-chat-user group-[.is-user]:text-chat-user-foreground transition-all duration-200",
+              size === "short" && "group-[.is-user]:px-4 group-[.is-user]:py-3 text-[17px] max-w-[80%] sm:max-w-[75%]",
+              size === "medium" && "group-[.is-user]:px-4 group-[.is-user]:py-3 text-[17px] max-w-[85%] sm:max-w-[82%]",
               size === "long" &&
-                "px-3.5 py-3 text-[14px] max-w-[92%] sm:max-w-[88%] leading-relaxed",
+                "group-[.is-user]:px-4 group-[.is-user]:py-3 text-base max-w-[92%] sm:max-w-[88%] leading-relaxed",
             )}
           >
             {message.imageUrl && (
@@ -388,8 +389,8 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
               />
             )}
             <p className="leading-relaxed whitespace-pre-wrap break-words">{message.content}</p>
-          </div>
-        </div>
+          </MessageContent>
+        </Message>
       ) : (
         <div className="group relative max-w-full">
           <div className="space-y-3">
@@ -404,7 +405,7 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
             {message.content && (
               <Message from="assistant" className="max-w-full">
                 <MessageResponse
-                  className={cn("text-[15px] leading-7 break-words", proseClasses)}
+                  className={cn("text-[17px] leading-7 break-words", proseClasses)}
                   isAnimating={shouldAnimate && !typingDone}
                 >
                   {segments
@@ -440,18 +441,7 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
 
             {/* Action bar */}
             {message.content && typingDone && (
-              <div className="flex items-center gap-1 pt-2">
-                <ActionButton
-                  onClick={handleSpeak}
-                  active={speaking}
-                  title={speaking ? "Stop listening" : "Listen"}
-                >
-                  {speaking ? (
-                    <VolumeX className="w-3.5 h-3.5" />
-                  ) : (
-                    <Volume2 className="w-3.5 h-3.5" />
-                  )}
-                </ActionButton>
+              <div className="-ml-2 flex items-center gap-0 pt-1">
                 <ActionButton onClick={handleCopy} active={copied} title="Copy">
                   {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                 </ActionButton>
@@ -469,6 +459,18 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
                 >
                   <ThumbsDown className="w-3.5 h-3.5" />
                 </ActionButton>
+                <ActionButton
+                  onClick={handleSpeak}
+                  active={speaking}
+                  title={speaking ? "Stop listening" : "Listen"}
+                >
+                  {speaking ? <VolumeX /> : <Volume2 />}
+                </ActionButton>
+                <ActionButton onClick={async () => {
+                  if (navigator.share) {
+                    try { await navigator.share({ text: message.content }); } catch { /* Dismissing sharing needs no error. */ }
+                  } else { handleCopy(); }
+                }} title="Share"><Share2 /></ActionButton>
                 <ActionButton
                   onClick={handleReport}
                   active={reported}
@@ -506,7 +508,7 @@ const ActionButton = ({
     tooltip={title}
     label={title}
     className={cn(
-      "size-9 rounded-full transition-colors",
+      "size-9 rounded-full transition-colors [&_svg]:size-[18px] [&_svg]:stroke-[1.8]",
       active
         ? "text-foreground bg-accent"
         : "text-muted-foreground hover:text-foreground hover:bg-accent",

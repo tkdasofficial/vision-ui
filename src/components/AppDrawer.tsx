@@ -12,6 +12,8 @@ import {
   Check,
   X,
   AudioLines,
+  SquarePen,
+  MoreHorizontal,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetDescription } from "@/components/ui/sheet";
@@ -19,6 +21,7 @@ import { useChatHistory } from "@/context/ChatHistoryContext";
 import { useNavigate } from "@/lib/router-compat";
 import ProfileMenu from "./ProfileMenu";
 import { cn } from "@/lib/utils";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 type Props = {
   open: boolean;
@@ -48,6 +51,7 @@ export default function AppDrawer({
   const navigate = useNavigate();
   const { renameChat, deleteChat, searchHistory } = useChatHistory();
   const [query, setQuery] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [title, setTitle] = useState("");
   const history = query ? searchHistory(query) : chatHistory;
@@ -76,26 +80,31 @@ export default function AppDrawer({
     >
       <SheetContent
         side="left"
-        className="flex h-[100dvh] w-full max-w-[380px] flex-col gap-0 border-border bg-background p-0 sm:max-w-[380px] [&>button]:right-5 [&>button]:top-5"
+        overlayClassName="bg-drawer-scrim"
+        className="flex h-[100dvh] w-[80vw] max-w-[380px] flex-col gap-0 border-border bg-background p-0 shadow-none sm:max-w-[380px] [&>button]:-right-[58px] [&>button]:top-1 [&>button]:flex [&>button]:size-11 [&>button]:items-center [&>button]:justify-center [&>button]:rounded-full [&>button]:border [&>button]:border-border [&>button]:bg-floating [&>button]:opacity-100 [&>button_svg]:size-5"
       >
-        <SheetTitle className="px-6 pt-5 text-base font-sans font-semibold">
+        <div className="flex h-[57px] shrink-0 items-center justify-between gap-2 pl-8 pr-6">
+        <SheetTitle className="font-sans text-[23px] font-semibold">
           Super Copilot
         </SheetTitle>
+        <Button variant="secondary" size="icon" aria-label="Search conversations" onClick={() => setSearchOpen((value) => !value)} className="size-11 shrink-0 rounded-full border border-border bg-floating [&_svg]:size-6"><Search /></Button>
+        </div>
         <SheetDescription className="sr-only">
           Chat navigation and saved conversations
         </SheetDescription>
-        <div className="mx-5 mt-6 flex h-11 items-center gap-3 rounded-full bg-muted px-4">
+        {searchOpen && <div className="mx-6 mt-2 flex h-11 shrink-0 items-center gap-3 rounded-full bg-muted px-4">
           <Search className="size-4 shrink-0 text-muted-foreground" />
           <input
             aria-label="Search chats"
+            autoFocus
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search"
             className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
           />
-        </div>
-        <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-6 pt-5">
-          <nav aria-label="Workspace" className="space-y-1">
+        </div>}
+        <div className="min-h-0 flex-1 overflow-y-auto px-6 pb-28 pt-6">
+          <nav aria-label="Workspace" className="space-y-0">
             {[
               { icon: Image, label: "Images", action: () => startChat("Generate an image of ") },
               {
@@ -107,7 +116,10 @@ export default function AppDrawer({
               {
                 icon: Folder,
                 label: "Projects",
-                action: () => startChat("Build a web application: "),
+                action: () => {
+                  startChat();
+                  setTimeout(() => window.dispatchEvent(new Event("open-projects")), 200);
+                },
               },
               {
                 icon: Plug,
@@ -130,20 +142,20 @@ export default function AppDrawer({
                 key={label}
                 variant="ghost"
                 onClick={action}
-                className="h-12 w-full justify-start gap-4 rounded-lg px-3 text-base font-normal"
+                className="h-12 w-full justify-start gap-3 rounded-lg px-2 text-[18px] font-semibold [&_svg]:size-[22px] [&_svg]:stroke-[2]"
               >
                 <Icon className="size-5" />
                 {label}
               </Button>
             ))}
           </nav>
-          <section id="drawer-recents" className="mt-7">
-            <h3 className="mb-3 px-3 font-sans text-xs font-medium text-muted-foreground">
+          <section id="drawer-recents" className="mt-9">
+            <h3 className="mb-3 px-2 font-sans text-[17px] font-semibold text-foreground">
               {query ? "Results" : "Recents"}
             </h3>
             {history.length === 0 && (
               <p className="px-3 text-sm text-muted-foreground">
-                {query ? "No matching chats" : "No conversations yet"}
+                {query ? "No matching chats" : ""}
               </p>
             )}
             {history.map((chat) => (
@@ -187,45 +199,31 @@ export default function AppDrawer({
                         onClose();
                       }}
                       className={cn(
-                        "h-12 min-w-0 flex-1 justify-start px-3 text-sm font-normal",
+                        "h-12 min-w-0 flex-1 justify-start px-2 text-[17px] font-normal",
                         activeChatId === chat.id && "bg-accent",
                       )}
                     >
                       <span className="truncate">{chat.title}</span>
                     </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon-sm"
-                      aria-label={`Rename ${chat.title}`}
-                      onClick={() => {
-                        setEditingId(chat.id);
-                        setTitle(chat.title);
-                      }}
-                      className="text-muted-foreground"
-                    >
-                      <Pencil className="size-3.5" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon-sm"
-                      aria-label={`Delete ${chat.title}`}
-                      onClick={() => deleteChat(chat.id)}
-                      className="text-muted-foreground hover:text-destructive"
-                    >
-                      <Trash2 className="size-3.5" />
-                    </Button>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild><Button variant="ghost" size="icon-sm" aria-label={`Actions for ${chat.title}`} className="text-muted-foreground opacity-50 transition-opacity hover:opacity-100 group-focus-within:opacity-100"><MoreHorizontal /></Button></DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem onClick={() => { setEditingId(chat.id); setTitle(chat.title); }}><Pencil />Rename</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => deleteChat(chat.id)} className="text-destructive"><Trash2 />Delete</DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </>
                 )}
               </div>
             ))}
           </section>
         </div>
-        <div className="flex shrink-0 items-center justify-between gap-3 bg-background px-5 pb-6 pt-3">
+        <div className="absolute inset-x-0 bottom-0 flex h-[88px] items-center justify-between gap-3 bg-background/95 pl-8 pr-6 pb-3">
           <Button
             onClick={() => startChat()}
-            className="h-12 gap-3 rounded-full bg-navigation px-6 text-navigation-foreground hover:bg-navigation/90"
+            className="h-12 gap-3 rounded-full bg-navigation px-6 text-[18px] font-medium text-navigation-foreground hover:bg-navigation/90 [&_svg]:size-[22px]"
           >
-            <MessageSquare className="size-5" />
+            <SquarePen />
             Chat
           </Button>
           <div className="flex items-center gap-3">
@@ -235,7 +233,7 @@ export default function AppDrawer({
               size="icon"
               aria-label="Start voice typing"
               onClick={() => startChat("voice")}
-              className="size-11 rounded-full bg-floating"
+              className="absolute -right-[52px] bottom-[26px] size-8 rounded-full bg-navigation text-navigation-foreground hover:bg-navigation/90 [&_svg]:size-[18px]"
             >
               <AudioLines className="size-5" />
             </Button>

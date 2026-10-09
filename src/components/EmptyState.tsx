@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowLeft, ChevronRight, Headphones, Image, PenLine } from "lucide-react";
 import type { AITool } from "@/lib/types";
 import { STUDIO_CATEGORIES, type StudioCategory } from "@/lib/workflow-presets";
@@ -9,6 +9,11 @@ type Props = { tool?: AITool; onPromptClick: (prompt: string) => void };
 export default function EmptyState({ tool, onPromptClick }: Props) {
   const [studio, setStudio] = useState<StudioCategory | null>(null);
   const [showStudios, setShowStudios] = useState(false);
+  useEffect(() => {
+    const openProjects = () => setShowStudios(true);
+    window.addEventListener("open-projects", openProjects);
+    return () => window.removeEventListener("open-projects", openProjects);
+  }, []);
   if (tool)
     return (
       <ConversationEmptyState className="px-6">
