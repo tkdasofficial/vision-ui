@@ -88,7 +88,9 @@ export default function AppDrawer({
         className="flex h-[100dvh] w-[80vw] max-w-[380px] flex-col gap-0 border-border bg-background p-0 shadow-none sm:max-w-[380px] [&>button]:-right-[58px] [&>button]:top-1 [&>button]:flex [&>button]:size-11 [&>button]:items-center [&>button]:justify-center [&>button]:rounded-full [&>button]:border [&>button]:border-border [&>button]:bg-floating [&>button]:opacity-100 [&>button_svg]:size-5"
       >
         <div className="flex h-[57px] shrink-0 items-center justify-between gap-2 pl-8 pr-6">
-          <SheetTitle className="font-sans text-[23px] font-semibold max-[350px]:text-xl">Super Copilot</SheetTitle>
+          <SheetTitle className="font-sans text-[23px] font-semibold max-[350px]:text-xl">
+            Super Copilot
+          </SheetTitle>
           <Button
             variant="secondary"
             size="icon"

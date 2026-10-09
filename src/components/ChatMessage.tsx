@@ -22,7 +22,12 @@ import {
   MessageResponse,
   MessageAction,
 } from "@/components/ai-elements/message";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import type { Components } from "react-markdown";
 import { useToast } from "@/hooks/use-toast";
@@ -493,9 +498,21 @@ const ChatMessage = forwardRef<HTMLDivElement, Props>(({ message, isNew = false 
                 </ActionButton>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon-sm" aria-label="More response actions" title="More response actions" className="size-9 rounded-full text-muted-foreground [&_svg]:size-[18px]"><MoreVertical /></Button>
+                    <Button
+                      variant="ghost"
+                      size="icon-sm"
+                      aria-label="More response actions"
+                      title="More response actions"
+                      className="size-9 rounded-full text-muted-foreground [&_svg]:size-[18px]"
+                    >
+                      <MoreVertical />
+                    </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start"><DropdownMenuItem disabled={reported} onClick={handleReport}>Report response</DropdownMenuItem></DropdownMenuContent>
+                  <DropdownMenuContent align="start">
+                    <DropdownMenuItem disabled={reported} onClick={handleReport}>
+                      Report response
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
                 </DropdownMenu>
               </div>
             )}
