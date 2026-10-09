@@ -212,7 +212,7 @@ const ChatInput = ({ toolName, onSend, onZipUpload, onFileConvert, disabled }: P
               placeholder={`Ask Copilot${animatedDots}`}
               aria-label="Message Copilot"
               rows={1}
-              className="w-full bg-transparent text-foreground text-[15px] placeholder:text-muted-foreground resize-none outline-none min-h-[44px] max-h-[200px] py-3 px-4 focus-visible:ring-0! focus-visible:ring-offset-0! shadow-none!
+              className="w-full bg-transparent text-foreground text-[15px] placeholder:text-muted-foreground resize-none outline-none min-h-[44px] max-h-[200px] py-3 px-4 focus-visible:ring-0! focus-visible:ring-offset-0! shadow-none!"
             />
 
           {/* Action row */}
