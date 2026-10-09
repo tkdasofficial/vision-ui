@@ -27,7 +27,7 @@ type ChatHistoryContextType = {
 
 // Keep one context instance across hot reloads so the provider and consumers always match.
 const CTX_KEY = "__sc_chat_history_ctx__";
-const ChatHistoryContext: React.Context<ChatHistoryContextType | null> =
+const ChatHistoryContext: import("react").Context<ChatHistoryContextType | null> =
   ((globalThis as any)[CTX_KEY] ??= createContext<ChatHistoryContextType | null>(null));
 
 /* ── localStorage cache helpers ── */
